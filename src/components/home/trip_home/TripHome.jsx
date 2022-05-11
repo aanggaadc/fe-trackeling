@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Card, Row, Col } from 'react-bootstrap'
 
-function TripCard() {
+function TripHome() {
     const customButton = {
         backgroundColor: '#188CBD',
         color: 'white',
@@ -14,7 +14,7 @@ function TripCard() {
             <Row xs={1} md={2} lg={4} className="g-2">
                 {Array.from({ length: 4 }).map((_, idx) => (
                     <Col key={idx}>
-                        <Card className='text-center'>
+                        <Card className='text-center shadow'>
                             <Card.Img variant="top" src="https://picsum.photos/seed/picsum/400/200" />
                             <Card.Body>
                                 <Card.Title>Title</Card.Title>
@@ -31,4 +31,4 @@ function TripCard() {
     )
 }
 
-export default TripCard
+export default TripHome

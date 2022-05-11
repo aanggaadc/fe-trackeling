@@ -2,10 +2,10 @@ import React from 'react'
 import { Button } from 'react-bootstrap'
 import './Home.css'
 import Navbar from '../../components/navbar/NavbarMain'
-import Banner from '../../components/banner/Banner'
+import Banner from '../../components/home/banner/Banner'
 import Footer from '../../components/footer/Footer'
-import CardTrip from '../../components/trip_card/TripCard'
-import Team from '../../components/team/Team'
+import TripHome from '../../components/home/trip_home/TripHome'
+import Team from '../../components/home/team/Team'
 
 
 function Home() {
@@ -26,7 +26,7 @@ function Home() {
                     <div className="container mt-5">
                         <div className="recomendation">
                             <h2>OUR RECOMENDATION</h2>
-                            <p>Berikut adalah tempat-tempat yang menarik untuk dikunjungi</p>
+                            <p>Here are interesting places to visit, you can thank us later!</p>
                         </div>
 
                         <div className='tags'>
@@ -38,7 +38,7 @@ function Home() {
                         </div>
 
                         <div className='mt-3'>
-                            <CardTrip />
+                            <TripHome />
                         </div>
 
 
@@ -53,7 +53,7 @@ function Home() {
                             <p>Latest Trips Available to Join</p>
                         </div>
 
-                        <CardTrip />
+                        <TripHome />
                     </div>
                 </section>
             </main>
