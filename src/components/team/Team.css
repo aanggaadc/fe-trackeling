@@ -1,0 +1,32 @@
+#members{
+    margin-top: 100px;
+    background-color: rgb(248, 248, 248);
+    padding: 20px 0;
+  }
+  
+  .members h2 {
+      font-size: 36px;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-family: "Raleway", sans-serif;
+      padding: 0;
+      color: #0e1b4d;
+    }
+    
+    .members p{
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+      color: #9195a2;
+    }
+  
+    .members hr{
+        border: solid 3px;
+        color: #0884b9;
+        width: 70px;
+        margin: 20px auto;
+    }

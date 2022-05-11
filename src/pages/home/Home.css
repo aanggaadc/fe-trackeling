@@ -1,0 +1,46 @@
+.recomendation {
+    margin-bottom: 60px;
+    position: relative;
+    padding-bottom: 20px;
+  }
+  .recomendation::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 60px;
+    height: 5px;
+    background: #188CBD;
+    bottom: 0;
+    left: calc(50% - 25px);
+  }
+  
+  .recomendation h2 {
+    font-size: 36px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-family: "Raleway", sans-serif;
+    padding: 0;
+    color: #0e1b4d;
+  }
+  
+  .recomendation p{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #9195a2;
+  }
+  
+  .line{
+    border: 1px solid #188CBD;
+  }
+  
+  .tags{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
