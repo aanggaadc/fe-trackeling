@@ -1,0 +1,112 @@
+#banner {
+    width: 100%;
+    height: 100vh;
+    background: url(./banner.jpg) top center;
+    background-size: cover;
+    overflow: hidden;
+    position: relative;
+  }
+  @media (min-width: 1024px) {
+    #banner {
+      background-attachment: fixed;
+    }
+  }
+  #banner:before {
+    content: "";
+    background: rgba(6, 12, 34, 0.7);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  #banner .banner-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 90px;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 15px;
+  }
+  @media (max-width: 991px) {
+    #baneer .hero-container {
+      top: 70px;
+    }
+  }
+  #banner h1 {
+    color: #fff;
+    font-family: "Raleway", sans-serif;
+    font-size: 56px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  #banner h1 span {
+    color: #188CBD;
+  }
+  @media (max-width: 991px) {
+    #banner h1 {
+      font-size: 34px;
+    }
+  }
+  #banner p {
+    color: #ebebeb;
+    font-weight: 700;
+    font-size: 20px;
+  }
+  @media (max-width: 991px) {
+    #banner p {
+      font-size: 16px;
+    }
+  } 
+  
+  #banner .about-btn {
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 50px;
+    transition: 0.5s;
+    line-height: 1;
+    margin: 10px;
+    color: #fff;
+    -webkit-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+    border: 2px solid #188CBD;
+  }
+  #banner .about-btn:hover {
+    background: #188CBD;
+    color: #fff;
+  }
+  
+  @-webkit-keyframes pulsate-btn {
+    0% {
+      transform: scale(0.6, 0.6);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1, 1);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes pulsate-btn {
+    0% {
+      transform: scale(0.6, 0.6);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1, 1);
+      opacity: 0;
+    }
+  }
+
+  #banner a{
+    text-decoration: none;
+  }
