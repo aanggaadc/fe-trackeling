@@ -4,7 +4,8 @@ import './Home.css'
 import Navbar from '../../components/navbar/NavbarMain'
 import Banner from '../../components/home/banner/Banner'
 import Footer from '../../components/footer/Footer'
-import TripHome from '../../components/home/trip_home/TripHome'
+import TripRecomendation from '../../components/home/trip_recomendation/TripRecomendation'
+import TripUser from '../../components/home/trip_user/TripUser'
 import Team from '../../components/home/team/Team'
 
 
@@ -38,7 +39,7 @@ function Home() {
                         </div>
 
                         <div className='mt-3'>
-                            <TripHome />
+                            <TripRecomendation />
                         </div>
 
 
@@ -53,7 +54,7 @@ function Home() {
                             <p>Latest Trips Available to Join</p>
                         </div>
 
-                        <TripHome />
+                        <TripUser />
                     </div>
                 </section>
             </main>

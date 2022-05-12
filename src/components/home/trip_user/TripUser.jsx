@@ -1,14 +1,13 @@
 import React from 'react'
-import { Button, Card, Row, Col } from 'react-bootstrap'
+import { Col, Card, Button, Row, ProgressBar } from 'react-bootstrap'
 
-function TripHome() {
+function TripUser() {
     const customButton = {
         backgroundColor: '#188CBD',
         color: 'white',
         borderRadius: '5px',
         borderStyle: "none"
     }
-
     return (
         <div className='container'>
             <Row xs={1} md={2} lg={4} className="g-2">
@@ -17,11 +16,13 @@ function TripHome() {
                         <Card className='text-center shadow'>
                             <Card.Img variant="top" src="https://picsum.photos/seed/picsum/400/200" />
                             <Card.Body>
-                                <Card.Title>Title</Card.Title>
+                                <Card.Title>Trip Name</Card.Title>
                                 <Card.Text>
-                                    01/01/2022
+                                    <p>Location</p>
+                                    <p>Date</p>
                                 </Card.Text>
-                                <Button style={customButton}>Detail</Button>
+                                <ProgressBar variant="info" now={60} label={'6/10'} />
+                                <Button className='mt-2' style={customButton}>Detail</Button>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -31,4 +32,4 @@ function TripHome() {
     )
 }
 
-export default TripHome
+export default TripUser
