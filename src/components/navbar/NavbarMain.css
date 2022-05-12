@@ -31,11 +31,11 @@
     margin: 0;
     max-height: 80px;
   }
-  /* @media (max-width: 992px) {
+  @media (max-width: 575.98px) {
     #header #logo img {
-      width: 100px;
+      width: 100%;
     }
-  } */
+  }
   
   .login {
     color: #fff;
