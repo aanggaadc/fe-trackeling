@@ -6,7 +6,7 @@ import Banner from '../../components/home/banner/Banner'
 import Footer from '../../components/footer/Footer'
 import TripRecomendation from '../../components/home/trip_recomendation/TripRecomendation'
 import TripUser from '../../components/home/trip_user/TripUser'
-import Team from '../../components/home/team/Team'
+import Team2 from '../../components/home/team/Team2'
 
 
 function Home() {
@@ -59,7 +59,7 @@ function Home() {
                 </section>
             </main>
 
-            <Team />
+            <Team2 />
             <Footer />
         </div>
     )
