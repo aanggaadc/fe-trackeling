@@ -12,12 +12,12 @@ function Team2() {
                     <hr />
                 </div>
 
-                <div class="row">
+                <div class="row d-flex justify-content-center">
                     <div class="col-lg-4 col-md-6">
                         <div class="speaker">
                             <img src="https://api.lorem.space/image/face" alt="juan" class="img-fluid" />
                             <div class="details">
-                                <h3><a href="#link">Member</a></h3>
+                                <h3>Member</h3>
                                 <p>Developer</p>
                                 <div class="social">
                                     <a href="#twitter"><BsTwitter /></a>
@@ -32,7 +32,7 @@ function Team2() {
                         <div class="speaker">
                             <img src="https://api.lorem.space/image/face" alt="Speaker 2" class="img-fluid" />
                             <div class="details">
-                                <h3><a href="#link">Member</a></h3>
+                                <h3>Member</h3>
                                 <p>Developer</p>
                                 <div class="social">
                                     <a href="#twitter"><BsTwitter /></a>
@@ -47,7 +47,7 @@ function Team2() {
                         <div class="speaker">
                             <img src="https://api.lorem.space/image/face" alt="Speaker 3" class="img-fluid" />
                             <div class="details">
-                                <h3><a href="#link">Member</a></h3>
+                                <h3>Member</h3>
                                 <p>Developer</p>
                                 <div class="social">
                                     <a href="#twitter"><BsTwitter /></a>
@@ -62,7 +62,7 @@ function Team2() {
                         <div class="speaker">
                             <img src="https://api.lorem.space/image/face" alt="Speaker 4" class="img-fluid" />
                             <div class="details">
-                                <h3><a href="#link">Member</a></h3>
+                                <h3>Member</h3>
                                 <p>Developer</p>
                                 <div class="social">
                                     <a href="#twitter"><BsTwitter /></a>
@@ -77,7 +77,7 @@ function Team2() {
                         <div class="speaker">
                             <img src="https://api.lorem.space/image/face" alt="Speaker 6" class="img-fluid" />
                             <div class="details">
-                                <h3><a href="#link">Member</a></h3>
+                                <h3>Member</h3>
                                 <p>Developer</p>
                                 <div class="social">
                                     <a href="#twitter"><BsTwitter /></a>
@@ -93,7 +93,7 @@ function Team2() {
                         <div class="speaker">
                             <img src="https://api.lorem.space/image/face" alt="Speaker 4" class="img-fluid" />
                             <div class="details">
-                                <h3><a href="#link">Member</a></h3>
+                                <h3>Member</h3>
                                 <p>Developer</p>
                                 <div class="social">
                                     <a href="#twitter"><BsTwitter /></a>
@@ -108,7 +108,7 @@ function Team2() {
                         <div class="speaker">
                             <img src="https://api.lorem.space/image/face" alt="Speaker 6" class="img-fluid" />
                             <div class="details">
-                                <h3><a href="#link">Member</a></h3>
+                                <h3>Member</h3>
                                 <p>Developer</p>
                                 <div class="social">
                                     <a href="#twitter"><BsTwitter /></a>
