@@ -26,12 +26,14 @@ function Signup() {
                 Login
               </Link>
             </p>
-            <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
-              <Button variant="link">
-                <BsFillArrowLeftCircleFill />
-              </Button>
-            </OverlayTrigger>
-            ,
+
+            <Link to='/'>
+              <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
+                <Button variant="link">
+                  <BsFillArrowLeftCircleFill />
+                </Button>
+              </OverlayTrigger>
+            </Link>
           </div>
         </div>
 
@@ -45,11 +47,11 @@ function Signup() {
               </small> */}
             </div>
             <div className="form-group mt-3">
-              <input type="number" className="form-control" id="phoneNumber" placeholder="Input No. HP" />
+              <input type="text" className="form-control" id="phoneNumber" placeholder="Input No. HP" />
               {/* <small id="passworderror" className="text-danger form-text"></small> */}
             </div>
             <div className="form-group mt-3">
-              <input type="number" className="form-control" id="age" placeholder="Usia" />
+              <input type="text" className="form-control" id="age" placeholder="Usia" />
               {/* <small id="passworderror" className="text-danger form-text"></small> */}
             </div>
             <div className="form-group mt-3">

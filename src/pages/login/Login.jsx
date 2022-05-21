@@ -19,11 +19,14 @@ function Login() {
         </div>
         <div className="title">Login</div>
 
-        <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
-          <Button variant="link">
-            <BsFillArrowLeftCircleFill />
-          </Button>
-        </OverlayTrigger>
+        <Link to='/'>
+          <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
+            <Button variant="link">
+              <BsFillArrowLeftCircleFill />
+            </Button>
+          </OverlayTrigger>
+        </Link>
+
       </div>
 
       <form id="form-login">
@@ -45,6 +48,10 @@ function Login() {
           </button>
         </div>
       </form>
+
+      <div className="login-text">
+        <p>No Account? <Link to='/signup'>Signup</Link></p>
+      </div>
     </div>
   );
 }

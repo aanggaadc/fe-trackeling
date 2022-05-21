@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './NavbarMain.css'
+import { Link } from "react-router-dom";
 import Logo from '../../trackling.png'
 import { VscListFlat } from "react-icons/vsc";
 import { BiChevronDown, BiX } from "react-icons/bi";
@@ -19,7 +20,7 @@ function NavbarMain() {
     }
 
     const mobileNav = () => {
-        if (activeMobile == false) {
+        if (activeMobile === false) {
             return (
                 <i className="mobile-nav-toggle">
                     <VscListFlat onClick={toggleMobileNav} />
@@ -44,9 +45,9 @@ function NavbarMain() {
 
                 <nav id="navbar" className={activeMobile ? "navbar order-last order-lg-0 navbar-mobile" : "navbar order-last order-lg-0"}>
                     <ul>
-                        <li><a className="nav-link" href="#hero">HOME</a></li>
-                        <li><a className="nav-link" href="#venue">TRIPS</a></li>
-                        <li><a className="nav-link" href="#hotels">REGISTER</a></li>
+                        <li><Link className="nav-link" to='/'>HOME</Link></li>
+                        <li><Link className="nav-link" to='/trips'>TRIPS</Link></li>
+                        <li><Link className='nav-link' to='/signup'>REGISTER</Link></li>
                         <li className="dropdown"><a href="#">USERNAME<i><BiChevronDown size={25} onClick={toggleDropdownMenu} /></i></a>
                             <ul className={activeDropdown ? "dropdown-active" : ""}>
                                 <li><a href="#myaccount">MY ACCOUNT</a></li>
@@ -56,7 +57,9 @@ function NavbarMain() {
                     </ul>
                     {mobileNav()}
                 </nav>
-                <a className="login scrollto" href="#login">LOGIN</a>
+                <Link style={{ textDecoration: "none" }} to='/login'>
+                    <a className="login scrollto" href="#login">LOGIN</a>
+                </Link>
             </div>
         </header >
     )

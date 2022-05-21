@@ -115,6 +115,27 @@
   transform-origin: right;
 }
 
+.login-text{ 
+  z-index: 999; 
+  font-family: "Raleway", sans-serif;
+}
+
+.login-text a:hover{ 
+  color: #188cbd;
+}
+
+.login-text p{
+  font-size: 17px;
+  color: #fff;
+  font-weight: 300;
+}
+
+.login-text p a{
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
 @media (max-width: 575.98px) {
   .container-login {
     flex-direction: column;
