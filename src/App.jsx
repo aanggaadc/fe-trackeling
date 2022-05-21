@@ -1,11 +1,13 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
+import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import MyTrip from "./pages/my_trip/MyTrip";
 import UserAccount from "./pages/user_account/UserAccount";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
+import { ToastContainer } from "react-toastify";
 
 function App() {
 	return (
