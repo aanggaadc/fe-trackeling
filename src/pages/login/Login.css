@@ -1,0 +1,153 @@
+#background-login {
+  background-image: url("./login.jpg");
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+#background-login::before {
+  content: "";
+  background: rgba(6, 12, 34, 0.7);
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+}
+
+.head-login {
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+.head-login .logo img {
+  width: 20rem;
+}
+
+.head-login svg {
+  font-size: 2rem;
+  color: #fff;
+}
+
+.container-login {
+  display: flex;
+}
+
+.content-login {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  z-index: 5;
+}
+
+.content-login .title {
+  color: white;
+  filter: brightness(120%);
+  font-size: 2rem;
+}
+
+#form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 999;
+}
+
+#form-login input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  border-radius: 0;
+  color: #fff;
+}
+
+#form-login input:focus {
+  border: 1px solid #fff;
+  box-shadow: none;
+}
+
+#form-login .btn-login {
+  display: flex;
+  justify-content: center;
+}
+
+#form-login .btn-login button {
+  width: 100%;
+}
+
+#form-login .btn-login button:active {
+  box-shadow: none;
+  outline: 0;
+}
+
+#form-login .btn-login button {
+  width: 100%;
+  border-radius: 0;
+  background-color: transparent;
+  border-color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+#form-login .btn-login button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #188cbd;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-in-out;
+}
+
+#form-login .btn-login button:hover::before {
+  transform: scaleX(1);
+  transform-origin: right;
+}
+
+.login-text{ 
+  z-index: 999; 
+  font-family: "Raleway", sans-serif;
+}
+
+.login-text a:hover{ 
+  color: #188cbd;
+}
+
+.login-text p{
+  font-size: 17px;
+  color: #fff;
+  font-weight: 300;
+}
+
+.login-text p a{
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 575.98px) {
+  .container-login {
+    flex-direction: column;
+  }
+
+  .login .logo img {
+    width: 15rem;
+  }
+
+  .login .text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

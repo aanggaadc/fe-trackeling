@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import MyTrip from "./pages/my_trip/MyTrip";
 import UserAccount from "./pages/user_account/UserAccount";
+import Login from "./pages/login/Login";
+import Signup from "./pages/signup/Signup";
 
 function App() {
 	return (
@@ -11,6 +13,8 @@ function App() {
 			<Routes>
 				<Route path="/">
 					<Route index element={<Home />} />
+					<Route path="login" element={<Login />} />
+					<Route path="signup" element={<Signup />} />
 					<Route path="user">
 						<Route path="edit/account/:userId" element={<UserAccount />} />
 						<Route path="edit/biodata/:userId" element={<UserAccount />} />

@@ -69,7 +69,10 @@ function Footer() {
 					Designed by <a href="index.html">Trackeling.com</a>
 				</div>
 				<div className="credits">
-					Logo Designed by <a href="index.html">Tyas Firmantyo</a>
+					Logo Designed by{" "}
+					<a href="https://www.instagram.com/tyasfirmantyo/?hl=id" target="_blank">
+						Tyas Firmantyo
+					</a>
 				</div>
 			</div>
 		</footer>
