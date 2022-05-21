@@ -38,20 +38,26 @@ function Signup() {
         </div>
 
         <div className="right-signup">
-          <div className="title">Sign Up</div>
+          <div className="title fw-bold">Sign Up</div>
           <form id="form-signup">
             <div className="form-group">
-              <input type="email" className="form-control" id="EmailInput" name="EmailInput" aria-describedby="emailHelp" placeholder="Enter email" />
+              <input type="text" className="form-control" id="EmailInput" name="EmailInput" aria-describedby="emailHelp" placeholder="Username" />
               {/* <small id="emailHelp" className="text-danger form-text">
                 {emailError}
               </small> */}
             </div>
             <div className="form-group mt-3">
-              <input type="text" className="form-control" id="phoneNumber" placeholder="Input No. HP" />
+              <input type="email" className="form-control" id="EmailInput" name="EmailInput" aria-describedby="emailHelp" placeholder="Email" />
+              {/* <small id="emailHelp" className="text-danger form-text">
+                {emailError}
+              </small> */}
+            </div>
+            <div className="form-group mt-3">
+              <input type="text" className="form-control" id="phoneNumber" placeholder="Phone number" />
               {/* <small id="passworderror" className="text-danger form-text"></small> */}
             </div>
             <div className="form-group mt-3">
-              <input type="text" className="form-control" id="age" placeholder="Usia" />
+              <input type="text" className="form-control" id="age" placeholder="Age" />
               {/* <small id="passworderror" className="text-danger form-text"></small> */}
             </div>
             <div className="form-group mt-3">

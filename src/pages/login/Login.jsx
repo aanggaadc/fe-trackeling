@@ -17,7 +17,7 @@ function Login() {
         <div className="logo">
           <img src={Logo} alt="logo" />
         </div>
-        <div className="title">Login</div>
+        <div className="title fw-bold">Login</div>
 
         <Link to='/'>
           <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
