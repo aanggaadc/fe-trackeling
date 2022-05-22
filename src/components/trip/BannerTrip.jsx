@@ -1,6 +1,6 @@
 import React from 'react'
 import { Carousel } from 'react-bootstrap'
-import './BanerTrip.css'
+import './BannerTrip.css'
 
 function BannerTrip() {
   return (
