@@ -1,0 +1,112 @@
+.edit-biodata h1 {
+	margin-bottom: 1rem;
+	text-align: center;
+	color: #ef9b23;
+}
+
+.edit-biodata .change-formToAccount {
+	margin-top: 2rem;
+	text-align: center;
+	color: white;
+}
+
+.edit-biodata .change-formToAccount a:hover {
+	color: #25abe3 !important;
+}
+
+#form-editBiodata {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+}
+
+#form-editBiodata .form-row {
+	display: flex;
+	gap: 50px;
+}
+
+#form-editBiodata .form-row label {
+	color: white;
+}
+
+#form-editBiodata .form-row input {
+	box-shadow: none;
+	border: 3px solid #0e1b4d;
+	border-radius: 50px;
+	padding: 0.5em;
+	color: #0e1b4d;
+}
+
+#form-editBiodata .form-row input:focus {
+	border: 3px solid #ef9b23;
+}
+
+#form-editBiodata .form-row .form-sex,
+#form-editBiodata .form-row .form-interest {
+	width: 100%;
+}
+
+#form-editBiodata .form-row select {
+	width: 100%;
+	border-radius: 50px;
+	border: 3px solid #0e1b4d;
+	padding: 0.5em;
+	color: #0e1b4d;
+}
+
+#form-editBiodata .form-row select:focus-visible {
+	border: 3px solid #ef9b23;
+}
+
+#form-editBiodata .form-row .form-avatar label {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+#form-editBiodata .btn-submitBiodata {
+	display: flex;
+	justify-content: center;
+}
+
+#form-editBiodata .btn-submitBiodata button {
+	border: none;
+	background-color: #ef9b23;
+	border-radius: 5px;
+	max-width: 150px;
+	width: 100%;
+	color: white;
+	padding: 0.5rem 0;
+	position: relative;
+	z-index: 1;
+}
+
+#form-editBiodata .btn-submitBiodata button::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	background-color: #188cbd;
+	z-index: -1;
+	transform: scaleX(0);
+	transform-origin: right;
+	transition: transform 0.3s ease-in-out;
+}
+
+#form-editBiodata .btn-submitBiodata button:hover::before {
+	transform: scaleX(1);
+	transform-origin: left;
+}
+
+@media (max-width: 991.98px) {
+	#form-editBiodata .form-row {
+		flex-direction: column;
+		gap: 25px;
+	}
+}

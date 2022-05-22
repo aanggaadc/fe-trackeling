@@ -1,0 +1,94 @@
+.container-mytrip {
+	padding: 5rem 0;
+}
+
+.mytrip-title {
+	padding-bottom: 20px;
+	position: relative;
+}
+
+.mytrip-title p {
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	font-size: 18px;
+	font-weight: 500;
+	color: #9195a2;
+}
+
+.mytrip-title::before {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 60px;
+	height: 5px;
+	background: #188cbd;
+	bottom: 0;
+	left: calc(50% - 25px);
+}
+
+.mytrip-filters {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 25px;
+	margin-top: 2rem;
+}
+
+.mytrip-filters .form-row {
+	display: flex;
+	width: 80%;
+	gap: 20px;
+}
+
+.mytrip-filters .btn-clearField {
+	justify-content: flex-end;
+}
+
+.mytrip-filters .btn-clearField button {
+	border: 1px solid #ef9b23;
+	border-radius: 5px;
+	background-color: #ef9b23;
+	padding: 0.5em;
+	color: white;
+	font-weight: bold;
+	transition: 0.5s ease-in;
+}
+
+.mytrip-filters .btn-clearField button:hover {
+	background-color: white;
+	color: #ef9b23;
+}
+
+.mytrip-search {
+	width: 100%;
+}
+
+.mytrip-pagination {
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-top: 2rem;
+}
+
+.mytrip-pagination .page-item.active .page-link {
+	background-color: #188cbd;
+	border-color: #188cbd;
+	color: white;
+}
+
+.mytrip-pagination .page-item .page-link {
+	color: #188cbd;
+}
+
+@media (max-width: 575.98px) {
+	.mytrip-filters .form-row {
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.mytrip-search {
+		width: 70%;
+	}
+}
