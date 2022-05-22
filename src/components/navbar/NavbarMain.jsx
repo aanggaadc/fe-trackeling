@@ -1,14 +1,38 @@
 import React, { useState } from 'react'
 import './NavbarMain.css'
+import { Link } from "react-router-dom";
 import Logo from '../../trackling.png'
 import { VscListFlat } from "react-icons/vsc";
+import { BiChevronDown, BiX } from "react-icons/bi";
+
 
 
 function NavbarMain() {
-    const [isActive, setActive] = useState(false)
+    const [activeMobile, setActiveMobile] = useState(false)
+    const [activeDropdown, setActiveDropdown] = useState(false)
 
     const toggleMobileNav = () => {
-        setActive(!isActive)
+        setActiveMobile(!activeMobile)
+    }
+
+    const toggleDropdownMenu = () => {
+        setActiveDropdown(!activeDropdown)
+    }
+
+    const mobileNav = () => {
+        if (activeMobile === false) {
+            return (
+                <i className="mobile-nav-toggle">
+                    <VscListFlat onClick={toggleMobileNav} />
+                </i>
+            )
+        } else {
+            return (
+                <i className="mobile-nav-toggle">
+                    <BiX onClick={toggleMobileNav} />
+                </i>
+            )
+        }
     }
 
     return (
@@ -19,23 +43,23 @@ function NavbarMain() {
                     <img src={Logo} alt="Trackeling" width={200} />
                 </div>
 
-                <nav id="navbar" className={isActive ? "navbar order-last order-lg-0 navbar-mobile" : "navbar order-last order-lg-0"}>
+                <nav id="navbar" className={activeMobile ? "navbar order-last order-lg-0 navbar-mobile" : "navbar order-last order-lg-0"}>
                     <ul>
-                        <li><a className="nav-link" href="#hero">HOME</a></li>
-                        <li><a className="nav-link" href="#venue">TRIPS</a></li>
-                        <li><a className="nav-link" href="#hotels">REGISTER</a></li>
-                        {/* <li class="dropdown"><a href="#"><span>Tempat & Atraksi</span> <i class="bi bi-chevron-down"></i></a>
-                            <ul>
-                                <li><a href="atraksi.html">Atraksi</a></li>
-                                <li><a href="destinasi.html">Destinasi</a></li>
+                        <li><Link className="nav-link" to='/'>HOME</Link></li>
+                        <li><Link className="nav-link" to='/trips'>TRIPS</Link></li>
+                        <li><Link className='nav-link' to='/signup'>REGISTER</Link></li>
+                        <li className="dropdown"><a href="#">USERNAME<i><BiChevronDown size={25} onClick={toggleDropdownMenu} /></i></a>
+                            <ul className={activeDropdown ? "dropdown-active" : ""}>
+                                <li><a href="#myaccount">MY ACCOUNT</a></li>
+                                <li><a href="#mytrip">MY TRIP</a></li>
                             </ul>
-                        </li> */}
+                        </li>
                     </ul>
-                    <i className="bi bi-list mobile-nav-toggle">
-                        <VscListFlat onClick={toggleMobileNav} />
-                    </i>
+                    {mobileNav()}
                 </nav>
-                <a className="login scrollto" href="#login">LOGIN</a>
+                <Link style={{ textDecoration: "none" }} to='/login'>
+                    <a className="login scrollto" href="#login">LOGIN</a>
+                </Link>
             </div>
         </header >
     )

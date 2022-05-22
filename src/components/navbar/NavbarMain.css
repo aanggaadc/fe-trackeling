@@ -94,6 +94,7 @@
     transition: 0.3s;
     position: relative;
     padding: 6px 4px;
+    text-decoration: none;
   }
   .navbar a i, .navbar a:focus i {
     font-size: 12px;

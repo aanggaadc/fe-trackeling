@@ -1,0 +1,168 @@
+#background-signup {
+  background-image: url("./signup.jpg");
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+#background-signup::before {
+  content: "";
+  background: rgba(6, 12, 34, 0.7);
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.container-signup {
+  display: flex;
+}
+
+.left-signup {
+  height: 70vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.left-signup .logo img {
+  width: 30rem;
+  filter: brightness(120%);
+}
+
+.left-signup .text {
+  width: 19rem;
+}
+
+.left-signup .text p {
+  color: white;
+  filter: brightness(120%);
+}
+
+.left-signup .text .login-link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.left-signup .text .login-link:hover {
+  color: #06a2e2;
+}
+
+.left-signup .text svg {
+  font-size: 2rem;
+  color: white;
+  filter: brightness(120%);
+}
+
+.right-signup {
+  flex: 1;
+  margin-top: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+  z-index: 5;
+}
+
+.right-signup .title {
+  color: white;
+  filter: brightness(120%);
+  font-size: 2rem;
+}
+
+#form-signup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+#form-signup input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  border-radius: 0;
+  color: #fff;
+}
+
+#form-signup input:focus {
+  border: 1px solid #fff;
+  box-shadow: none;
+}
+
+#form-signup .btn-signup {
+  display: flex;
+  justify-content: center;
+}
+
+#form-signup .btn-signup button {
+  width: 100%;
+  background-color: transparent;
+  position: relative;
+  z-index: 1;
+}
+#form-signup .btn-signup button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #188cbd;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease-in-out;
+}
+
+#form-signup .btn-signup button:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+#form-signup .btn-signup button:active {
+  box-shadow: none;
+  outline: 0;
+}
+
+#form-signup .btn-signup button {
+  width: 100%;
+  border-radius: 0;
+  background-color: transparent;
+  border-color: #fff;
+}
+
+@media (max-width: 575.98px) {
+  .container-signup {
+    flex-direction: column;
+  }
+
+  .left-signup .logo img {
+    width: 15rem;
+  }
+
+  .left-signup .text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .right-signup {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .left-signup {
+    justify-content: flex-end;
+  }
+  .left-signup .text {
+    width: 16rem;
+  }
+  .right-signup {
+    justify-content: unset;
+  }
+}
