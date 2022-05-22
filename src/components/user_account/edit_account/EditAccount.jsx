@@ -71,7 +71,7 @@ function EditForm() {
 			</Formik>
 			<div className="change-formToBiodata">
 				Change to{" "}
-				<Link to={"/user/edit/biodata/123"} style={{ color: "#ef9b23", fontWeight: "bold" }}>
+				<Link to={"/user/edit/biodata/12"} style={{ color: "#ef9b23", fontWeight: "bold" }}>
 					Edit Biodata
 				</Link>
 			</div>
