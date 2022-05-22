@@ -1,17 +1,17 @@
 import React from 'react'
 import Footer from '../../components/footer/Footer'
+import BannerTrip from '../../components/trip/BannerTrip'
 import Navbar from '../../components/navbar/NavbarMain'
 
-function trips() {
+function Trip() {
   return (
     <div>
       <Navbar />
-      <div>
-
-      </div>
+      <BannerTrip />
+      <div>Trips</div>
       <Footer />
     </div>
   )
 }
 
-export default trips
+export default Trip

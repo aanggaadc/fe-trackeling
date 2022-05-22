@@ -1,0 +1,11 @@
+#banner-trip {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    top: 90px;
+    display: block;
+    justify-content: center;
+    }
+    @media screen {
+        
+    }
