@@ -70,7 +70,7 @@ function Footer() {
 				</div>
 				<div className="credits">
 					Logo Designed by{" "}
-					<a href="https://www.instagram.com/tyasfirmantyo/?hl=id" target="_blank">
+					<a href="https://www.instagram.com/tyasfirmantyo" target="_blank">
 						Tyas Firmantyo
 					</a>
 				</div>

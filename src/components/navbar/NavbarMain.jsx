@@ -73,10 +73,10 @@ function NavbarMain() {
 							</a>
 							<ul className={activeDropdown ? "dropdown-active" : ""}>
 								<li>
-									<Link to="/user/edit/account/123">SETTING ACCOUNT</Link>
+									<Link to="/user/edit/account/12">SETTING ACCOUNT</Link>
 								</li>
 								<li>
-									<Link to="/user/mytrip/123">MY TRIP</Link>
+									<Link to="/user/mytrip/12">MY TRIP</Link>
 								</li>
 							</ul>
 						</li>
