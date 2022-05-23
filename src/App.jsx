@@ -7,6 +7,7 @@ import MyTrip from "./pages/my_trip/MyTrip";
 import UserAccount from "./pages/user_account/UserAccount";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
+import TripForm from './pages/trip_form/TripForm'
 import { ToastContainer } from "react-toastify";
 
 function App() {
@@ -17,6 +18,9 @@ function App() {
 					<Route index element={<Home />} />
 					<Route path="login" element={<Login />} />
 					<Route path="signup" element={<Signup />} />
+					<Route path="trip">
+						<Route path="create" element={<TripForm />} />
+					</Route>
 					<Route path="user">
 						<Route path="edit/account/:userId" element={<UserAccount />} />
 						<Route path="edit/biodata/:userId" element={<UserAccount />} />
