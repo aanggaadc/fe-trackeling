@@ -81,6 +81,7 @@
     border-bottom: 1px solid white;
     border-radius: 0;
     color: #fff;
+    width: 100%;
   }
 
   #form-trip textarea:focus {
