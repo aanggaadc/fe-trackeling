@@ -24,6 +24,7 @@ function App() {
 					</Route>
 				</Route>
 			</Routes>
+			<ToastContainer />
 		</div>
 	);
 }
