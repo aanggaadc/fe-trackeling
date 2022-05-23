@@ -115,7 +115,7 @@ function EditBiodata({ setFile }) {
 			</Formik>
 			<div className="change-formToAccount">
 				Change to{" "}
-				<Link to={"/user/edit/account/123"} style={{ color: "#ef9b23", fontWeight: "bold" }}>
+				<Link to={"/user/edit/account/12"} style={{ color: "#ef9b23", fontWeight: "bold" }}>
 					Edit Account
 				</Link>
 			</div>

@@ -70,8 +70,8 @@ function UserAccount() {
 						</div>
 					</div>
 					<div className="right-profile">
-						{location.pathname === "/user/edit/account/123" && <EditAccount />}
-						{location.pathname === "/user/edit/biodata/123" && <EditBiodata setFile={setFile} />}
+						{location.pathname === "/user/edit/account/12" && <EditAccount />}
+						{location.pathname === "/user/edit/biodata/12" && <EditBiodata setFile={setFile} />}
 					</div>
 				</div>
 			</div>
