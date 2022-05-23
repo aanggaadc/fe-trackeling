@@ -83,11 +83,20 @@ function NavbarMain() {
 					</ul>
 					{mobileNav()}
 				</nav>
+
+				{/* LOGIN BUTTON */}
 				<Link style={{ textDecoration: "none" }} to="/login">
-					<a className="login scrollto" href="#login">
+					<a className="login scrollto">
 						LOGIN
 					</a>
 				</Link>
+
+				{/* LOGOUT BUTTOn */}
+				{/* <Link style={{ textDecoration: "none" }} to="/login">
+					<a className="logout scrollto">
+						LOGOUT
+					</a>
+				</Link> */}
 			</div>
 		</header>
 	);
