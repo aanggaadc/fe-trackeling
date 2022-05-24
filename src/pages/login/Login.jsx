@@ -8,6 +8,9 @@ import { Formik } from "formik";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
 import { toast } from "react-toastify";
+// import { useDispatch } from "react-redux";
+// import { bindActionCreators } from "redux";
+// import { actionCreators } from "../../store/index";
 
 const renderTooltip = (props) => (
   <Tooltip id="button-tooltip" {...props}>
@@ -17,6 +20,8 @@ const renderTooltip = (props) => (
 
 function Login() {
   const navigate = useNavigate();
+  //   const dispatch = useDispatch();
+  //   const { fulfillUser } = bindActionCreators(actionCreators, dispatch);
 
   return (
     <div id="background-login" className="content-login">
@@ -48,6 +53,7 @@ function Login() {
             .then((response) => {
               console.log("RESPONSE", response);
               localStorage.setItem("authKey", JSON.stringify(response.data.data));
+              //   fulfillUser(response.data.data);
               navigate("/");
               toast.success("Welcome to Our Site!");
             })
