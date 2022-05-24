@@ -75,37 +75,33 @@ function NavbarMain() {
 								TRIPS
 							</Link>
 						</li>
-
-						{authData ?
-							<>
-								<li>
-									<Link className="nav-link" to="/trip/create">
-										CREATE TRIP
-									</Link>
-								</li>
-								<li className="dropdown">
-									<a href="#">
-										HI, {authData.username.toUpperCase()}!
-										<i>
-											<BiChevronDown size={25} onClick={toggleDropdownMenu} />
-										</i>
-									</a>
-									<ul className={activeDropdown ? "dropdown-active" : ""}>
-										<li>
-											<Link to="/user/edit/account/12">SETTING ACCOUNT</Link>
-										</li>
-										<li>
-											<Link to="/user/mytrip/12">MY TRIP</Link>
-										</li>
-									</ul>
-								</li>
-							</>
-
-							: <li>
-								<Link className="nav-link" to="/signup">
-									REGISTER
+						{authData ? <>
+							<li>
+								<Link className="nav-link" to="/trip/create">
+									CREATE TRIP
 								</Link>
-							</li>}
+							</li>
+							<li className="dropdown">
+								<a href="#">
+									HI, {authData.username.toUpperCase()}!
+									<i>
+										<BiChevronDown size={25} onClick={toggleDropdownMenu} />
+									</i>
+								</a>
+								<ul className={activeDropdown ? "dropdown-active" : ""}>
+									<li>
+										<Link to="/user/edit/account/12">SETTING ACCOUNT</Link>
+									</li>
+									<li>
+										<Link to="/user/mytrip/12">MY TRIP</Link>
+									</li>
+								</ul>
+							</li>
+						</> : <li>
+							<Link className="nav-link" to="/signup">
+								REGISTER
+							</Link>
+						</li>}
 
 
 					</ul>
