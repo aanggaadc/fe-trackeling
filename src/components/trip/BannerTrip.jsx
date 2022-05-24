@@ -1,6 +1,9 @@
 import React from 'react'
 import { Carousel } from 'react-bootstrap'
 import './BannerTrip.css'
+import ImageOne from "./banner_trip1.jpg"
+import ImageTwo from "./banner_trip2.jpg"
+import ImageThree from "./banner_trip3.jpg"
 
 function BannerTrip() {
   return (
@@ -9,7 +12,7 @@ function BannerTrip() {
             <Carousel.Item>
                 <img
                 className="d-flex w-100"
-                src="./bromo.jpg"
+                src={ImageOne}
                 alt="First slide"
                 />
                 <Carousel.Caption>
@@ -20,7 +23,7 @@ function BannerTrip() {
             <Carousel.Item>
                 <img
                 className="d-block w-100"
-                src="./field-kebumen.jpg"
+                src={ImageTwo}
                 alt="Second slide"
                 />
                 <Carousel.Caption>
@@ -31,7 +34,7 @@ function BannerTrip() {
             <Carousel.Item>
                 <img
                 className="d-block w-100"
-                src="./padar-island.jpg"
+                src={ImageThree}
                 alt="Third slide"
                 />
                 <Carousel.Caption>
