@@ -11,13 +11,22 @@ import TripForm from "./pages/trip_form/TripForm";
 import { ToastContainer } from "react-toastify";
 import PrivateRoutes from "./private_routes/PrivateRoutes";
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { bindActionCreators } from "redux"
+import { actionCreators } from './store/index'
+import useAuth from './utils/auth'
 
 function App() {
+	const dispatch = useDispatch();
+	const authData = useAuth()
+	const { fillUser } = bindActionCreators(actionCreators, dispatch)
 	const { user } = useSelector((state) => {
 		return state
 	})
-	console.log(user)
 
+	// if (authData) {
+	// 	fillUser(authData)
+	// }
 	return (
 		<div className="App">
 			<Routes>

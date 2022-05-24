@@ -16,7 +16,7 @@ function NavbarMain() {
 	const authData = useAuth()
 	const navigate = useNavigate()
 	const dispatch = useDispatch();
-	const { userLogout } = bindActionCreators(actionCreators, dispatch)
+	const { clearUser } = bindActionCreators(actionCreators, dispatch)
 
 	const toggleMobileNav = () => {
 		setActiveMobile(!activeMobile);
@@ -43,7 +43,7 @@ function NavbarMain() {
 	};
 
 	const handleLogout = () => {
-		userLogout()
+		clearUser()
 		navigate('/')
 		toast.success("You are logged out, see ya!!")
 		localStorage.removeItem('authKey')
@@ -75,26 +75,37 @@ function NavbarMain() {
 								TRIPS
 							</Link>
 						</li>
-						{authData ? <li className="dropdown">
-							<a href="#">
-								HI, {authData.username.toUpperCase()}!
-								<i>
-									<BiChevronDown size={25} onClick={toggleDropdownMenu} />
-								</i>
-							</a>
-							<ul className={activeDropdown ? "dropdown-active" : ""}>
+
+						{authData ?
+							<>
 								<li>
-									<Link to="/user/edit/account/12">SETTING ACCOUNT</Link>
+									<Link className="nav-link" to="/trip/create">
+										CREATE TRIP
+									</Link>
 								</li>
-								<li>
-									<Link to="/user/mytrip/12">MY TRIP</Link>
+								<li className="dropdown">
+									<a href="#">
+										HI, {authData.username.toUpperCase()}!
+										<i>
+											<BiChevronDown size={25} onClick={toggleDropdownMenu} />
+										</i>
+									</a>
+									<ul className={activeDropdown ? "dropdown-active" : ""}>
+										<li>
+											<Link to="/user/edit/account/12">SETTING ACCOUNT</Link>
+										</li>
+										<li>
+											<Link to="/user/mytrip/12">MY TRIP</Link>
+										</li>
+									</ul>
 								</li>
-							</ul>
-						</li> : <li>
-							<Link className="nav-link" to="/signup">
-								REGISTER
-							</Link>
-						</li>}
+							</>
+
+							: <li>
+								<Link className="nav-link" to="/signup">
+									REGISTER
+								</Link>
+							</li>}
 
 
 					</ul>

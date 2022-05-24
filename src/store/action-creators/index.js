@@ -1,4 +1,4 @@
-export const userLogin = (data) => {
+export const fillUser = (data) => {
     return (dispatch) => {
         dispatch({
             type: "login",
@@ -7,10 +7,11 @@ export const userLogin = (data) => {
     }
 }
 
-export const userLogout = () => {
+export const clearUser = () => {
     return (dispatch) => {
         dispatch({
-            type: "logout"
+            type: "logout",
+            payload: null
         })
     }
 }

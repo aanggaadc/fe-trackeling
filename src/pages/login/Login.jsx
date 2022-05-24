@@ -2,7 +2,7 @@ import React from "react";
 import "./Login.css";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../trackling.png";
 import { Formik } from "formik";
 import Axios from "axios";
@@ -21,7 +21,7 @@ const renderTooltip = (props) => (
 function Login() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { userLogin } = bindActionCreators(actionCreators, dispatch)
+	const { fillUser } = bindActionCreators(actionCreators, dispatch)
 
 	return (
 		<div id="background-login" className="content-login">
@@ -52,7 +52,7 @@ function Login() {
 				onSubmit={(values) => {
 					Axios.post(`${API_URL}/login`, values)
 						.then((response) => {
-							userLogin(response.data.data)
+							fillUser(response.data.data)
 							localStorage.setItem("authKey", JSON.stringify(response.data.data));
 							navigate("/");
 							toast.success("Welcome to Our Site!");
