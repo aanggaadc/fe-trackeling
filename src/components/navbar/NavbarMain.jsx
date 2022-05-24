@@ -6,12 +6,17 @@ import { VscListFlat } from "react-icons/vsc";
 import { BiChevronDown, BiX } from "react-icons/bi";
 import useAuth from '../../utils/auth'
 import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { bindActionCreators } from "redux"
+import { actionCreators } from '../../store/index'
 
 function NavbarMain() {
 	const [activeMobile, setActiveMobile] = useState(false);
 	const [activeDropdown, setActiveDropdown] = useState(false);
 	const authData = useAuth()
 	const navigate = useNavigate()
+	const dispatch = useDispatch();
+	const { userLogout } = bindActionCreators(actionCreators, dispatch)
 
 	const toggleMobileNav = () => {
 		setActiveMobile(!activeMobile);
@@ -38,6 +43,7 @@ function NavbarMain() {
 	};
 
 	const handleLogout = () => {
+		userLogout()
 		navigate('/')
 		toast.success("You are logged out, see ya!!")
 		localStorage.removeItem('authKey')

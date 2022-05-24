@@ -10,8 +10,14 @@ import Signup from "./pages/signup/Signup";
 import TripForm from "./pages/trip_form/TripForm";
 import { ToastContainer } from "react-toastify";
 import PrivateRoutes from "./private_routes/PrivateRoutes";
+import { useSelector } from 'react-redux'
 
 function App() {
+	const { user } = useSelector((state) => {
+		return state
+	})
+	console.log(user)
+
 	return (
 		<div className="App">
 			<Routes>
