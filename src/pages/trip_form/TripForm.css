@@ -6,7 +6,7 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  min-height: 780px;
+  min-height: 910px;
 }
 
 .tripform-background::before {
@@ -45,7 +45,7 @@
   display: block;
   width: 60px;
   height: 5px;
-  background: #188CBD;
+  background: #188cbd;
   bottom: 0;
   left: calc(50% - 25px);
 }
@@ -114,8 +114,8 @@
 }
 
 #form-trip .btn-create button:hover {
-  background-color: #188CBD;
-  border-color: #188CBD;
+  background-color: #188cbd;
+  border-color: #188cbd;
 }
 
 #form-trip .btn-create button:active {
