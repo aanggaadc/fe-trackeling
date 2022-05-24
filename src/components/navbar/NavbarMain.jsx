@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import "./NavbarMain.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../trackling.png";
 import { VscListFlat } from "react-icons/vsc";
 import { BiChevronDown, BiX } from "react-icons/bi";
+import useAuth from '../../utils/auth'
+import { toast } from 'react-toastify'
 
 function NavbarMain() {
 	const [activeMobile, setActiveMobile] = useState(false);
 	const [activeDropdown, setActiveDropdown] = useState(false);
+	const authData = useAuth()
+	const navigate = useNavigate()
 
 	const toggleMobileNav = () => {
 		setActiveMobile(!activeMobile);
@@ -32,6 +36,12 @@ function NavbarMain() {
 			);
 		}
 	};
+
+	const handleLogout = () => {
+		navigate('/')
+		toast.success("You are logged out, see ya!!")
+		localStorage.removeItem('authKey')
+	}
 
 	return (
 		<header id="header" className="d-flex align-items-center ">
@@ -59,14 +69,9 @@ function NavbarMain() {
 								TRIPS
 							</Link>
 						</li>
-						<li>
-							<Link className="nav-link" to="/signup">
-								REGISTER
-							</Link>
-						</li>
-						<li className="dropdown">
+						{authData ? <li className="dropdown">
 							<a href="#">
-								USERNAME
+								HI, {authData.username.toUpperCase()}!
 								<i>
 									<BiChevronDown size={25} onClick={toggleDropdownMenu} />
 								</i>
@@ -79,24 +84,27 @@ function NavbarMain() {
 									<Link to="/user/mytrip/12">MY TRIP</Link>
 								</li>
 							</ul>
-						</li>
+						</li> : <li>
+							<Link className="nav-link" to="/signup">
+								REGISTER
+							</Link>
+						</li>}
+
+
 					</ul>
 					{mobileNav()}
 				</nav>
-
-				{/* LOGIN BUTTON */}
-				<Link style={{ textDecoration: "none" }} to="/login">
-					<a className="login scrollto">
-						LOGIN
-					</a>
-				</Link>
-
-				{/* LOGOUT BUTTOn */}
-				{/* <Link style={{ textDecoration: "none" }} to="/login">
-					<a className="logout scrollto">
+				{authData ?
+					<button onClick={handleLogout} className="logout scrollto">
 						LOGOUT
-					</a>
-				</Link> */}
+					</button>
+					:
+					<Link style={{ textDecoration: "none" }} to="/login">
+						<a className="login scrollto">
+							LOGIN
+						</a>
+					</Link>
+				}
 			</div>
 		</header>
 	);
