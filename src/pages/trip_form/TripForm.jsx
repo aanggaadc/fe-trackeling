@@ -52,20 +52,20 @@ function TripForm() {
                             {({ handleSubmit, handleChange }) => (
                                 <Form id="form-trip">
                                     <div className="form-group">
+                                        <label for='tripname' >Trip Name</label>
                                         <input type="text"
                                             className="form-control"
                                             id="tripname"
                                             name="trip_name"
-                                            placeholder="Trip Name"
                                             onChange={handleChange}
                                             required />
                                     </div>
                                     <div className="form-group mt-3">
+                                        <label for='destination' >Destination</label>
                                         <input type="text"
                                             className="form-control"
                                             id="destination"
                                             name="destination"
-                                            placeholder="Destination"
                                             onChange={handleChange}
                                             required />
                                     </div>
@@ -90,11 +90,20 @@ function TripForm() {
                                             required />
                                     </div>
                                     <div className="form-group mt-3">
+                                        <label for='maxmember' >Max Member</label>
                                         <input type="number"
                                             className="form-control"
                                             id="maxmember"
                                             name="max_member"
-                                            placeholder="Max Member"
+                                            onChange={handleChange}
+                                            required />
+                                    </div>
+                                    <div className="form-group mt-3">
+                                        <label>Upload Trip Image</label><br />
+                                        <input type='file'
+                                            id='image'
+                                            name="image"
+                                            placeholder="Upload Trip Image"
                                             onChange={handleChange}
                                             required />
                                     </div>
