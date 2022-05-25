@@ -117,7 +117,7 @@ function UserAccount() {
 					<div className="right-profile">
 						{location.pathname === `/user/account/${authData.user_id}` && <EditAccount />}
 						{location.pathname === `/user/biodata/${authData.user_id}` && (
-							<EditBiodata setFile={setFile} />
+							<EditBiodata setFile={setFile} userProfile={userProfile} />
 						)}
 					</div>
 				</div>

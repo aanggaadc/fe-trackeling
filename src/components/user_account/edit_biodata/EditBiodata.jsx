@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 import { FaUpload } from "react-icons/fa";
 import "./EditBiodata.css";
 import useAuth from "../../../utils/auth";
+import Axios from "axios";
+import { API_URL } from "../../../config/url";
 
-function EditBiodata({ setFile }) {
+function EditBiodata({ setFile, userProfile }) {
 	const authData = useAuth();
 
 	return (
@@ -13,11 +15,11 @@ function EditBiodata({ setFile }) {
 			<h1>Edit Biodata</h1>
 			<Formik
 				initialValues={{
-					phone_number: authData.profile.phone_number,
-					age: authData.profile.age,
-					location: authData.profile.location,
-					sex: authData.profile.sex,
-					interest: authData.profile.interest,
+					age: userProfile.age,
+					sex: userProfile.sex,
+					location: userProfile.location,
+					interest: userProfile.interest,
+					phone_number: userProfile.phone_number,
 				}}
 				onSubmit={(values) => {
 					console.log(values);
@@ -50,13 +52,25 @@ function EditBiodata({ setFile }) {
 								<label for="age" class="form-label">
 									Age
 								</label>
-								<input type="number" class="form-control" id="age" placeholder="" />
+								<input
+									type="number"
+									class="form-control"
+									id="age"
+									placeholder=""
+									value={values.age}
+								/>
 							</div>
 							<div className="form-location">
 								<label for="location" class="form-label">
 									Location
 								</label>
-								<input type="text" class="form-control" id="location" placeholder="" />
+								<input
+									type="text"
+									class="form-control"
+									id="location"
+									placeholder=""
+									value={values.location}
+								/>
 							</div>
 						</div>
 						<div className="form-row">

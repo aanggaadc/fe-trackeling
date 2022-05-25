@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "0f0db7b1-156b-4bd4-baff-acf21914295a",
+    "colId": "fed5a444-aee2-4529-bc41-aa8915eb1175",
+    "containerId": "",
+    "name": "editUserBiodata",
+    "url": "{{local}}/user/profile/edit/17d2be7a-ec06-45dd-aa78-f8a1673cce34",
+    "method": "PUT",
+    "sortNum": 10000,
+    "created": "2022-05-25T11:10:49.994Z",
+    "modified": "2022-05-25T11:29:13.617Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"sex\": \"Female\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]
