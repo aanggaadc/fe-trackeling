@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import "./NavbarMain.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../trackling.png";
 import { VscListFlat } from "react-icons/vsc";
 import { BiChevronDown, BiX } from "react-icons/bi";
+import useAuth from '../../utils/auth'
+import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { bindActionCreators } from "redux"
+import { actionCreators } from '../../store/index'
 
 function NavbarMain() {
 	const [activeMobile, setActiveMobile] = useState(false);
 	const [activeDropdown, setActiveDropdown] = useState(false);
+	const authData = useAuth()
+	const navigate = useNavigate()
+	const dispatch = useDispatch();
+	const { clearUser } = bindActionCreators(actionCreators, dispatch)
 
 	const toggleMobileNav = () => {
 		setActiveMobile(!activeMobile);
@@ -32,6 +41,13 @@ function NavbarMain() {
 			);
 		}
 	};
+
+	const handleLogout = () => {
+		clearUser()
+		navigate('/')
+		toast.success("You are logged out, see ya!!")
+		localStorage.removeItem('authKey')
+	}
 
 	return (
 		<header id="header" className="d-flex align-items-center ">
@@ -59,44 +75,49 @@ function NavbarMain() {
 								TRIPS
 							</Link>
 						</li>
-						<li>
+						{authData ? <>
+							<li>
+								<Link className="nav-link" to="/trip/create">
+									CREATE TRIP
+								</Link>
+							</li>
+							<li className="dropdown">
+								<a href="#">
+									HI, {authData.username.toUpperCase()}!
+									<i>
+										<BiChevronDown size={25} onClick={toggleDropdownMenu} />
+									</i>
+								</a>
+								<ul className={activeDropdown ? "dropdown-active" : ""}>
+									<li>
+										<Link to="/user/edit/account/12">SETTING ACCOUNT</Link>
+									</li>
+									<li>
+										<Link to="/user/mytrip/12">MY TRIP</Link>
+									</li>
+								</ul>
+							</li>
+						</> : <li>
 							<Link className="nav-link" to="/signup">
 								REGISTER
 							</Link>
-						</li>
-						<li className="dropdown">
-							<a href="#">
-								USERNAME
-								<i>
-									<BiChevronDown size={25} onClick={toggleDropdownMenu} />
-								</i>
-							</a>
-							<ul className={activeDropdown ? "dropdown-active" : ""}>
-								<li>
-									<Link to="/user/edit/account/12">SETTING ACCOUNT</Link>
-								</li>
-								<li>
-									<Link to="/user/mytrip/12">MY TRIP</Link>
-								</li>
-							</ul>
-						</li>
+						</li>}
+
+
 					</ul>
 					{mobileNav()}
 				</nav>
-
-				{/* LOGIN BUTTON */}
-				<Link style={{ textDecoration: "none" }} to="/login">
-					<a className="login scrollto">
-						LOGIN
-					</a>
-				</Link>
-
-				{/* LOGOUT BUTTOn */}
-				{/* <Link style={{ textDecoration: "none" }} to="/login">
-					<a className="logout scrollto">
+				{authData ?
+					<button onClick={handleLogout} className="logout scrollto">
 						LOGOUT
-					</a>
-				</Link> */}
+					</button>
+					:
+					<Link style={{ textDecoration: "none" }} to="/login">
+						<a className="login scrollto">
+							LOGIN
+						</a>
+					</Link>
+				}
 			</div>
 		</header>
 	);
