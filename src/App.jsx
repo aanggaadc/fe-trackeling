@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "react-toastify/dist/ReactToastify.css";
+import { useLayoutEffect } from 'react'
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import MyTrip from "./pages/my_trip/MyTrip";
@@ -10,8 +11,27 @@ import Signup from "./pages/signup/Signup";
 import TripForm from "./pages/trip_form/TripForm";
 import { ToastContainer } from "react-toastify";
 import PrivateRoutes from "./private_routes/PrivateRoutes";
+import { useSelector, useDispatch } from 'react-redux'
+import { bindActionCreators } from "redux"
+import { actionCreators } from './store/index'
+import useAuth from './utils/auth'
 
 function App() {
+	const dispatch = useDispatch();
+	const authData = useAuth()
+	const { fillUser } = bindActionCreators(actionCreators, dispatch)
+	const { user } = useSelector((state) => {
+		return state
+	})
+
+	useLayoutEffect(() => {
+		if (authData) {
+			fillUser(authData)
+		}
+	}, [])
+
+	console.log(user)
+
 	return (
 		<div className="App">
 			<Routes>
