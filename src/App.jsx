@@ -18,44 +18,44 @@ import { actionCreators } from "./store/index";
 import useAuth from "./utils/auth";
 
 function App() {
-  const dispatch = useDispatch();
-  const authData = useAuth();
-  const { fillUser } = bindActionCreators(actionCreators, dispatch);
-  const { user } = useSelector((state) => {
-    return state;
-  });
+	const dispatch = useDispatch();
+	const authData = useAuth();
+	const { fillUser } = bindActionCreators(actionCreators, dispatch);
+	const { user } = useSelector((state) => {
+		return state;
+	});
 
-  useLayoutEffect(() => {
-    if (authData) {
-      fillUser(authData);
-    }
-  }, []);
+	useLayoutEffect(() => {
+		if (authData) {
+			fillUser(authData);
+		}
+	}, []);
 
-  console.log(user);
+	console.log(user);
 
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/">
-          <Route index element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
-          <Route element={<PrivateRoutes />}>
-            <Route path="trip">
-              <Route path="create" element={<TripForm />} />
-              <Route path="detail/:tripId" element={<DetailTrip />} />
-            </Route>
-            <Route path="user">
-              <Route path="edit/account/:userId" element={<UserAccount />} />
-              <Route path="edit/biodata/:userId" element={<UserAccount />} />
-              <Route path="mytrip/:userId" element={<MyTrip />} />
-            </Route>
-          </Route>
-        </Route>
-      </Routes>
-      <ToastContainer />
-    </div>
-  );
+	return (
+		<div className="App">
+			<Routes>
+				<Route path="/">
+					<Route index element={<Home />} />
+					<Route path="login" element={<Login />} />
+					<Route path="signup" element={<Signup />} />
+					<Route element={<PrivateRoutes />}>
+						<Route path="trip">
+							<Route path="create" element={<TripForm />} />
+							<Route path="detail/:tripId" element={<DetailTrip />} />
+						</Route>
+						<Route path="user">
+							<Route path="account/:userId" element={<UserAccount />} />
+							<Route path="biodata/:userId" element={<UserAccount />} />
+							<Route path="mytrip/:userId" element={<MyTrip />} />
+						</Route>
+					</Route>
+				</Route>
+			</Routes>
+			<ToastContainer />
+		</div>
+	);
 }
 
 export default App;
