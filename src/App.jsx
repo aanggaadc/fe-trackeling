@@ -24,8 +24,8 @@ function App() {
 							<Route path="create" element={<TripForm />} />
 						</Route>
 						<Route path="user">
-							<Route path="edit/account/:userId" element={<UserAccount />} />
-							<Route path="edit/biodata/:userId" element={<UserAccount />} />
+							<Route path="account/:userId" element={<UserAccount />} />
+							<Route path="biodata/:userId" element={<UserAccount />} />
 							<Route path="mytrip/:userId" element={<MyTrip />} />
 						</Route>
 					</Route>

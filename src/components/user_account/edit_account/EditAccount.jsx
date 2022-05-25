@@ -1,10 +1,13 @@
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../../../utils/auth";
 import "./EditAccount.css";
 
 function EditForm() {
 	const [initialValues, setInitialValues] = useState("");
+
+	const authData = useAuth();
 
 	return (
 		<div className="edit-account">
@@ -71,7 +74,10 @@ function EditForm() {
 			</Formik>
 			<div className="change-formToBiodata">
 				Change to{" "}
-				<Link to={"/user/edit/biodata/12"} style={{ color: "#ef9b23", fontWeight: "bold" }}>
+				<Link
+					to={`/user/biodata/${authData.user_id}`}
+					style={{ color: "#ef9b23", fontWeight: "bold" }}
+				>
 					Edit Biodata
 				</Link>
 			</div>

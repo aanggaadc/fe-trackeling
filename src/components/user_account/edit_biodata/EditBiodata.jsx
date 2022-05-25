@@ -3,9 +3,12 @@ import { Formik } from "formik";
 import { Link } from "react-router-dom";
 import { FaUpload } from "react-icons/fa";
 import "./EditBiodata.css";
+import useAuth from "../../../utils/auth";
 
 function EditBiodata({ setFile }) {
 	const [initialValues, setInitialValues] = useState("");
+
+	const authData = useAuth();
 
 	return (
 		<div className="edit-biodata">
@@ -115,7 +118,10 @@ function EditBiodata({ setFile }) {
 			</Formik>
 			<div className="change-formToAccount">
 				Change to{" "}
-				<Link to={"/user/edit/account/12"} style={{ color: "#ef9b23", fontWeight: "bold" }}>
+				<Link
+					to={`/user/account/${authData.user_id}`}
+					style={{ color: "#ef9b23", fontWeight: "bold" }}
+				>
 					Edit Account
 				</Link>
 			</div>
