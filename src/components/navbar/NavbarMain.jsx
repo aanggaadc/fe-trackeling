@@ -6,14 +6,17 @@ import { VscListFlat } from "react-icons/vsc";
 import { BiChevronDown, BiX } from "react-icons/bi";
 import useAuth from "../../utils/auth";
 import { toast } from "react-toastify";
-import Axios from "axios";
-import { API_URL } from "../../config/url";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../store/index";
 
 function NavbarMain() {
 	const [activeMobile, setActiveMobile] = useState(false);
 	const [activeDropdown, setActiveDropdown] = useState(false);
 	const authData = useAuth();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const { clearUser } = bindActionCreators(actionCreators, dispatch);
 
 	const toggleMobileNav = () => {
 		setActiveMobile(!activeMobile);
@@ -40,29 +43,11 @@ function NavbarMain() {
 	};
 
 	const handleLogout = () => {
+		clearUser();
 		navigate("/");
 		toast.success("You are logged out, see ya!!");
 		localStorage.removeItem("authKey");
 	};
-
-	// const userApiId = useParams();
-
-	// // const [userId, setUserId] = [];
-
-	// // const getUserById = () => {
-	// // 	Axios.get(`${API_URL}/user/edi/${userApiId}`)
-	// // 		.then((response) => {
-	// // 			console.log("RES", response.data.data);
-	// // 			setUserId(response.data.data);
-	// // 		})
-	// // 		.catch((error) => {
-	// // 			console.log("ERROR", error);
-	// // 		});
-	// // };
-
-	// useEffect(() => {
-	// 	getUserById();
-	// }, []);
 
 	return (
 		<header id="header" className="d-flex align-items-center ">

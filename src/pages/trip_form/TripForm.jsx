@@ -7,15 +7,17 @@ import Axios from 'axios'
 import { toast } from 'react-toastify'
 import { API_URL } from '../../config/url'
 import { useNavigate } from "react-router-dom";
+import useAuth from '../../utils/auth'
 
 
 function TripForm() {
+    const authData = useAuth()
     const navigate = useNavigate()
+
     return (
-        <div>
+        <>
             <Navbar />
             <div className='tripform-background'>
-                <Navbar />
                 <div className="container tripform-container mt-5">
                     <div className='tripform-title text-center'>
                         <h2>CREATE TRIP</h2>
@@ -24,17 +26,28 @@ function TripForm() {
                     <div className="tripform">
                         <Formik
                             initialValues={{
+                                id_user: `${authData.user_id}`,
                                 trip_name: "",
                                 destination: "",
                                 start_date: "",
                                 end_date: "",
                                 max_member: "",
-                                description: ""
+                                description: "",
+                                image: ""
                             }}
 
                             onSubmit={(values) => {
-                                console.log(values)
-                                Axios.post(`${API_URL}/trip/create`, values)
+                                const formData = new FormData()
+                                formData.append("id_user", values.id_user)
+                                formData.append("trip_name", values.trip_name)
+                                formData.append("destination", values.destination)
+                                formData.append("start_date", values.start_date)
+                                formData.append("end_date", values.end_date)
+                                formData.append("max_member", values.max_member)
+                                formData.append("description", values.description)
+                                formData.append("image", values.image)
+
+                                Axios.post(`${API_URL}/trip/add`, formData)
                                     .then((response) => {
                                         console.log(response)
                                         toast.success("Trip Successfully created!!")
@@ -49,7 +62,7 @@ function TripForm() {
                                     })
                             }}
                         >
-                            {({ handleSubmit, handleChange }) => (
+                            {({ handleSubmit, handleChange, setFieldValue }) => (
                                 <Form id="form-trip">
                                     <div className="form-group">
                                         <label for='tripname' >Trip Name</label>
@@ -103,8 +116,10 @@ function TripForm() {
                                         <input type='file'
                                             id='image'
                                             name="image"
-                                            placeholder="Upload Trip Image"
-                                            onChange={handleChange}
+                                            accept='image/*'
+                                            onChange={(e) => {
+                                                setFieldValue('image', e.currentTarget.files[0])
+                                            }}
                                             required />
                                     </div>
                                     <div className="form-group mt-3">
@@ -128,7 +143,7 @@ function TripForm() {
 
             </div>
             <Footer />
-        </div>
+        </>
 
     )
 }
