@@ -1,0 +1,51 @@
+.bg-content {
+  background-color: #f7f7f7;
+}
+
+p {
+  font-family: "Raleway", sans-serif;
+}
+
+.detail-trip-img {
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  width: 100%;
+}
+
+.btn-detailtrip {
+  width: 100px;
+  margin-right: 5px;
+}
+
+.detailtrip-container {
+  margin-top: 70px;
+  font-family: "Open Sans", sans-serif;
+  overflow: hidden;
+}
+
+.posted {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+}
+
+.posted .image-profile {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.other-trip h2 {
+  font-size: 34px;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 700;
+  font-family: "Raleway", sans-serif;
+  padding: 0;
+  margin: 0;
+  color: #0e1b4d;
+}
