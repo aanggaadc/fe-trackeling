@@ -69,11 +69,7 @@ function App() {
 						<Route path="trip">
               				<Route path="list" element={<Trip />} />
 							<Route path="create" element={<TripForm />} />
-<<<<<<< HEAD
-              				<Route path="filter" element={<Trip />} />
-=======
 							<Route path="detail/:tripId" element={<DetailTrip />} />
->>>>>>> 45502faec8288940f9d29edaeb86a0d0700e4090
 						</Route>
 						<Route path="user">
 							<Route path="account/:userId" element={<UserAccount />} />
