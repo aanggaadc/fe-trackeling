@@ -1,17 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../../components/footer/Footer";
 import NavbarMain from "../../components/navbar/NavbarMain";
-import { BsGenderMale } from "react-icons/bs";
+import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
 import "./UserAccount.css";
 import EditAccount from "../../components/user_account/edit_account/EditAccount";
 import EditBiodata from "../../components/user_account/edit_biodata/EditBiodata";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import Axios from "axios";
+import { API_URL } from "../../config/url";
+import useAuth from "../../utils/auth";
 
 function UserAccount() {
 	const location = useLocation();
 
 	const [file, setFile] = useState("");
-	console.log(file);
+	// console.log(file);
+
+	const [userProfile, setUserProfile] = useState({
+		username: "",
+		email: "",
+		age: "",
+		sex: "",
+		location: "",
+		interest: "",
+		phone_number: "",
+	});
+
+	const authData = useAuth();
+
+	const getUserProfile = () => {
+		Axios.get(`${API_URL}/user/${authData.user_id}`)
+			.then((response) => {
+				// console.log("RESPONSE PROFILE", response);
+				const apiData = response.data.data;
+				setUserProfile({
+					username: apiData.username,
+					email: apiData.email,
+					age: apiData.profile.age,
+					sex: apiData.profile.sex,
+					location: apiData.profile.location,
+					interest: apiData.profile.interest,
+					phone_number: apiData.profile.phone_number,
+				});
+			})
+			.catch((error) => {
+				console.log("ERROR PROFILE", error);
+			});
+	};
+
+	useEffect(() => {
+		getUserProfile();
+	}, []);
 
 	return (
 		<div id="background-profile">
@@ -38,40 +77,48 @@ function UserAccount() {
 						<div className="info-profile">
 							<div className="info-detail mt-3">
 								<div className="info-detail-left">Username:</div>
-								<div className="info-detail-right">michaeljackson</div>
+								<div className="info-detail-right">{userProfile.username}</div>
 							</div>
 							<div className="info-detail">
 								<div className="info-detail-left">Email:</div>
-								<div className="info-detail-right">moonwalker@email.com</div>
+								<div className="info-detail-right">{userProfile.email}</div>
 							</div>
 							<div className="info-detail">
 								<div className="info-detail-left">Phone:</div>
-								<div className="info-detail-right">081234567890</div>
+								<div className="info-detail-right">{userProfile.phone_number}</div>
 							</div>
 							<div className="info-detail">
 								<div className="info-detail-left">Age:</div>
-								<div className="info-detail-right">35 years old</div>
+								<div className="info-detail-right">{userProfile.age}</div>
 							</div>
 							<div className="info-detail">
 								<div className="info-detail-left">Sex:</div>
 								<div className="info-detail-right gender">
-									Male
-									<BsGenderMale />
+									{userProfile.sex}
+									{userProfile.sex === "Female" && <BsGenderFemale />}
+									{userProfile.sex === "Male" && <BsGenderMale />}
+									{userProfile.sex === null && "Still Empty :("}
 								</div>
 							</div>
 							<div className="info-detail">
 								<div className="info-detail-left">Location:</div>
-								<div className="info-detail-right">Jakarta Pusat</div>
+								<div className="info-detail-right">
+									{userProfile.location === null ? "Still Empty :(" : userProfile.location}
+								</div>
 							</div>
 							<div className="info-detail">
 								<div className="info-detail-left">Interest:</div>
-								<div className="info-detail-right">Music</div>
+								<div className="info-detail-right">
+									{userProfile.interest === null ? "Still Empty :(" : userProfile.interest}
+								</div>
 							</div>
 						</div>
 					</div>
 					<div className="right-profile">
-						{location.pathname === "/user/edit/account/12" && <EditAccount />}
-						{location.pathname === "/user/edit/biodata/12" && <EditBiodata setFile={setFile} />}
+						{location.pathname === `/user/account/${authData.user_id}` && <EditAccount />}
+						{location.pathname === `/user/biodata/${authData.user_id}` && (
+							<EditBiodata setFile={setFile} userProfile={userProfile} />
+						)}
 					</div>
 				</div>
 			</div>
