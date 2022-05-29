@@ -6,6 +6,7 @@ import "./EditBiodata.css";
 import useAuth from "../../../utils/auth";
 import Axios from "axios";
 import { API_URL } from "../../../config/url";
+import { toast } from "react-toastify";
 
 function EditBiodata({ setFile, userProfile }) {
 	const authData = useAuth();
@@ -21,19 +22,40 @@ function EditBiodata({ setFile, userProfile }) {
 					interest: userProfile.interest,
 					phone_number: userProfile.phone_number,
 				}}
+				enableReinitialize={true}
 				onSubmit={(values) => {
+					const formData = new FormData();
+					formData.append("age", values.age);
+					formData.append("sex", values.sex);
+					formData.append("location", values.location);
+					formData.append("interest", values.interest);
+					formData.append("phone_number", values.phone_number);
+					formData.append("avatar", values.avatar);
+
 					console.log(values);
+					Axios.put(`${API_URL}/user/profile/edit/${authData.user_id}`, formData)
+						.then((response) => {
+							console.log("BERHASIL BIODATA", response);
+							toast.success(response.data.message);
+						})
+						.catch((error) => {
+							if (error.response) {
+								toast.error(error.response.data.message);
+							} else {
+								toast.error("Cannot Connect to Server");
+							}
+						});
 				}}
 			>
-				{({ values, handleSubmit, handleChange }) => (
+				{({ values, handleSubmit, handleChange, setFieldValue }) => (
 					<form action="" id="form-editBiodata">
 						<div className="form-row">
-							<div className="form-fullname">
+							{/* <div className="form-fullname">
 								<label for="fullname" class="form-label">
 									Full Name
 								</label>
 								<input type="text" class="form-control" id="fullname" placeholder="" />
-							</div>
+							</div> */}
 							<div className="form-phone">
 								<label for="phone" class="form-label">
 									Phone
@@ -44,6 +66,8 @@ function EditBiodata({ setFile, userProfile }) {
 									id="phone"
 									placeholder=""
 									value={values.phone_number}
+									name="phone_number"
+									onChange={handleChange}
 								/>
 							</div>
 						</div>
@@ -58,6 +82,8 @@ function EditBiodata({ setFile, userProfile }) {
 									id="age"
 									placeholder=""
 									value={values.age}
+									name="age"
+									onChange={handleChange}
 								/>
 							</div>
 							<div className="form-location">
@@ -70,6 +96,8 @@ function EditBiodata({ setFile, userProfile }) {
 									id="location"
 									placeholder=""
 									value={values.location}
+									name="location"
+									onChange={handleChange}
 								/>
 							</div>
 						</div>
@@ -78,10 +106,10 @@ function EditBiodata({ setFile, userProfile }) {
 								<label for="specificSex" class="visually-hidden">
 									Sex
 								</label>
-								<select name="sex" id="specificSex">
+								<select id="specificSex" value={values.sex} name="sex" onChange={handleChange}>
 									<option value="">- Pick Your Sex -</option>
-									<option value="">Female</option>
-									<option value="">Male</option>
+									<option value="Female">Female</option>
+									<option value="Male">Male</option>
 								</select>
 							</div>
 						</div>
@@ -90,13 +118,18 @@ function EditBiodata({ setFile, userProfile }) {
 								<label for="specificInterest" class="visually-hidden">
 									Interest
 								</label>
-								<select name="interest" id="specificInterest">
+								<select
+									id="specificInterest"
+									value={values.interest}
+									name="interest"
+									onChange={handleChange}
+								>
 									<option value="">- Interest -</option>
-									<option value="">Music</option>
-									<option value="">Movie</option>
-									<option value="">Sport</option>
-									<option value="">Food</option>
-									<option value="">Photography</option>
+									<option value="Food">Food</option>
+									<option value="Movie">Movie</option>
+									<option value="Music">Music</option>
+									<option value="Photography">Photography</option>
+									<option value="Sport">Sport</option>
 								</select>
 							</div>
 						</div>
@@ -110,14 +143,18 @@ function EditBiodata({ setFile, userProfile }) {
 									id="file"
 									accept="image/*"
 									style={{ display: "none" }}
+									name="avatar"
 									onChange={(e) => {
+										setFieldValue("avatar", e.currentTarget.files[0]);
 										setFile(e.target.files[0]);
 									}}
 								/>
 							</div>
 						</div>
 						<div className="btn-submitBiodata">
-							<button type="submit">Submit</button>
+							<button onClick={handleSubmit} type="submit">
+								Submit
+							</button>
 						</div>
 					</form>
 				)}

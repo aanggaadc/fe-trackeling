@@ -24,6 +24,7 @@ function UserAccount() {
 		location: "",
 		interest: "",
 		phone_number: "",
+		avatar_url: "",
 	});
 
 	const authData = useAuth();
@@ -41,6 +42,7 @@ function UserAccount() {
 					location: apiData.profile.location,
 					interest: apiData.profile.interest,
 					phone_number: apiData.profile.phone_number,
+					avatar_url: apiData.profile.avatar_url,
 				});
 			})
 			.catch((error) => {
@@ -50,7 +52,7 @@ function UserAccount() {
 
 	useEffect(() => {
 		getUserProfile();
-	}, []);
+	}, [file]);
 
 	return (
 		<div id="background-profile">
@@ -65,11 +67,7 @@ function UserAccount() {
 						</div>
 						<div className="photo mt-4">
 							<img
-								src={
-									file
-										? URL.createObjectURL(file)
-										: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-								}
+								src={file ? URL.createObjectURL(file) : `${API_URL}/${userProfile.avatar_url}`}
 								alt=""
 								className="img-fluid"
 							/>
@@ -103,19 +101,23 @@ function UserAccount() {
 							<div className="info-detail">
 								<div className="info-detail-left">Location:</div>
 								<div className="info-detail-right">
-									{userProfile.location === null ? "Still Empty :(" : userProfile.location}
+									{userProfile.location}
+									{userProfile.location === null && "Still Empty :("}
 								</div>
 							</div>
 							<div className="info-detail">
 								<div className="info-detail-left">Interest:</div>
 								<div className="info-detail-right">
-									{userProfile.interest === null ? "Still Empty :(" : userProfile.interest}
+									{userProfile.interest}
+									{userProfile.interest === null && "Still Empty :("}
 								</div>
 							</div>
 						</div>
 					</div>
 					<div className="right-profile">
-						{location.pathname === `/user/account/${authData.user_id}` && <EditAccount />}
+						{location.pathname === `/user/account/${authData.user_id}` && (
+							<EditAccount userProfile={userProfile} />
+						)}
 						{location.pathname === `/user/biodata/${authData.user_id}` && (
 							<EditBiodata setFile={setFile} userProfile={userProfile} />
 						)}
