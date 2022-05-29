@@ -56,7 +56,7 @@ function Signup() {
 
             onSubmit={(values) => {
               console.log(values)
-              Axios.post(`${API_URL}/user/create`, values)
+              Axios.post(`${API_URL}/signup`, values)
                 .then((response) => {
                   console.log(response)
                   toast.success("You Are Successfully Registered")

@@ -11,7 +11,8 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import TripForm from "./pages/trip_form/TripForm";
 import { ToastContainer } from "react-toastify";
-import PrivateRoutes from "./private_routes/PrivateRoutes";
+import PrivateRoutes from "./routes/PrivateRoutes";
+import PubicRoutes from "./routes/PublicRoutes"
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./store/index";
@@ -31,15 +32,15 @@ function App() {
 		}
 	}, []);
 
-	console.log(user);
-
 	return (
 		<div className="App">
 			<Routes>
 				<Route path="/">
 					<Route index element={<Home />} />
-					<Route path="login" element={<Login />} />
-					<Route path="signup" element={<Signup />} />
+					<Route element={<PubicRoutes />}>
+						<Route path="login" element={<Login />} />
+						<Route path="signup" element={<Signup />} />
+					</Route>
 					<Route element={<PrivateRoutes />}>
 						<Route path="trip">
 							<Route path="create" element={<TripForm />} />
