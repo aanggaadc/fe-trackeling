@@ -1,0 +1,28 @@
+.search {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10rem;
+}
+.tripform{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.tripform .form-row{
+      display: flex;
+      flex-direction: row;
+      width: 80%;
+      gap: 20%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    height: 5vh;
+}

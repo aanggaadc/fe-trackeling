@@ -42,9 +42,9 @@ function App() {
 					<Route path="signup" element={<Signup />} />
 					<Route element={<PrivateRoutes />}>
 						<Route path="trip">
-              <Route index element={<Trip />} />
+              				<Route path="list" element={<Trip />} />
 							<Route path="create" element={<TripForm />} />
-              <Route path="filter" element={<Trip />} />
+              				<Route path="filter" element={<Trip />} />
 						</Route>
 						<Route path="user">
 							<Route path="edit/account/:userId" element={<UserAccount />} />
