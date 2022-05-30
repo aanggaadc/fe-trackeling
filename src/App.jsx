@@ -12,21 +12,21 @@ import Signup from "./pages/signup/Signup";
 import TripForm from "./pages/trip_form/TripForm";
 import { ToastContainer, toast } from "react-toastify";
 import PrivateRoutes from "./routes/PrivateRoutes";
-import PublicRoutes from "./routes/PublicRoutes"
+import PublicRoutes from "./routes/PublicRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "./store/index";
 import useAuth from "./utils/auth";
-import Axios from 'axios'
+import Axios from "axios";
 
 function App() {
 	const dispatch = useDispatch();
 	const authData = useAuth();
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 	const { fillUser } = bindActionCreators(actionCreators, dispatch);
 	const { user } = useSelector((state) => {
-		return state
-	})
+		return state;
+	});
 
 	useLayoutEffect(() => {
 		if (authData) {
@@ -34,27 +34,33 @@ function App() {
 		}
 	}, []);
 
-	Axios.interceptors.request.use(function (config) {
-		if (authData) {
-			config.headers.Authorization = "Bearer " + authData.token
-		}
-		return config;
-	}, function (error) {
-		return Promise.reject(error);
-	});
-
-	Axios.interceptors.response.use(function (response) {
-		return response;
-	}, function (error) {
-		if (error.response) {
-			if (error.response.status == 401) {
-				navigate('/login')
-				localStorage.removeItem('auth')
-				toast.error(error.response.data.message)
+	Axios.interceptors.request.use(
+		function (config) {
+			if (authData) {
+				config.headers.Authorization = "Bearer " + authData.token;
 			}
+			return config;
+		},
+		function (error) {
+			return Promise.reject(error);
 		}
-		return Promise.reject(error);
-	});
+	);
+
+	Axios.interceptors.response.use(
+		function (response) {
+			return response;
+		},
+		function (error) {
+			if (error.response) {
+				if (error.response.status == 401) {
+					navigate("/login");
+					localStorage.removeItem("auth");
+					toast.error(error.response.data.message);
+				}
+			}
+			return Promise.reject(error);
+		}
+	);
 
 	return (
 		<div className="App">
@@ -73,7 +79,7 @@ function App() {
 						<Route path="user">
 							<Route path="account/:userId" element={<UserAccount />} />
 							<Route path="biodata/:userId" element={<UserAccount />} />
-							<Route path="mytrip/:userId" element={<MyTrip />} />
+							<Route path="mytrip" element={<MyTrip />} />
 						</Route>
 					</Route>
 				</Route>

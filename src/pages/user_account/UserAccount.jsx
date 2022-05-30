@@ -52,7 +52,7 @@ function UserAccount() {
 
 	useEffect(() => {
 		getUserProfile();
-	}, [file]);
+	}, []);
 
 	return (
 		<div id="background-profile">
@@ -119,7 +119,11 @@ function UserAccount() {
 							<EditAccount userProfile={userProfile} />
 						)}
 						{location.pathname === `/user/biodata/${authData.user_id}` && (
-							<EditBiodata setFile={setFile} userProfile={userProfile} />
+							<EditBiodata
+								setFile={setFile}
+								userProfile={userProfile}
+								// setUserProfile={setUserProfile}
+							/>
 						)}
 					</div>
 				</div>

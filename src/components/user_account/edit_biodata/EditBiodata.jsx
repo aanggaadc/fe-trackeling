@@ -8,8 +8,29 @@ import Axios from "axios";
 import { API_URL } from "../../../config/url";
 import { toast } from "react-toastify";
 
-function EditBiodata({ setFile, userProfile }) {
+function EditBiodata({ setFile, userProfile, setUserProfile }) {
 	const authData = useAuth();
+
+	// useEffect(() => {
+	// 	Axios.get(`${API_URL}/user/${authData.user_id}`)
+	// 		.then((response) => {
+	// 			// console.log("RESPONSE PROFILE", response);
+	// 			const apiData = response.data.data;
+	// 			setUserProfile({
+	// 				username: apiData.username,
+	// 				email: apiData.email,
+	// 				age: apiData.profile.age,
+	// 				sex: apiData.profile.sex,
+	// 				location: apiData.profile.location,
+	// 				interest: apiData.profile.interest,
+	// 				phone_number: apiData.profile.phone_number,
+	// 				avatar_url: apiData.profile.avatar_url,
+	// 			});
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log("ERROR PROFILE", error);
+	// 		});
+	// }, [userProfile]);
 
 	return (
 		<div className="edit-biodata">
