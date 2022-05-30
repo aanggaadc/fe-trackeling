@@ -1,6 +1,6 @@
 .tripform-background {
 	background-image: url("./TripForm.jpg");
-	height: 100vh;
+	height: 100%;
 	width: 100%;
 	position: relative;
 	background-size: cover;
@@ -121,4 +121,11 @@
 #form-trip .btn-create button:active {
 	box-shadow: none;
 	outline: 0;
+}
+
+.image-trip{
+	width: 250px;
+	height: 150px;
+	border-radius: 10px;
+	border: 1px solid #fff;
 }
