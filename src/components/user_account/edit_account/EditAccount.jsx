@@ -25,7 +25,7 @@ function EditAccount({ userProfile }) {
 				enableReinitialize={true}
 				onSubmit={(values, actions) => {
 					console.log("VALUE", values);
-					Axios.put(`${API_URL}/user/edit/${authData.user_id}`, values)
+					Axios.put(`${API_URL}/user/edit`, values)
 						.then((response) => {
 							console.log("BERHASIL", response);
 							toast.success(response.data.message);
@@ -128,10 +128,7 @@ function EditAccount({ userProfile }) {
 			</Formik>
 			<div className="change-formToBiodata">
 				Change to{" "}
-				<Link
-					to={`/user/biodata/${authData.user_id}`}
-					style={{ color: "#ef9b23", fontWeight: "bold" }}
-				>
+				<Link to={`/user/biodata`} style={{ color: "#ef9b23", fontWeight: "bold" }}>
 					Edit Biodata
 				</Link>
 			</div>

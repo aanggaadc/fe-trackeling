@@ -8,7 +8,7 @@ import Axios from "axios";
 import { API_URL } from "../../../config/url";
 import { toast } from "react-toastify";
 
-function EditBiodata({ setFile, userProfile, setUserProfile }) {
+function EditBiodata({ setFile, userProfile, setUserProfile, getUserProfile }) {
 	const authData = useAuth();
 
 	// useEffect(() => {
@@ -54,10 +54,11 @@ function EditBiodata({ setFile, userProfile, setUserProfile }) {
 					formData.append("avatar", values.avatar);
 
 					console.log(values);
-					Axios.put(`${API_URL}/user/profile/edit/${authData.user_id}`, formData)
+					Axios.put(`${API_URL}/user/profile/edit`, formData)
 						.then((response) => {
 							console.log("BERHASIL BIODATA", response);
 							toast.success(response.data.message);
+							getUserProfile();
 						})
 						.catch((error) => {
 							if (error.response) {
@@ -182,10 +183,7 @@ function EditBiodata({ setFile, userProfile, setUserProfile }) {
 			</Formik>
 			<div className="change-formToAccount">
 				Change to{" "}
-				<Link
-					to={`/user/account/${authData.user_id}`}
-					style={{ color: "#ef9b23", fontWeight: "bold" }}
-				>
+				<Link to={`/user/account`} style={{ color: "#ef9b23", fontWeight: "bold" }}>
 					Edit Account
 				</Link>
 			</div>

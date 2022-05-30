@@ -77,8 +77,8 @@ function App() {
 							<Route path="detail/:tripId" element={<DetailTrip />} />
 						</Route>
 						<Route path="user">
-							<Route path="account/:userId" element={<UserAccount />} />
-							<Route path="biodata/:userId" element={<UserAccount />} />
+							<Route path="account" element={<UserAccount />} />
+							<Route path="biodata" element={<UserAccount />} />
 							<Route path="mytrip" element={<MyTrip />} />
 						</Route>
 					</Route>

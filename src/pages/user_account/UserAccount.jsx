@@ -30,7 +30,7 @@ function UserAccount() {
 	const authData = useAuth();
 
 	const getUserProfile = () => {
-		Axios.get(`${API_URL}/user/${authData.user_id}`)
+		Axios.get(`${API_URL}/user/single`)
 			.then((response) => {
 				// console.log("RESPONSE PROFILE", response);
 				const apiData = response.data.data;
@@ -115,13 +115,12 @@ function UserAccount() {
 						</div>
 					</div>
 					<div className="right-profile">
-						{location.pathname === `/user/account/${authData.user_id}` && (
-							<EditAccount userProfile={userProfile} />
-						)}
-						{location.pathname === `/user/biodata/${authData.user_id}` && (
+						{location.pathname === `/user/account` && <EditAccount userProfile={userProfile} />}
+						{location.pathname === `/user/biodata` && (
 							<EditBiodata
 								setFile={setFile}
 								userProfile={userProfile}
+								getUserProfile={getUserProfile}
 								// setUserProfile={setUserProfile}
 							/>
 						)}

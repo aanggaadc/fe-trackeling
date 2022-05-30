@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../store/index";
-import { API_URL } from '../../config/url'
+import { API_URL } from "../../config/url";
 
 function NavbarMain() {
 	const [activeMobile, setActiveMobile] = useState(false);
@@ -19,8 +19,8 @@ function NavbarMain() {
 	const dispatch = useDispatch();
 	const { clearUser } = bindActionCreators(actionCreators, dispatch);
 	const { user } = useSelector((state) => {
-		return state
-	})
+		return state;
+	});
 
 	const toggleMobileNav = () => {
 		setActiveMobile(!activeMobile);
@@ -99,10 +99,10 @@ function NavbarMain() {
 
 									<ul className={activeDropdown ? "dropdown-active" : ""}>
 										<li>
-											<Link to={`/user/account/${authData.user_id}`}>SETTING ACCOUNT</Link>
+											<Link to={`/user/account`}>SETTING ACCOUNT</Link>
 										</li>
 										<li>
-											<Link to={`/user/mytrip/${authData.user_id}`}>MY TRIP</Link>
+											<Link to={`/user/mytrip`}>MY TRIP</Link>
 										</li>
 									</ul>
 								</li>
