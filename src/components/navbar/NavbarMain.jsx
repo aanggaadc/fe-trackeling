@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./NavbarMain.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../trackling.png";
 import { VscListFlat } from "react-icons/vsc";
 import { BiChevronDown, BiX } from "react-icons/bi";
 import useAuth from "../../utils/auth";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../store/index";
+import { API_URL } from '../../config/url'
 
 function NavbarMain() {
 	const [activeMobile, setActiveMobile] = useState(false);
@@ -17,6 +18,9 @@ function NavbarMain() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { clearUser } = bindActionCreators(actionCreators, dispatch);
+	const { user } = useSelector((state) => {
+		return state
+	})
 
 	const toggleMobileNav = () => {
 		setActiveMobile(!activeMobile);
@@ -83,12 +87,16 @@ function NavbarMain() {
 									</Link>
 								</li>
 								<li className="dropdown">
-									<a href="#">
-										HI, {authData.username.toUpperCase()}!
-										<i>
-											<BiChevronDown size={25} onClick={toggleDropdownMenu} />
-										</i>
-									</a>
+									<div className="d-flex account">
+										<img src={`${API_URL}/${user.avatar}`} className="rounded-circle nav-avatar" />
+										<a href="#">
+											{authData.username.toUpperCase()}
+											<i>
+												<BiChevronDown size={25} onClick={toggleDropdownMenu} />
+											</i>
+										</a>
+									</div>
+
 									<ul className={activeDropdown ? "dropdown-active" : ""}>
 										<li>
 											<Link to={`/user/account/${authData.user_id}`}>SETTING ACCOUNT</Link>
