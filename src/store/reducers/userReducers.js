@@ -2,7 +2,8 @@ const reducer = (state = {
     user_id: "",
     email: "",
     username: "",
-    token:""
+    token:"",
+    avatar:"",
 }, action) => {
     switch (action.type) {
         case "login":
@@ -10,6 +11,7 @@ const reducer = (state = {
                 user_id: action.payload.user_id,
                 email: action.payload.email,
                 username: action.payload.username,
+                avatar: action.payload.avatar,
                 token: action.payload.token
             }
         case "logout":
@@ -17,6 +19,7 @@ const reducer = (state = {
                 user_id: "",
                 email: "",
                 username: "",
+                avatar: "",
                 token: ""
             }
         default:
