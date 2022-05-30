@@ -65,9 +65,9 @@ function MyTrip() {
 				</Form>
 			</div>
 			<div className="container">
-				{data.map((item, index) => {
-					return (
-						<Row xs={1} md={2} lg={4} className="g-4">
+				<Row xs={1} md={2} lg={4} className="g-4">
+					{data.map((item, index) => {
+						return (
 							<Col key={index}>
 								<Card className="text-center shadow">
 									<Card.Img variant="top" src="https://picsum.photos/seed/picsum/400/200" />
@@ -84,9 +84,9 @@ function MyTrip() {
 									</Card.Body>
 								</Card>
 							</Col>
-						</Row>
-					);
-				})}
+						);
+					})}
+				</Row>
 			</div>
 			<div className="container">
 				<div className="row">
