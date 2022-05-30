@@ -25,6 +25,10 @@
 	gap: 50px;
 }
 
+#form-editBiodata .form-row .form-phone {
+	width: 100%;
+}
+
 #form-editBiodata .form-row label {
 	color: white;
 }

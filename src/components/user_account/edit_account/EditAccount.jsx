@@ -1,27 +1,50 @@
-import { Formik } from "formik";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Formik, withFormik } from "formik";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../utils/auth";
+import Axios from "axios";
+import { API_URL } from "../../../config/url";
 import "./EditAccount.css";
+import { toast } from "react-toastify";
 
-function EditAccount() {
+function EditAccount({ userProfile }) {
 	const authData = useAuth();
+
+	let navigate = useNavigate();
 
 	return (
 		<div className="edit-account">
 			<h1>Edit Account</h1>
 			<Formik
 				initialValues={{
-					username: authData.username,
-					email: authData.email,
+					username: userProfile.username,
+					email: userProfile.email,
 					password1: "",
 					password2: "",
 				}}
-				onSubmit={(values) => {
-					console.log(values);
+				enableReinitialize={true}
+				onSubmit={(values, actions) => {
+					console.log("VALUE", values);
+					Axios.put(`${API_URL}/user/edit`, values)
+						.then((response) => {
+							console.log("BERHASIL", response);
+							toast.success(response.data.message);
+							// actions.setSubmitting(false);
+							// actions.setFieldValue("password1", "");
+							// actions.setFieldValue("password2", "");
+						})
+						.catch((error) => {
+							if (error.response) {
+								toast.error(error.response.data.message);
+							} else {
+								toast.error("Cannot Connect to Server");
+							}
+						});
+					actions.setFieldValue("password1", "");
+					actions.setFieldValue("password2", "");
 				}}
 			>
-				{({ values, handleSubmit, handleChange }) => (
+				{({ values, handleChange, handleSubmit, setFieldValue }) => (
 					<form action="" id="form-editAccount">
 						<div className="form-row">
 							<div className="form-username">
@@ -36,6 +59,7 @@ function EditAccount() {
 									name="username"
 									required
 									value={values.username}
+									onChange={handleChange}
 								/>
 							</div>
 							<div className="form-email">
@@ -50,6 +74,7 @@ function EditAccount() {
 									name="email"
 									required
 									value={values.email}
+									onChange={handleChange}
 								/>
 							</div>
 						</div>
@@ -64,7 +89,9 @@ function EditAccount() {
 									id="pwd"
 									placeholder=""
 									name="password1"
+									value={values.password1}
 									required
+									onChange={handleChange}
 								/>
 							</div>
 							<div className="form-confirmPwd">
@@ -77,22 +104,31 @@ function EditAccount() {
 									id="confirmpwd"
 									placeholder=""
 									name="password2"
+									value={values.password2}
 									required
+									onChange={handleChange}
 								/>
 							</div>
 						</div>
 						<div className="btn-submitAccount">
-							<button type="submit">Submit</button>
+							<button
+								// onClick={(e) => {
+								// 	e.preventDefault();
+								// 	handleSubmit();
+								// 	setFieldValue("password1", "");
+								// 	setFieldValue("password2", "");
+								// }}
+								onClick={handleSubmit}
+							>
+								Submit
+							</button>
 						</div>
 					</form>
 				)}
 			</Formik>
 			<div className="change-formToBiodata">
 				Change to{" "}
-				<Link
-					to={`/user/biodata/${authData.user_id}`}
-					style={{ color: "#ef9b23", fontWeight: "bold" }}
-				>
+				<Link to={`/user/biodata`} style={{ color: "#ef9b23", fontWeight: "bold" }}>
 					Edit Biodata
 				</Link>
 			</div>
