@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './TripForm.css'
 import Navbar from '../../components/navbar/NavbarMain'
 import Footer from '../../components/footer/Footer'
@@ -7,26 +7,25 @@ import Axios from 'axios'
 import { toast } from 'react-toastify'
 import { API_URL } from '../../config/url'
 import { useNavigate } from "react-router-dom";
-import useAuth from '../../utils/auth'
+import { FaUpload } from "react-icons/fa";
 
 
 function TripForm() {
-    const authData = useAuth()
     const navigate = useNavigate()
+    const [image, setImage] = useState("")
 
     return (
         <>
             <Navbar />
             <div className='tripform-background'>
-                <div className="container tripform-container mt-5">
-                    <div className='tripform-title text-center'>
+                <div className="container tripform-container">
+                    <div className='tripform-title text-center mt-3'>
                         <h2>CREATE TRIP</h2>
                     </div>
 
                     <div className="tripform">
                         <Formik
                             initialValues={{
-                                id_user: `${authData.user_id}`,
                                 trip_name: "",
                                 destination: "",
                                 start_date: "",
@@ -38,7 +37,6 @@ function TripForm() {
 
                             onSubmit={(values) => {
                                 const formData = new FormData()
-                                formData.append("id_user", values.id_user)
                                 formData.append("trip_name", values.trip_name)
                                 formData.append("destination", values.destination)
                                 formData.append("start_date", values.start_date)
@@ -112,15 +110,26 @@ function TripForm() {
                                             required />
                                     </div>
                                     <div className="form-group mt-3">
-                                        <label>Upload Trip Image</label><br />
                                         <input type='file'
                                             id='image'
                                             name="image"
                                             accept='image/*'
+                                            style={{ position: "absolute", opacity: 0, cursor: "pointer" }}
                                             onChange={(e) => {
+                                                setImage(e.target.files[0])
                                                 setFieldValue('image', e.currentTarget.files[0])
                                             }}
                                             required />
+                                        <label for='file'> <FaUpload size={22} /> Upload Trip Image </label> <br /> <br />
+                                        <img
+                                            src={
+                                                image
+                                                    ? URL.createObjectURL(image)
+                                                    : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                                            }
+                                            alt="trip image"
+                                            className="img-fluid image-trip"
+                                        />
                                     </div>
                                     <div className="form-group mt-3">
                                         <textarea
