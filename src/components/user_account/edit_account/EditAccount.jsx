@@ -1,17 +1,12 @@
-import { Formik, withFormik } from "formik";
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../../../utils/auth";
+import { Formik } from "formik";
+import React from "react";
+import { Link } from "react-router-dom";
 import Axios from "axios";
 import { API_URL } from "../../../config/url";
 import "./EditAccount.css";
 import { toast } from "react-toastify";
 
-function EditAccount({ userProfile }) {
-	const authData = useAuth();
-
-	let navigate = useNavigate();
-
+function EditAccount({ userProfile, getUserProfile, updateReduxState }) {
 	return (
 		<div className="edit-account">
 			<h1>Edit Account</h1>
@@ -29,9 +24,8 @@ function EditAccount({ userProfile }) {
 						.then((response) => {
 							console.log("BERHASIL", response);
 							toast.success(response.data.message);
-							// actions.setSubmitting(false);
-							// actions.setFieldValue("password1", "");
-							// actions.setFieldValue("password2", "");
+							getUserProfile()
+							updateReduxState()
 						})
 						.catch((error) => {
 							if (error.response) {

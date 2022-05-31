@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 import { FaUpload } from "react-icons/fa";
@@ -8,7 +8,7 @@ import Axios from "axios";
 import { API_URL } from "../../../config/url";
 import { toast } from "react-toastify";
 
-function EditBiodata({ setFile, userProfile, setUserProfile, getUserProfile }) {
+function EditBiodata({ setFile, userProfile, getUserProfile, updateReduxState }) {
 	const authData = useAuth();
 
 	// useEffect(() => {
@@ -53,12 +53,12 @@ function EditBiodata({ setFile, userProfile, setUserProfile, getUserProfile }) {
 					formData.append("phone_number", values.phone_number);
 					formData.append("avatar", values.avatar);
 
-					console.log(values);
 					Axios.put(`${API_URL}/user/profile/edit`, formData)
 						.then((response) => {
 							console.log("BERHASIL BIODATA", response);
 							toast.success(response.data.message);
 							getUserProfile();
+							updateReduxState();
 						})
 						.catch((error) => {
 							if (error.response) {
