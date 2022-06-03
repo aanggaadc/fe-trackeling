@@ -1,18 +1,27 @@
 import { Button, Card, Col, Form, Pagination, ProgressBar, Row } from "react-bootstrap";
+import { Link } from "react-router-dom"
 import React, { useEffect, useState } from "react";
 import Footer from "../../components/footer/Footer";
 import NavbarMain from "../../components/navbar/NavbarMain";
 import Axios from "axios";
 import "./MyTrip.css";
 import { API_URL } from "../../config/url";
-import useAuth from "../../utils/auth";
 
 function MyTrip() {
-	const authData = useAuth();
-
 	const [data, setData] = useState([]);
+	const [totalPages, setTotalPages] = useState(0)
+	const [currentPages, setCurrentPages] = useState(0)
+	const [pageState, setPageState] = useState({
+		pageNumber: 0,
+		pageSize: 1,
+	})
 
-	console.log("DATA", data);
+	console.log(pageState)
+
+	const pageNumbers = []
+	for (let i = 1; i <= totalPages; i++) {
+		pageNumbers.push(i)
+	}
 
 	const customButton = {
 		backgroundColor: "#188CBD",
@@ -22,15 +31,58 @@ function MyTrip() {
 	};
 
 	useEffect(() => {
-		Axios.get(`${API_URL}/trip/get_user_trip?id_user=${authData.user_id}`)
+		Axios.post(`${API_URL}/trip/get_user_trip`, pageState)
 			.then((response) => {
-				// console.log("BERHASIL PAGINATION", response.data.data.items);
 				setData(response.data.data.items);
+				setTotalPages(response.data.data.total_pages)
+				setCurrentPages(response.data.data.current_page)
 			})
 			.catch((error) => {
-				console.log("ERROR PAGINATION", error.data.message);
+				console.log(error.data.message);
 			});
 	}, []);
+
+	const nextPage = () => {
+		setCurrentPages(currentPages + 1)
+		setPageState({ ...pageState, pageNumber: pageState.pageNumber + 1 })
+	}
+
+	const prevPage = () => {
+		setCurrentPages(currentPages - 1)
+		setPageState({ ...pageState, pageNumber: pageState.pageNumber - 1 })
+	}
+
+	const handlePagination = () => {
+		if (data.length > 0) {
+			return (
+				<div className="col-12">
+					<Pagination className="mytrip-pagination">
+						<Pagination.First onClick={() => {
+							setCurrentPages(1)
+						}} />
+						<Pagination.Prev onClick={prevPage} disabled={currentPages === 1} />
+						{pageNumbers.map((num) => {
+							return (
+								<Pagination.Item key={num}
+									active={num === currentPages}
+									onClick={() => {
+										setCurrentPages(num)
+										setPageState({ ...pageState, pageNumber: num - 1 })
+									}}>
+									{num}
+								</Pagination.Item>
+							)
+						})}
+						{/* <Pagination.Ellipsis /> */}
+						<Pagination.Next onClick={nextPage} disabled={currentPages === totalPages} />
+						<Pagination.Last onClick={() => {
+							setCurrentPages(totalPages)
+						}} />
+					</Pagination>
+				</div >
+			)
+		}
+	}
 
 	return (
 		<div>
@@ -67,20 +119,23 @@ function MyTrip() {
 			<div className="container">
 				<Row xs={1} md={2} lg={4} className="g-4">
 					{data.map((item, index) => {
+						const memberPercent = (item.trip.count_member * 100) / item.trip.max_member
 						return (
 							<Col key={index}>
 								<Card className="text-center shadow">
-									<Card.Img variant="top" src="https://picsum.photos/seed/picsum/400/200" />
+									<Card.Img variant="top" src={`${API_URL}/${item.trip.trip_image}`} />
 									<Card.Body>
-										<Card.Title>Trip Name</Card.Title>
+										<Card.Title>{item.trip.trip_name}</Card.Title>
 										<Card.Text>
-											<p>Location</p>
-											<p>Date</p>
+											<p>{item.trip.destination}</p>
+											<p>{item.trip.start_date} to {item.trip.end_date}</p>
 										</Card.Text>
-										<ProgressBar variant="info" now={60} label={"6/10"} />
-										<Button className="mt-2" style={customButton}>
-											Detail
-										</Button>
+										<ProgressBar variant="info" now={memberPercent} label={`${memberPercent}%`} />
+										<Link to={`/trip/detail/${item.tripTripId}`}>
+											<Button className="mt-2" style={customButton}>
+												Detail
+											</Button>
+										</Link>
 									</Card.Body>
 								</Card>
 							</Col>
@@ -90,31 +145,13 @@ function MyTrip() {
 			</div>
 			<div className="container">
 				<div className="row">
-					<div className="col-12">
-						<Pagination className="mytrip-pagination">
-							<Pagination.First />
-							<Pagination.Prev />
-							<Pagination.Item>{1}</Pagination.Item>
-							<Pagination.Ellipsis />
-
-							<Pagination.Item>{10}</Pagination.Item>
-							<Pagination.Item>{11}</Pagination.Item>
-							<Pagination.Item active>{12}</Pagination.Item>
-							<Pagination.Item>{13}</Pagination.Item>
-							<Pagination.Item>{14}</Pagination.Item>
-
-							<Pagination.Ellipsis />
-							<Pagination.Item>{20}</Pagination.Item>
-							<Pagination.Next />
-							<Pagination.Last />
-						</Pagination>
-					</div>
+					{handlePagination()}
 				</div>
 			</div>
 			<div className="mt-4">
 				<Footer />
 			</div>
-		</div>
+		</div >
 	);
 }
 
