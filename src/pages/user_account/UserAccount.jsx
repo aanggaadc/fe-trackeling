@@ -9,12 +9,17 @@ import { useLocation, useParams } from "react-router-dom";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
 import useAuth from "../../utils/auth";
+import { useDispatch } from 'react-redux'
+import { bindActionCreators } from "redux"
+import { actionCreators } from '../../store/index'
 
 function UserAccount() {
 	const location = useLocation();
-
+	const dispatch = useDispatch();
 	const [file, setFile] = useState("");
-	// console.log(file);
+	const { fillUser } = bindActionCreators(actionCreators, dispatch)
+
+
 
 	const [userProfile, setUserProfile] = useState({
 		username: "",
@@ -24,12 +29,12 @@ function UserAccount() {
 		location: "",
 		interest: "",
 		phone_number: "",
+		avatar_url: "",
 	});
 
-	const authData = useAuth();
 
 	const getUserProfile = () => {
-		Axios.get(`${API_URL}/user/${authData.user_id}`)
+		Axios.get(`${API_URL}/user/single`)
 			.then((response) => {
 				// console.log("RESPONSE PROFILE", response);
 				const apiData = response.data.data;
@@ -41,12 +46,24 @@ function UserAccount() {
 					location: apiData.profile.location,
 					interest: apiData.profile.interest,
 					phone_number: apiData.profile.phone_number,
+					avatar_url: apiData.profile.avatar_url,
 				});
 			})
 			.catch((error) => {
 				console.log("ERROR PROFILE", error);
 			});
 	};
+
+	const updateReduxState = () => {
+		Axios.get(`${API_URL}/user/single`)
+			.then((response) => {
+				fillUser(response.data.redux)
+				localStorage.setItem("authKey", JSON.stringify(response.data.redux));
+			})
+			.catch((error) => {
+				console.log("ERROR PROFILE", error);
+			});
+	}
 
 	useEffect(() => {
 		getUserProfile();
@@ -65,11 +82,7 @@ function UserAccount() {
 						</div>
 						<div className="photo mt-4">
 							<img
-								src={
-									file
-										? URL.createObjectURL(file)
-										: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-								}
+								src={file ? URL.createObjectURL(file) : `${API_URL}/${userProfile.avatar_url}`}
 								alt=""
 								className="img-fluid"
 							/>
@@ -103,21 +116,33 @@ function UserAccount() {
 							<div className="info-detail">
 								<div className="info-detail-left">Location:</div>
 								<div className="info-detail-right">
-									{userProfile.location === null ? "Still Empty :(" : userProfile.location}
+									{userProfile.location}
+									{userProfile.location === null && "Still Empty :("}
 								</div>
 							</div>
 							<div className="info-detail">
 								<div className="info-detail-left">Interest:</div>
 								<div className="info-detail-right">
-									{userProfile.interest === null ? "Still Empty :(" : userProfile.interest}
+									{userProfile.interest}
+									{userProfile.interest === null && "Still Empty :("}
 								</div>
 							</div>
 						</div>
 					</div>
 					<div className="right-profile">
-						{location.pathname === `/user/account/${authData.user_id}` && <EditAccount />}
-						{location.pathname === `/user/biodata/${authData.user_id}` && (
-							<EditBiodata setFile={setFile} userProfile={userProfile} />
+						{location.pathname === `/user/account` &&
+							<EditAccount
+								userProfile={userProfile}
+								getUserProfile={getUserProfile}
+								updateReduxState={updateReduxState}
+							/>}
+						{location.pathname === `/user/biodata` && (
+							<EditBiodata
+								setFile={setFile}
+								userProfile={userProfile}
+								getUserProfile={getUserProfile}
+								updateReduxState={updateReduxState}
+							/>
 						)}
 					</div>
 				</div>
