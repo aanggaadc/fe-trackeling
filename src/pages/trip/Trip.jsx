@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import Footer from '../../components/footer/Footer'
 import BannerTrip from '../../components/trip/BannerTrip'
 import Navbar from '../../components/navbar/NavbarMain'
@@ -7,136 +7,108 @@ import Axios from 'axios'
 import { API_URL } from '../../config/url'
 import { toast } from 'react-toastify'
 // import { useNavigate } from "react-router-dom";
+import { Button, Card, Col, ProgressBar, Row } from "react-bootstrap";
+import { Link } from 'react-router-dom';
+import "./Trip.css";
 
 function Trip() {
   // const navigate = useNavigate()
-  let [Search, setSearch ] = useState({
-    trip_name: '',
-    destination: '',
-    start_date: '',
-    end_date: '',
-    count_member: '',
-    max_member: ''    
-  })
+  // let [Search, setSearch ] = useState({
+  //   trip_name: '',
+  //   destination: '',
+  //   start_date: '',
+  //   end_date: '',
+  //   count_member: '',
+  //   max_member: ''    
+  // })
 
-  const handleChange = (event) => {
-    let value = event.target.value;
-    let name = event.target.name;
+  // const handleChange = (event) => {
+  //   let value = event.target.value;
+  //   let name = event.target.name;
 
-    setSearch((prevalue) => {
-      return {
-        ...prevalue,
-        [name]: value
-      }
+  //   setSearch((prevalue) => {
+  //     return {
+  //       ...prevalue,
+  //       [name]: value
+  //     }
+  //   })
+  //   // let data = Axios.get(`${API_URL}/trip/filter?trip_name=${Search.trip_name}&destination=${Search.destination}&start_date=${Search.start_date}&end_date=${Search.end_date}`)
+  //   // return data
+  // }
+  const customButton = {
+		backgroundColor: "#188CBD",
+		color: "white",
+		borderRadius: "5px",
+		borderStyle: "none",
+	};
+  const [trip, setTrip] = useState([{
+    trip_id: "",
+    owner_id: "",
+    trip_image: "",
+    destination: "",
+    trip_name: "",
+    start_date: "",
+    end_date: "",
+    count_member: "",
+    max_member: "",
+    description: "",
+    trip_status: ""
+  }]);
+  useEffect(() => {
+    trip.map((x)=> {
+      Axios.get(`${API_URL}/trip/filter?trip_name=${x.trip_name}&destination=${x.destination}&start_date=${x.start_date}&end_date=${x.end_date}&count_member=${x.count_member}&max_member=${x.max_member}`)
+      .then((response)=> {
+        const data = response.data.data.items
+        console.log(response.data.data.items)
+        setTrip(data.map((item)=>{ 
+            return {trip_id: item.trip_id,
+            owner_id: item.owner_id,
+            trip_image: API_URL + item.trip_image,
+            destination: item.destination,
+            trip_name: item.trip_name,
+            start_date: item.start_date,
+            end_date: item.end_date,
+            count_member: item.count_member,
+            max_member: item.max_member,
+            description: item.description,
+            trip_status: item.trip_status}
+          }))
+        // data.map((item)=>{
+        //   setTrip({
+            // trip_id: item.trip_id,
+            // owner_id: item.owner_id,
+            // trip_image: API_URL + item.trip_image,
+            // destination: item.destination,
+            // trip_name: item.trip_name,
+            // start_date: item.start_date,
+            // end_date: item.end_date,
+            // count_member: item.count_member,
+            // max_member: item.max_member,
+            // description: item.description,
+            // trip_status: item.trip_status
+        //   })
+        // })
+        
+      })
+      .catch((error)=>{
+        if(error.response){
+          toast.error(error.response.data.data.message)
+        }else{
+          toast.error("Internal Server Error")
+        }
+      })
     })
-    // let data = Axios.get(`${API_URL}/trip/filter?trip_name=${Search.trip_name}&destination=${Search.destination}&start_date=${Search.start_date}&end_date=${Search.end_date}`)
-    // return data
-  }
+  },[])
+  
+  console.log(trip)
   return (
     <div>
       <Navbar />
       <BannerTrip />
       <div className='search mx-5 my-5'>
-        {/* <Form className="search-trip">
-          <div className="form-row">
-            <Form.Group className="filter">
-              <Form.Label>Search Trips By Trip Name</Form.Label>
-              <Form.Control type="text" placeholder="Search Trips By Trip Name" />
-              <Form.Text className="text" onChange={handleChange}>Search by Trip Name</Form.Text>
-            </Form.Group>
-            <Form.Group className="filter">
-              <Form.Label>Search Trips By Start Date</Form.Label>
-              <Form.Control type="text" placeholder="Search Trips By Start Date" />
-              <Form.Text className="text" onChange={handleChange}>Search by Start Date</Form.Text>
-            </Form.Group>
-            <Form.Group className="filter">
-              <Form.Label>Search Trips By End Date</Form.Label>
-              <Form.Control type="text" placeholder="Search Trips By End Date" />
-              <Form.Text className="text" onChange={handleChange}>Search by End Date</Form.Text>
-            </Form.Group>
-          </div>
-          <div className='form-row'>
-            <Form.Group className='filter'>
-              <Form.Label>Search Trips By Destination</Form.Label>
-              <Form.Control type="text" placeholder="Search Trips By Destination" />
-              <Form.Text className="text" onChange={handleChange}>Search by Destination</Form.Text>
-            </Form.Group>
-            <Form.Group className="filter">
-              <Form.Label>Search Trips By Current Member</Form.Label>
-              <Form.Control type="text" placeholder="Search Trips By Current Member" />
-              <Form.Text className="text-muted" onChange={handleChange}>Search by Current Member</Form.Text>
-            </Form.Group>
-            <Form.Group className="filter">
-              <Form.Label>Search Trips By Max Member</Form.Label>
-              <Form.Control type="text" placeholder="Search Trips By Max Member" />
-              <Form.Text className="text" onChange={handleChange}>Search by Max Member</Form.Text>
-            </Form.Group>
-          </div>
-        </Form>
-        <Form id="search-trip-form col-4 flex">
-          <div className="form-group">
-            <label for="trip_name">Search Trip by Trip Name</label>
-            <input type="text" 
-              className="form-control"
-              id="trip_name" 
-              name="trip_name"
-              onChange={handleChange} />
-          </div>
-          <div className="form-group">
-            <label for="destination">Search Trip by Destination</label>
-            <input type="text" 
-              className="form-control"
-              id="destination" 
-              name="destination"
-              onChange={handleChange} />
-          </div>
-          <div className="form-group">
-            <label for="start_date">Search Trip by Start Date</label>
-            <input type="text" 
-              className="form-control"
-              id="start_date" 
-              name="start_date"
-              onChange={handleChange} />
-          </div>
-          <div className="form-group">
-            <label for="end_date">Search Trip by End Date</label>
-            <input type="text" 
-              className="form-control"
-              id="end_date" 
-              name="end_date"
-              onChange={handleChange} />
-          </div>
-          <div className="form-group">
-            <label for="count_member">Search Trip by Current Member</label>
-            <input type="text" 
-              className="form-control"
-              id="count_member" 
-              name="count_member"
-              onChange={handleChange} />
-          </div>
-          <div className="form-group">
-            <label for="max_member">Search Trip by Max Member</label>
-            <input type="text" 
-              className="form-control"
-              id="max_member" 
-              name="max_member"
-              onChange={handleChange} />
-          </div>
-
-          onChange={(Search)=>{
-            Axios.get(`${API_URL}/trip/filter?trip_name=${Search.trip_name}&destination=${Search.destination}&start_date=${Search.start_date}&end_date=${Search.end_date}`)
-              .then((response) => {
-                console.log(response)
-              })
-              .catch((error) => {
-                if(error.response){
-                  toast.error(error.response.data.message)
-                } else {
-                  toast.error("Cannot Connect to Server")
-                }
-              })
-          }}
-        </Form> */}
+        <div className="search-title text-center">
+          <h2>SEARCH TRIP</h2>
+        </div>
         <Formik
           initialValues={{
             trip_name: "",
@@ -148,9 +120,23 @@ function Trip() {
           }}
           
           onSubmit={(values) => {
-            Axios.get(`${API_URL}/trip/filter?trip_name=${values.trip_name}&destination=${values.destination}&start_date=${values.start_date}&end_date=${values.end_date}`)
+            Axios.get(`${API_URL}/trip/filter?trip_name=${values.trip_name}&destination=${values.destination}&start_date=${values.start_date}&end_date=${values.end_date}&count_member=${values.count_member}&max_member=${values.max_member}`)
               .then((response)=>{
-                console.log(response)
+                const data = response.data.data.items
+                console.log(response.data.data.items)
+                setTrip(data.map((item)=>{ 
+                    return {trip_id: item.trip_id,
+                    owner_id: item.owner_id,
+                    trip_image: API_URL + item.trip_image,
+                    destination: item.destination,
+                    trip_name: item.trip_name,
+                    start_date: item.start_date,
+                    end_date: item.end_date,
+                    count_member: item.count_member,
+                    max_member: item.max_member,
+                    description: item.description,
+                    trip_status: item.trip_status}
+                  }))
               })
               .catch((error)=>{
                 if(error.response){
@@ -161,65 +147,95 @@ function Trip() {
               })
           }}
         >
-          {({handleChange})=>(
-            <Form className="tripform">
-              <div className="form-row row">
-                <div className="form-group">
-                  <label for="trip_name">Search Trip by Trip Name</label>
-                  <input type="text" 
+          {({ handleSubmit, handleChange })=>(
+            <Form>
+              <div className="searchform col">
+                <div className="form-row col">
+                  <div className="form-search">
+                    <label for="trip_name">Search Trip by Trip Name</label>
+                    <input type="text" 
+                        className="form-control"
+                        id="trip_name" 
+                        name="trip_name"
+                        onChange={handleChange} />
+                  </div>
+                  <div className="form-search">
+                    <label for="destination">Search Trip by Destination</label>
+                    <input type="text" 
                       className="form-control"
-                      id="trip_name" 
-                      name="trip_name"
+                      id="destination" 
+                      name="destination"
                       onChange={handleChange} />
+                  </div>
+                  <div className="form-search">
+                    <label for="start_date">Search Trip by Start Date</label>
+                    <input type="text" 
+                      className="form-control"
+                      id="start_date" 
+                      name="start_date"
+                      onChange={handleChange} />
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label for="destination">Search Trip by Destination</label>
-                  <input type="text" 
-                    className="form-control"
-                    id="destination" 
-                    name="destination"
-                    onChange={handleChange} />
-                </div>
-                <div className="form-group">
-                  <label for="start_date">Search Trip by Start Date</label>
-                  <input type="text" 
-                    className="form-control"
-                    id="start_date" 
-                    name="start_date"
-                    onChange={handleChange} />
+                <div className="form-row col">
+                  <div className="form-search">
+                    <label for="end_date">Search Trip by End Date</label>
+                    <input type="text" 
+                      className="form-control"
+                      id="end_date" 
+                      name="end_date"
+                      onChange={handleChange} />
+                  </div>
+                  <div className="form-search">
+                    <label for="count_member">Search Trip by Current Member</label>
+                    <input type="text" 
+                      className="form-control"
+                      id="count_member" 
+                      name="count_member"
+                      onChange={handleChange} />
+                  </div>
+                  <div className="form-search">
+                    <label for="max_member">Search Trip by Max Member</label>
+                    <input type="text" 
+                      className="form-control"
+                      id="max_member" 
+                      name="max_member"
+                      onChange={handleChange} />
+                  </div>
                 </div>
               </div>
-              <div className="form-row row">
-                <div className="form-group">
-                  <label for="end_date">Search Trip by End Date</label>
-                  <input type="text" 
-                    className="form-control"
-                    id="end_date" 
-                    name="end_date"
-                    onChange={handleChange} />
-                </div>
-                <div className="form-group">
-                  <label for="count_member">Search Trip by Current Member</label>
-                  <input type="text" 
-                    className="form-control"
-                    id="count_member" 
-                    name="count_member"
-                    onChange={handleChange} />
-                </div>
-                <div className="form-group">
-                  <label for="max_member">Search Trip by Max Member</label>
-                  <input type="text" 
-                    className="form-control"
-                    id="max_member" 
-                    name="max_member"
-                    onChange={handleChange} />
-                </div>
+              <div className='btn-filter-trip mt-3'>
+                <button onClick={handleSubmit} type="submit" className='btn btn-primary mt-3'>
+                  FIND TRIP
+                </button>
               </div>
             </Form>
           )}
         </Formik>
       </div>
-      <div>Trips</div>
+      <div className="container mb-3">
+				<Row xs={1} md={2} lg={4} className="g-4">
+					{Array.from(trip).map((_, idx) => (
+						<Col key={idx}>
+							<Card className="text-center shadow">
+								<Card.Img variant="top" src={_.trip_image} />
+								<Card.Body>
+									<Card.Title>{_.trip_name}</Card.Title>
+									<Card.Text>
+										<p>{_.destination}</p>
+										<p>{_.start_date} ~ {_.end_date}</p>
+									</Card.Text>
+									<ProgressBar variant="info" now={60} label={"6/10"} />
+                  <Link to={`/trip/detail/${_.trip_id}`}>
+                  <Button className="mt-2" style={customButton}>
+										Detail
+									</Button>
+                  </Link>
+								</Card.Body>
+							</Card>
+						</Col>
+					))}
+				</Row>
+			</div>
       <Footer />
     </div>
   )
