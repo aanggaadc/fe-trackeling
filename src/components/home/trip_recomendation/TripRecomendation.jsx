@@ -2,13 +2,6 @@ import React from 'react'
 import { Button, Card, Row, Col } from 'react-bootstrap'
 
 function TripRecomendation() {
-    const customButton = {
-        backgroundColor: '#188CBD',
-        color: 'white',
-        borderRadius: '5px',
-        borderStyle: "none"
-    }
-
     return (
         <div className='container'>
             <Row xs={1} md={2} lg={4} className="g-2">
@@ -21,7 +14,7 @@ function TripRecomendation() {
                                 <Card.Text>
                                     01/01/2022
                                 </Card.Text>
-                                <Button style={customButton}>Detail</Button>
+                                <Button className="trip-button">Detail</Button>
                             </Card.Body>
                         </Card>
                     </Col>

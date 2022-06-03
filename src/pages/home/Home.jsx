@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import "./Home.css";
 import Navbar from "../../components/navbar/NavbarMain";
@@ -7,8 +7,25 @@ import Footer from "../../components/footer/Footer";
 import TripRecomendation from "../../components/home/trip_recomendation/TripRecomendation";
 import TripUser from "../../components/home/trip_user/TripUser";
 import Team2 from "../../components/home/team/Team2";
+import Axios from 'axios'
+import { API_URL } from '../../config/url'
 
 function Home() {
+	const [data, setData] = useState([])
+	const pageState = {
+		pageNumber: 1,
+		pageSize: 2
+	}
+
+	useEffect(() => {
+		Axios.post(`${API_URL}/trip/list`, pageState)
+			.then((response) => {
+				setData(response.data.data.items)
+			}).catch((error) => {
+				console.log(error.data.message)
+			})
+	}, [])
+
 	const customButton = {
 		backgroundColor: "#0e1b4d",
 		color: "white",
@@ -52,7 +69,7 @@ function Home() {
 							<p>Latest Trips Available to Join</p>
 						</div>
 
-						<TripUser />
+						<TripUser data={data} />
 					</div>
 				</section>
 			</main>
