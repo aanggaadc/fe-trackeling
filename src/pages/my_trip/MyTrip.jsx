@@ -10,10 +10,10 @@ import { API_URL } from "../../config/url";
 function MyTrip() {
 	const [data, setData] = useState([]);
 	const [totalPages, setTotalPages] = useState(0)
-	const [currentPages, setCurrentPages] = useState(0)
+	const [currentPages, setCurrentPages] = useState(1)
 	const [pageState, setPageState] = useState({
-		pageNumber: 0,
-		pageSize: 1,
+		pageNumber: 1,
+		pageSize: 8,
 	})
 
 	console.log(pageState)
@@ -40,7 +40,7 @@ function MyTrip() {
 			.catch((error) => {
 				console.log(error.data.message);
 			});
-	}, []);
+	}, [pageState]);
 
 	const nextPage = () => {
 		setCurrentPages(currentPages + 1)
@@ -59,6 +59,7 @@ function MyTrip() {
 					<Pagination className="mytrip-pagination">
 						<Pagination.First onClick={() => {
 							setCurrentPages(1)
+							setPageState({ ...pageState, pageNumber: 1 })
 						}} />
 						<Pagination.Prev onClick={prevPage} disabled={currentPages === 1} />
 						{pageNumbers.map((num) => {
@@ -67,7 +68,7 @@ function MyTrip() {
 									active={num === currentPages}
 									onClick={() => {
 										setCurrentPages(num)
-										setPageState({ ...pageState, pageNumber: num - 1 })
+										setPageState({ ...pageState, pageNumber: num })
 									}}>
 									{num}
 								</Pagination.Item>
@@ -77,6 +78,7 @@ function MyTrip() {
 						<Pagination.Next onClick={nextPage} disabled={currentPages === totalPages} />
 						<Pagination.Last onClick={() => {
 							setCurrentPages(totalPages)
+							setPageState({ ...pageState, pageNumber: totalPages })
 						}} />
 					</Pagination>
 				</div >
