@@ -8,6 +8,10 @@
 	position: relative;
 }
 
+.mytrip-title h1 {
+	font-weight: bold;
+}
+
 .mytrip-title p {
 	text-align: center;
 	padding: 0;
