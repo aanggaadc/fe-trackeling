@@ -9,12 +9,14 @@ import TripUser from "../../components/home/trip_user/TripUser";
 import Team2 from "../../components/home/team/Team2";
 import Axios from 'axios'
 import { API_URL } from '../../config/url'
+import { Link } from 'react-router-dom'
+import { RiArrowRightCircleFill } from "react-icons/ri";
 
 function Home() {
 	const [data, setData] = useState([])
 	const pageState = {
 		pageNumber: 1,
-		pageSize: 2
+		pageSize: 4
 	}
 
 	useEffect(() => {
@@ -56,9 +58,11 @@ function Home() {
 
 						<div className="mt-3">
 							<TripRecomendation />
+							<Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3" to='recomendation'>See all <RiArrowRightCircleFill size={30} /></Link>
+
 						</div>
 
-						<hr className="line mt-5" />
+						<hr className="line" />
 					</div>
 				</section>
 
@@ -70,6 +74,7 @@ function Home() {
 						</div>
 
 						<TripUser data={data} />
+						<Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3 link-trip" to='trips'>See all<RiArrowRightCircleFill size={30} /></Link>
 					</div>
 				</section>
 			</main>
