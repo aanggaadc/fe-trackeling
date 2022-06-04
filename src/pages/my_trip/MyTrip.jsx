@@ -16,19 +16,10 @@ function MyTrip() {
 		pageSize: 8,
 	})
 
-	console.log(pageState)
-
 	const pageNumbers = []
 	for (let i = 1; i <= totalPages; i++) {
 		pageNumbers.push(i)
 	}
-
-	const customButton = {
-		backgroundColor: "#188CBD",
-		color: "white",
-		borderRadius: "5px",
-		borderStyle: "none",
-	};
 
 	useEffect(() => {
 		Axios.post(`${API_URL}/trip/get_user_trip`, pageState)
@@ -127,14 +118,14 @@ function MyTrip() {
 								<Card className="text-center shadow">
 									<Card.Img variant="top" src={`${API_URL}/${item.trip.trip_image}`} />
 									<Card.Body>
-										<Card.Title>{item.trip.trip_name}</Card.Title>
+										<Card.Title><h3 style={{ fontWeight: "Bold" }}>{item.trip.trip_name}</h3></Card.Title>
 										<Card.Text>
-											<p>{item.trip.destination}</p>
+											<h4>{item.trip.destination}</h4>
 											<p>{item.trip.start_date} to {item.trip.end_date}</p>
 										</Card.Text>
 										<ProgressBar variant="info" now={memberPercent} label={`${memberPercent}%`} />
 										<Link to={`/trip/detail/${item.tripTripId}`}>
-											<Button className="mt-2" style={customButton}>
+											<Button className="mt-2 trip-button" >
 												Detail
 											</Button>
 										</Link>

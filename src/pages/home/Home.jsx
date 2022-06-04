@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import "./Home.css";
 import Navbar from "../../components/navbar/NavbarMain";
@@ -7,8 +7,42 @@ import Footer from "../../components/footer/Footer";
 import TripRecomendation from "../../components/home/trip_recomendation/TripRecomendation";
 import TripUser from "../../components/home/trip_user/TripUser";
 import Team2 from "../../components/home/team/Team2";
+import Axios from 'axios'
+import { API_URL } from '../../config/url'
+import { Link } from 'react-router-dom'
+import { RiArrowRightCircleFill } from "react-icons/ri";
 
 function Home() {
+	const [dataTrip, setDataTrip] = useState([])
+	const [dataRecomendation, setDataRecomendation] = useState([])
+	const pageState = {
+		pageNumber: 1,
+		pageSize: 4
+	}
+
+	const getRecomendationList = () => {
+		Axios.post(`${API_URL}/recomendation/list`, pageState)
+			.then((response) => {
+				setDataRecomendation(response.data.data.items)
+			}).catch((error) => {
+				console.log(error.data.message)
+			})
+	}
+
+	const getTripList = () => {
+		Axios.post(`${API_URL}/trip/list`, pageState)
+			.then((response) => {
+				setDataTrip(response.data.data.items)
+			}).catch((error) => {
+				console.log(error.data.message)
+			})
+	}
+
+	useEffect(() => {
+		getRecomendationList()
+		getTripList()
+	}, [])
+
 	const customButton = {
 		backgroundColor: "#0e1b4d",
 		color: "white",
@@ -38,10 +72,12 @@ function Home() {
 						</div>
 
 						<div className="mt-3">
-							<TripRecomendation />
+							<TripRecomendation data={dataRecomendation} />
+							<Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3" to='recomendation'>See all <RiArrowRightCircleFill size={30} /></Link>
+
 						</div>
 
-						<hr className="line mt-5" />
+						<hr className="line" />
 					</div>
 				</section>
 
@@ -52,7 +88,8 @@ function Home() {
 							<p>Latest Trips Available to Join</p>
 						</div>
 
-						<TripUser />
+						<TripUser data={dataTrip} />
+						<Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3 link-trip" to='trips'>See all<RiArrowRightCircleFill size={30} /></Link>
 					</div>
 				</section>
 			</main>
