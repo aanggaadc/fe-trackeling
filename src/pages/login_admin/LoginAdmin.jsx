@@ -1,5 +1,5 @@
 import React from "react";
-import "./Login.css";
+import "./LoginAdmin.css";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ const renderTooltip = (props) => (
 	</Tooltip>
 );
 
-function Login() {
+function LoginAdmin() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { fillUser } = bindActionCreators(actionCreators, dispatch);
@@ -29,7 +29,7 @@ function Login() {
 				<div className="logo">
 					<img src={Logo} alt="logo" />
 				</div>
-				<div className="title fw-bold">Login</div>
+				<div className="title fw-bold">Admin</div>
 
 				<Link to="/">
 					<OverlayTrigger
@@ -50,21 +50,21 @@ function Login() {
 					password: "",
 				}}
 				onSubmit={(values) => {
-					Axios.post(`${API_URL}/login`, values)
-						.then((response) => {
-							fillUser(response.data.data);
-							localStorage.setItem("authKey", JSON.stringify(response.data.data));
-							navigate("/");
-							toast.success("Welcome to Our Site!");
-						})
-						.catch((error) => {
-							if (error.response) {
-								toast.error(error.response.data.message);
-							} else {
-								toast.error("Can't Connect to Our Server");
-							}
-							console.log(error);
-						});
+					// Axios.post(`${API_URL}/login`, values)
+					// 	.then((response) => {
+					// 		fillUser(response.data.data);
+					// 		localStorage.setItem("authKey", JSON.stringify(response.data.data));
+					// 		navigate("/");
+					// 		toast.success("Welcome to Our Site!");
+					// 	})
+					// 	.catch((error) => {
+					// 		if (error.response) {
+					// 			toast.error(error.response.data.message);
+					// 		} else {
+					// 			toast.error("Can't Connect to Our Server");
+					// 		}
+					// 		console.log(error);
+					// 	});
 				}}
 			>
 				{({ handleSubmit, handleChange }) => (
@@ -109,11 +109,11 @@ function Login() {
 					No Account? <Link to="/signup">Signup</Link>
 				</p>
 				<p>
-					Admin? <Link to="/login-admin">Login Here!</Link>
+					Are you User? <Link to="/login">Login Here!</Link>
 				</p>
 			</div>
 		</div>
 	);
 }
 
-export default Login;
+export default LoginAdmin;
