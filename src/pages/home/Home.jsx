@@ -11,6 +11,7 @@ import Axios from 'axios'
 import { API_URL } from '../../config/url'
 import { Link } from 'react-router-dom'
 import { RiArrowRightCircleFill } from "react-icons/ri";
+import NoData from './No-data.gif'
 
 function Home() {
 	const [dataTrip, setDataTrip] = useState([])
@@ -43,6 +44,36 @@ function Home() {
 		getTripList()
 	}, [])
 
+	const recomendation = () => {
+		if (dataRecomendation.length > 0) {
+			return (
+				<>
+					<TripRecomendation data={dataRecomendation} />
+					<Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3" to='recomendation'>See all <RiArrowRightCircleFill size={30} /></Link>
+				</>
+			)
+		} else {
+			return (
+				<img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />
+			)
+		}
+	}
+
+	const trip = () => {
+		if (dataTrip.length > 0) {
+			return (
+				<>
+					<TripUser data={dataTrip} />
+					<Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3 link-trip" to='trips'>See all<RiArrowRightCircleFill size={30} /></Link>
+				</>
+			)
+		} else {
+			return (
+				<img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />
+			)
+		}
+	}
+
 	const customButton = {
 		backgroundColor: "#0e1b4d",
 		color: "white",
@@ -71,10 +102,8 @@ function Home() {
 							<Button style={customButton}> Labuan Bajo</Button>
 						</div>
 
-						<div className="mt-3">
-							<TripRecomendation data={dataRecomendation} />
-							<Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3" to='recomendation'>See all <RiArrowRightCircleFill size={30} /></Link>
-
+						<div className="mt-3 text-center">
+							{recomendation()}
 						</div>
 
 						<hr className="line" />
@@ -88,8 +117,9 @@ function Home() {
 							<p>Latest Trips Available to Join</p>
 						</div>
 
-						<TripUser data={dataTrip} />
-						<Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3 link-trip" to='trips'>See all<RiArrowRightCircleFill size={30} /></Link>
+						<div className="text-center">
+							{trip()}
+						</div>
 					</div>
 				</section>
 			</main>
