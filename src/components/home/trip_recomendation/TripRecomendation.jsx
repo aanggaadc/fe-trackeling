@@ -1,20 +1,24 @@
 import React from 'react'
 import { Button, Card, Row, Col } from 'react-bootstrap'
+import { API_URL } from '../../../config/url'
+import { Link } from 'react-router-dom'
 
-function TripRecomendation() {
+function TripRecomendation({ data }) {
     return (
         <div className='container'>
             <Row xs={1} md={2} lg={4} className="g-2">
-                {Array.from({ length: 4 }).map((_, idx) => (
-                    <Col key={idx}>
+                {data.map((item, index) => (
+                    <Col key={index}>
                         <Card className='text-center shadow'>
-                            <Card.Img variant="top" src="https://picsum.photos/seed/picsum/400/200" />
+                            <Card.Img variant="top" src={`${API_URL}/${item.trip_image}`} />
                             <Card.Body>
-                                <Card.Title>Title</Card.Title>
-                                <Card.Text>
-                                    01/01/2022
-                                </Card.Text>
-                                <Button className="trip-button">Detail</Button>
+                                <Card.Title><h3 style={{ fontWeight: "Bold" }}>{item.destination}</h3></Card.Title>
+                                {/* <Card.Text>
+                                    <h4>{item.destination}</h4>
+                                </Card.Text> */}
+                                <Link to={`/trip/detail/${item.recomendation_id}`}>
+                                    <Button className='mt-2 trip-button'>Detail</Button>
+                                </Link>
                             </Card.Body>
                         </Card>
                     </Col>

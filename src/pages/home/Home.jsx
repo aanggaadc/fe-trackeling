@@ -13,19 +13,34 @@ import { Link } from 'react-router-dom'
 import { RiArrowRightCircleFill } from "react-icons/ri";
 
 function Home() {
-	const [data, setData] = useState([])
+	const [dataTrip, setDataTrip] = useState([])
+	const [dataRecomendation, setDataRecomendation] = useState([])
 	const pageState = {
 		pageNumber: 1,
 		pageSize: 4
 	}
 
-	useEffect(() => {
-		Axios.post(`${API_URL}/trip/list`, pageState)
+	const getRecomendationList = () => {
+		Axios.post(`${API_URL}/recomendation/list`, pageState)
 			.then((response) => {
-				setData(response.data.data.items)
+				setDataRecomendation(response.data.data.items)
 			}).catch((error) => {
 				console.log(error.data.message)
 			})
+	}
+
+	const getTripList = () => {
+		Axios.post(`${API_URL}/trip/list`, pageState)
+			.then((response) => {
+				setDataTrip(response.data.data.items)
+			}).catch((error) => {
+				console.log(error.data.message)
+			})
+	}
+
+	useEffect(() => {
+		getRecomendationList()
+		getTripList()
 	}, [])
 
 	const customButton = {
@@ -57,7 +72,7 @@ function Home() {
 						</div>
 
 						<div className="mt-3">
-							<TripRecomendation />
+							<TripRecomendation data={dataRecomendation} />
 							<Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3" to='recomendation'>See all <RiArrowRightCircleFill size={30} /></Link>
 
 						</div>
@@ -73,7 +88,7 @@ function Home() {
 							<p>Latest Trips Available to Join</p>
 						</div>
 
-						<TripUser data={data} />
+						<TripUser data={dataTrip} />
 						<Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3 link-trip" to='trips'>See all<RiArrowRightCircleFill size={30} /></Link>
 					</div>
 				</section>
