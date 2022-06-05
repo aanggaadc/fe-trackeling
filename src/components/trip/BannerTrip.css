@@ -11,3 +11,13 @@
         height: 80vh;
         overflow: hidden;
     }
+    .carousel-item::before {
+        content: "";
+        background: rgba(6, 12, 34, 0.7);
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: auto;
+      }

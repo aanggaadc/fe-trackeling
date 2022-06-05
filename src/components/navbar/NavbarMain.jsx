@@ -75,7 +75,7 @@ function NavbarMain() {
 							</Link>
 						</li>
 						<li>
-							<Link className="nav-link" to="/trip/filter">
+							<Link className="nav-link" to="/trips">
 								TRIPS
 							</Link>
 						</li>

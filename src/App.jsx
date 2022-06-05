@@ -10,7 +10,7 @@ import UserAccount from "./pages/user_account/UserAccount";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import TripForm from "./pages/trip_form/TripForm";
-import Trip from "./pages/trip/Trip"
+import Trip from "./pages/trip/Trip";
 import { ToastContainer, toast } from "react-toastify";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
@@ -72,11 +72,10 @@ function App() {
 						<Route path="login" element={<Login />} />
 						<Route path="signup" element={<Signup />} />
 					</Route>
+					<Route path="trips" element={<Trip />} />
 					<Route element={<PrivateRoutes />}>
 						<Route path="trip">
-              				<Route path="list" element={<Trip />} />
 							<Route path="create" element={<TripForm />} />
-							<Route path="filter" element={<Trip />} />
 							<Route path="detail/:tripId" element={<DetailTrip />} />
 						</Route>
 						<Route path="user">

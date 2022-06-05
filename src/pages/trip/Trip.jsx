@@ -7,40 +7,28 @@ import Axios from 'axios'
 import { API_URL } from '../../config/url'
 import { toast } from 'react-toastify'
 // import { useNavigate } from "react-router-dom";
-import { Button, Card, Col, ProgressBar, Row } from "react-bootstrap";
+import { Button, Card, Col, ProgressBar, Pagination, Row } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import "./Trip.css";
 
 function Trip() {
-  // const navigate = useNavigate()
-  // let [Search, setSearch ] = useState({
-  //   trip_name: '',
-  //   destination: '',
-  //   start_date: '',
-  //   end_date: '',
-  //   count_member: '',
-  //   max_member: ''    
-  // })
-
-  // const handleChange = (event) => {
-  //   let value = event.target.value;
-  //   let name = event.target.name;
-
-  //   setSearch((prevalue) => {
-  //     return {
-  //       ...prevalue,
-  //       [name]: value
-  //     }
-  //   })
-  //   // let data = Axios.get(`${API_URL}/trip/filter?trip_name=${Search.trip_name}&destination=${Search.destination}&start_date=${Search.start_date}&end_date=${Search.end_date}`)
-  //   // return data
-  // }
   const customButton = {
 		backgroundColor: "#188CBD",
 		color: "white",
 		borderRadius: "5px",
 		borderStyle: "none",
 	};
+  const [totalPages, setTotalPages] = useState(0)
+	const [currentPages, setCurrentPages] = useState(1)
+	const [pageState, setPageState] = useState({
+		pageNumber: 1,
+		pageSize: 8,
+	})
+  const pageNumbers = []
+	for (let i = 1; i <= totalPages; i++) {
+		pageNumbers.push(i)
+	}
+
   const [trip, setTrip] = useState([{
     trip_id: "",
     owner_id: "",
@@ -54,9 +42,9 @@ function Trip() {
     description: "",
     trip_status: ""
   }]);
-  useEffect(() => {
-    trip.map((x)=> {
-      Axios.get(`${API_URL}/trip/filter?trip_name=${x.trip_name}&destination=${x.destination}&start_date=${x.start_date}&end_date=${x.end_date}&count_member=${x.count_member}&max_member=${x.max_member}`)
+
+  const getTrips = ()=>{
+    Axios.post(`${API_URL}/trip/filter`, (trip, pageState))
       .then((response)=> {
         const data = response.data.data.items
         console.log(response.data.data.items)
@@ -73,22 +61,8 @@ function Trip() {
             description: item.description,
             trip_status: item.trip_status}
           }))
-        // data.map((item)=>{
-        //   setTrip({
-            // trip_id: item.trip_id,
-            // owner_id: item.owner_id,
-            // trip_image: API_URL + item.trip_image,
-            // destination: item.destination,
-            // trip_name: item.trip_name,
-            // start_date: item.start_date,
-            // end_date: item.end_date,
-            // count_member: item.count_member,
-            // max_member: item.max_member,
-            // description: item.description,
-            // trip_status: item.trip_status
-        //   })
-        // })
-        
+          setTotalPages(response.data.data.total_pages)
+				  setCurrentPages(response.data.data.current_page)
       })
       .catch((error)=>{
         if(error.response){
@@ -97,10 +71,55 @@ function Trip() {
           toast.error("Internal Server Error")
         }
       })
-    })
-  },[])
-  
-  console.log(trip)
+  }
+  useEffect(() => {
+      getTrips()
+  },[pageState])
+
+  const nextPage = () => {
+		setCurrentPages(currentPages + 1)
+		setPageState({ ...pageState, pageNumber: pageState.pageNumber + 1 })
+	}
+
+	const prevPage = () => {
+		setCurrentPages(currentPages - 1)
+		setPageState({ ...pageState, pageNumber: pageState.pageNumber - 1 })
+	}
+
+	const handlePagination = () => {
+		if (trip.length > 0) {
+			return (
+				<div className="col-12">
+					<Pagination className="mytrip-pagination">
+						<Pagination.First onClick={() => {
+							setCurrentPages(1)
+							setPageState({ ...pageState, pageNumber: 1 })
+						}} />
+						<Pagination.Prev onClick={prevPage} disabled={currentPages === 1} />
+						{pageNumbers.map((num) => {
+							return (
+								<Pagination.Item key={num}
+									active={num === currentPages}
+									onClick={() => {
+										setCurrentPages(num)
+										setPageState({ ...pageState, pageNumber: num })
+									}}>
+									{num}
+								</Pagination.Item>
+							)
+						})}
+						{/* <Pagination.Ellipsis /> */}
+						<Pagination.Next onClick={nextPage} disabled={currentPages === totalPages} />
+						<Pagination.Last onClick={() => {
+							setCurrentPages(totalPages)
+							setPageState({ ...pageState, pageNumber: totalPages })
+						}} />
+					</Pagination>
+				</div >
+			)
+		}
+	}
+
   return (
     <div>
       <Navbar />
@@ -120,7 +139,7 @@ function Trip() {
           }}
           
           onSubmit={(values) => {
-            Axios.get(`${API_URL}/trip/filter?trip_name=${values.trip_name}&destination=${values.destination}&start_date=${values.start_date}&end_date=${values.end_date}&count_member=${values.count_member}&max_member=${values.max_member}`)
+            Axios.post(`${API_URL}/trip/filter`, values)
               .then((response)=>{
                 const data = response.data.data.items
                 console.log(response.data.data.items)
@@ -137,6 +156,8 @@ function Trip() {
                     description: item.description,
                     trip_status: item.trip_status}
                   }))
+                setTotalPages(response.data.data.total_pages)
+                setCurrentPages(response.data.data.current_page)
               })
               .catch((error)=>{
                 if(error.response){
@@ -149,8 +170,8 @@ function Trip() {
         >
           {({ handleSubmit, handleChange })=>(
             <Form>
-              <div className="searchform col">
-                <div className="form-row col">
+              <div className="searchform">
+                <div className="form-row col-9">
                   <div className="form-search">
                     <label for="trip_name">Search Trip by Trip Name</label>
                     <input type="text" 
@@ -169,17 +190,17 @@ function Trip() {
                   </div>
                   <div className="form-search">
                     <label for="start_date">Search Trip by Start Date</label>
-                    <input type="text" 
+                    <input type="date" 
                       className="form-control"
                       id="start_date" 
                       name="start_date"
                       onChange={handleChange} />
                   </div>
                 </div>
-                <div className="form-row col">
+                <div className="form-row col-9">
                   <div className="form-search">
                     <label for="end_date">Search Trip by End Date</label>
-                    <input type="text" 
+                    <input type="date" 
                       className="form-control"
                       id="end_date" 
                       name="end_date"
@@ -187,7 +208,7 @@ function Trip() {
                   </div>
                   <div className="form-search">
                     <label for="count_member">Search Trip by Current Member</label>
-                    <input type="text" 
+                    <input type="number" 
                       className="form-control"
                       id="count_member" 
                       name="count_member"
@@ -195,7 +216,7 @@ function Trip() {
                   </div>
                   <div className="form-search">
                     <label for="max_member">Search Trip by Max Member</label>
-                    <input type="text" 
+                    <input type="number" 
                       className="form-control"
                       id="max_member" 
                       name="max_member"
@@ -203,7 +224,7 @@ function Trip() {
                   </div>
                 </div>
               </div>
-              <div className='btn-filter-trip mt-3'>
+              <div className='btn-filter-trip mt-3 text-center'>
                 <button onClick={handleSubmit} type="submit" className='btn btn-primary mt-3'>
                   FIND TRIP
                 </button>
@@ -224,7 +245,7 @@ function Trip() {
 										<p>{_.destination}</p>
 										<p>{_.start_date} ~ {_.end_date}</p>
 									</Card.Text>
-									<ProgressBar variant="info" now={60} label={"6/10"} />
+									<ProgressBar variant="info" now={((_.count_member)/(_.max_member))*100} label={`${_.count_member}/${_.max_member}`} />
                   <Link to={`/trip/detail/${_.trip_id}`}>
                   <Button className="mt-2" style={customButton}>
 										Detail
@@ -235,6 +256,11 @@ function Trip() {
 						</Col>
 					))}
 				</Row>
+			</div>
+      <div className="container">
+				<div className="row">
+					{handlePagination()}
+				</div>
 			</div>
       <Footer />
     </div>
