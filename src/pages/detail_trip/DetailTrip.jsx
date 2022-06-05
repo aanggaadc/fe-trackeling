@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavbarMain from "../../components/navbar/NavbarMain";
 import Footer from "../../components/footer/Footer";
 import "./DetailTrip.css";
-import TripRecomendation from "../../components/home/trip_recomendation/TripRecomendation";
+import TripRecomendation from "../../components/trip_recomendation/TripRecomendation";
 import { Container, Row, Col, Card, Image, ProgressBar, Button, Carousel } from "react-bootstrap";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
@@ -12,6 +12,11 @@ import { toast } from "react-toastify";
 function DetailTrip() {
   const { tripId } = useParams();
   const navigate = useNavigate();
+  const [dataRecomendation, setDataRecomendation] = useState([])
+  const pageState = {
+    pageNumber: 1,
+    pageSize: 4
+  }
   const [trip, setTrip] = useState({
     trip_id: "",
     owner_id: "",
@@ -29,6 +34,17 @@ function DetailTrip() {
     interest: "",
     location: "",
   });
+
+  const getRecomendationList = () => {
+    Axios.post(`${API_URL}/recomendation/list`, pageState)
+      .then((response) => {
+        setDataRecomendation(response.data.data.items)
+      }).catch((error) => {
+        console.log(error.data.message)
+      })
+  }
+
+  console.log(dataRecomendation)
 
   useEffect(() => {
     Axios.get(`${API_URL}/trip/detail/${tripId}`)
@@ -60,7 +76,9 @@ function DetailTrip() {
         }
         navigate("/");
       });
+    getRecomendationList()
   }, [tripId]);
+
   const memberPercent = (trip.count_member * 100) / trip.max_member;
   const sisa = 100 - memberPercent;
   return (
@@ -140,7 +158,7 @@ function DetailTrip() {
           <div className="other-trip mb-4">
             <h2>OTHER RECOMMENDATION</h2>
           </div>
-          <TripRecomendation />
+          <TripRecomendation data={dataRecomendation} />
         </Row>
       </Container>
       <Footer />

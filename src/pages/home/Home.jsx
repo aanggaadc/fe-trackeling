@@ -4,7 +4,7 @@ import "./Home.css";
 import Navbar from "../../components/navbar/NavbarMain";
 import Banner from "../../components/home/banner/Banner";
 import Footer from "../../components/footer/Footer";
-import TripRecomendation from "../../components/home/trip_recomendation/TripRecomendation";
+import TripRecomendation from "../../components/trip_recomendation/TripRecomendation";
 import TripUser from "../../components/home/trip_user/TripUser";
 import Team2 from "../../components/home/team/Team2";
 import Axios from 'axios'

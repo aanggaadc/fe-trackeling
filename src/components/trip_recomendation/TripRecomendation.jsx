@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Card, Row, Col } from 'react-bootstrap'
-import { API_URL } from '../../../config/url'
+import { API_URL } from '../../config/url'
 import { Link } from 'react-router-dom'
 
 function TripRecomendation({ data }) {
