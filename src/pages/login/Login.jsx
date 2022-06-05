@@ -8,9 +8,9 @@ import { Formik } from "formik";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
 import { toast } from "react-toastify";
-import { useDispatch } from 'react-redux'
-import { bindActionCreators } from "redux"
-import { actionCreators } from '../../store/index'
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../store/index";
 
 const renderTooltip = (props) => (
 	<Tooltip id="button-tooltip" {...props}>
@@ -21,7 +21,7 @@ const renderTooltip = (props) => (
 function Login() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { fillUser } = bindActionCreators(actionCreators, dispatch)
+	const { fillUser } = bindActionCreators(actionCreators, dispatch);
 
 	return (
 		<div id="background-login" className="content-login">
@@ -52,7 +52,7 @@ function Login() {
 				onSubmit={(values) => {
 					Axios.post(`${API_URL}/login`, values)
 						.then((response) => {
-							fillUser(response.data.data)
+							fillUser(response.data.data);
 							localStorage.setItem("authKey", JSON.stringify(response.data.data));
 							navigate("/");
 							toast.success("Welcome to Our Site!");
@@ -107,6 +107,9 @@ function Login() {
 			<div className="login-text">
 				<p>
 					No Account? <Link to="/signup">Signup</Link>
+				</p>
+				<p>
+					Admin? <Link to="/login-admin">Login Here!</Link>
 				</p>
 			</div>
 		</div>

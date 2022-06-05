@@ -37,6 +37,7 @@
 
 .line {
   border: 1px solid #188CBD;
+  margin-top: 60px;
 }
 
 .tags {
@@ -55,4 +56,8 @@
     overflow-y: hidden;
     white-space: nowrap;
   }
+}
+
+.link-trip:hover {
+  color: #0e1b4d;
 }

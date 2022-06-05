@@ -19,6 +19,7 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "./store/index";
 import useAuth from "./utils/auth";
 import Axios from "axios";
+import LoginAdmin from "./pages/login_admin/LoginAdmin";
 
 function App() {
 	const dispatch = useDispatch();
@@ -70,6 +71,7 @@ function App() {
 					<Route index element={<Home />} />
 					<Route element={<PublicRoutes />}>
 						<Route path="login" element={<Login />} />
+						<Route path="login-admin" element={<LoginAdmin />} />
 						<Route path="signup" element={<Signup />} />
 					</Route>
 					<Route path="trips" element={<Trip />} />

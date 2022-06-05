@@ -1,28 +1,26 @@
 import React from 'react'
 import { Col, Card, Button, Row, ProgressBar } from 'react-bootstrap'
+import { API_URL } from '../../../config/url'
+import { Link } from 'react-router-dom'
 
-function TripUser() {
-    const customButton = {
-        backgroundColor: '#188CBD',
-        color: 'white',
-        borderRadius: '5px',
-        borderStyle: "none"
-    }
+function TripUser({ data }) {
     return (
         <div className='container'>
             <Row xs={1} md={2} lg={4} className="g-2">
-                {Array.from({ length: 4 }).map((_, idx) => (
-                    <Col key={idx}>
+                {data.map((item, index) => (
+                    <Col key={index}>
                         <Card className='text-center shadow'>
-                            <Card.Img variant="top" src="https://picsum.photos/seed/picsum/400/200" />
+                            <Card.Img variant="top" src={`${API_URL}/${item.trip_image}`} />
                             <Card.Body>
-                                <Card.Title>Trip Name</Card.Title>
+                                <Card.Title><h3 style={{ fontWeight: "Bold" }}>{item.trip_name}</h3></Card.Title>
                                 <Card.Text>
-                                    <p>Location</p>
-                                    <p>Date</p>
+                                    <h4>{item.destination}</h4>
+                                    <p>{item.start_date} to {item.end_date}</p>
                                 </Card.Text>
-                                <ProgressBar variant="info" now={60} label={'6/10'} />
-                                <Button className='mt-2' style={customButton}>Detail</Button>
+                                <ProgressBar variant="info" now={(item.count_member * 100) / item.max_member} label={(item.count_member * 100) / item.max_member + "%"} />
+                                <Link to={`/trip/detail/${item.trip_id}`}>
+                                    <Button className='mt-2 trip-button'>Detail</Button>
+                                </Link>
                             </Card.Body>
                         </Card>
                     </Col>
