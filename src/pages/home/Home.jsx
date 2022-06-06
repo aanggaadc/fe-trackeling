@@ -11,7 +11,7 @@ import Axios from 'axios'
 import { API_URL } from '../../config/url'
 import { Link } from 'react-router-dom'
 import { RiArrowRightCircleFill } from "react-icons/ri";
-import NoData from './No-data.gif'
+import NoData from '../../no-data.gif'
 
 function Home() {
 	const [dataTrip, setDataTrip] = useState([])
