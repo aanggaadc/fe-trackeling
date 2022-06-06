@@ -56,7 +56,6 @@ function Trip() {
     Axios.post(`${API_URL}/trip/filter`, (trip, pageState))
       .then((response) => {
         const data = response.data.data.items
-        console.log(response.data.data.items)
         setTrip(data.map((item) => {
           return {
             trip_id: item.trip_id,
@@ -130,6 +129,8 @@ function Trip() {
       )
     }
   }
+
+  const isData = trip.length > 0
 
   return (
     <div>
@@ -288,7 +289,7 @@ function Trip() {
       </div>
       <div className="container mb-3">
         <Row xs={1} md={2} lg={4} className="g-4">
-          {Array.from(trip).map((_, idx) => (
+          {isData ? Array.from(trip).map((_, idx) => (
             <Col key={idx}>
               <Card className="text-center shadow">
                 <Card.Img variant="top" src={_.trip_image} />
@@ -307,7 +308,8 @@ function Trip() {
                 </Card.Body>
               </Card>
             </Col>
-          ))}
+          )) :
+            <img className="img-fluid" style={{ width: "500px", margin: "auto" }} src={NoData} alt="No-data" />}
         </Row>
       </div>
       <div className="container">
