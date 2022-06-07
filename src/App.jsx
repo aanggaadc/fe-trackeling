@@ -38,8 +38,10 @@ function App() {
 
 	Axios.interceptors.request.use(
 		function (config) {
-			if (authData) {
-				config.headers.Authorization = "Bearer " + authData.token;
+			const userAuthData = localStorage.getItem("authKey");
+			if (userAuthData) {
+				const parsedAuth = JSON.parse(userAuthData);
+				config.headers.Authorization = "Bearer " + parsedAuth.token;
 			}
 			return config;
 		},
