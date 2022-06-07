@@ -8,6 +8,7 @@ import Axios from "axios";
 import { API_URL } from "../../config/url";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector } from 'react-redux'
 
 function DetailTrip() {
   const { tripId } = useParams();
@@ -17,6 +18,10 @@ function DetailTrip() {
     pageNumber: 1,
     pageSize: 4
   }
+  const { user } = useSelector((state) => {
+    return state
+  })
+  // const [verification, setVerification] = useState()
   const [trip, setTrip] = useState({
     trip_id: "",
     owner_id: "",
@@ -34,6 +39,9 @@ function DetailTrip() {
     interest: "",
     location: "",
   });
+  const memberPercent = (trip.count_member * 100) / trip.max_member;
+  const sisa = 100 - memberPercent;
+  const isOwner = user.user_id === trip.owner_id
 
   const getRecomendationList = () => {
     Axios.post(`${API_URL}/recomendation/list`, pageState)
@@ -44,9 +52,16 @@ function DetailTrip() {
       })
   }
 
-  console.log(dataRecomendation)
+  const getVerfication = () => {
+    Axios.get(`${API_URL}/trip/join_verfication`)
+      .then((response) => {
+        console.log(response)
+      }).catch((error) => {
+        console.log(error)
+      })
+  }
 
-  useEffect(() => {
+  const getTrip = () => {
     Axios.get(`${API_URL}/trip/detail/${tripId}`)
       .then((response) => {
         const apiData = response.data.data;
@@ -76,11 +91,29 @@ function DetailTrip() {
         }
         navigate("/");
       });
+  }
+
+  const joinTrip = () => {
+    Axios.post(`${API_URL}/trip/join/${tripId}`)
+      .then((response) => {
+        console.log(response)
+        toast.success(`You Are Succesfully Join ${trip.trip_name} Trip!!!`)
+        navigate('/')
+      }).catch((error) => {
+        if (error.response) {
+          toast.error(error.response.data.message)
+        } else {
+          toast.error("Something Wrong")
+        }
+      })
+  }
+
+  useEffect(() => {
+    getVerfication()
+    getTrip()
     getRecomendationList()
   }, [tripId]);
 
-  const memberPercent = (trip.count_member * 100) / trip.max_member;
-  const sisa = 100 - memberPercent;
   return (
     <div className="bg-content">
       <NavbarMain />
@@ -122,12 +155,21 @@ function DetailTrip() {
             </div>
             <div>
               <Row className="justify-content-start mx-0 my-4">
-                <Button className="btn-detailtrip" variant="primary" active>
-                  Edit
-                </Button>
-                <Button className="btn-detailtrip ml-4" variant="danger" active>
-                  Delete
-                </Button>
+                {isOwner ?
+                  <>
+                    <Button className="btn-detailtrip" variant="primary" active>
+                      Edit
+                    </Button>
+                    <Button className="btn-detailtrip ml-4" variant="danger" active>
+                      Delete
+                    </Button>
+                  </>
+                  :
+                  <Button onClick={joinTrip} className="btn-detailtrip ml-4" variant="info" active>
+                    Join
+                  </Button>
+                }
+
               </Row>
             </div>
           </Col>
