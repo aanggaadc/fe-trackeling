@@ -11,6 +11,7 @@ import NoData from '../../no-data.gif'
 
 function MyTrip() {
 	const [data, setData] = useState([]);
+	const isData = data.length > 0
 	const [totalPages, setTotalPages] = useState(0)
 	const [currentPages, setCurrentPages] = useState(1)
 	const [filter, setFilter] = useState({
@@ -83,8 +84,6 @@ function MyTrip() {
 			)
 		}
 	}
-
-	const isData = data.length > 0
 
 	return (
 		<div>

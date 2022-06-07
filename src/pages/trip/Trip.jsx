@@ -53,6 +53,7 @@ function Trip() {
 			trip_status: "",
 		},
 	]);
+	const isData = trip.length > 0;
 
 	const getTrips = () => {
 		Axios.post(`${API_URL}/trip/filter`, (trip, pageState))
@@ -140,8 +141,6 @@ function Trip() {
 		}
 	};
 
-	const isData = trip.length > 0;
-
 	return (
 		<div>
 			<Navbar />
@@ -152,6 +151,8 @@ function Trip() {
 				</div>
 				<Formik
 					initialValues={{
+						pageNumbers: 1,
+						pageSize: 8,
 						trip_name: "",
 						destination: "",
 						start_date: "",
