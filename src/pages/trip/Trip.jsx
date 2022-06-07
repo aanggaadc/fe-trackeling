@@ -220,7 +220,7 @@ function Trip() {
                         handleChange(e)
                         setFilter({ ...filter, start_date: e.target.value })
                       }}
-                      value={filter.start_data} />
+                      value={filter.start_date} />
                   </div>
                 </div>
                 <div className="form-row col-9">
