@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 function DetailTrip() {
   const { tripId } = useParams();
   const navigate = useNavigate();
+  const [status, setStatus] = useState()
   const [dataRecomendation, setDataRecomendation] = useState([])
   const pageState = {
     pageNumber: 1,
@@ -21,7 +22,6 @@ function DetailTrip() {
   const { user } = useSelector((state) => {
     return state
   })
-  // const [verification, setVerification] = useState()
   const [trip, setTrip] = useState({
     trip_id: "",
     owner_id: "",
@@ -53,9 +53,9 @@ function DetailTrip() {
   }
 
   const getVerfication = () => {
-    Axios.get(`${API_URL}/trip/join_verfication`)
+    Axios.get(`${API_URL}/trip/join_verification/${tripId}`)
       .then((response) => {
-        console.log(response)
+        setStatus(response.data.status)
       }).catch((error) => {
         console.log(error)
       })
@@ -108,6 +108,35 @@ function DetailTrip() {
       })
   }
 
+  const handleTripButton = () => {
+    if (isOwner) {
+      return (
+        <>
+          <Button className="btn-detailtrip" variant="primary" active>
+            Edit
+          </Button>
+          <Button className="btn-detailtrip ml-4" variant="danger" active>
+            Delete
+          </Button>
+        </>
+      )
+    } else {
+      if (status == "UNJOIN") {
+        return (
+          <Button onClick={joinTrip} className="btn-detailtrip ml-4" variant="info" active>
+            Join
+          </Button>
+        )
+      } else {
+        return (
+          <Button className="btn-detailtrip ml-4" variant="info" disabled>
+            Already Join
+          </Button>
+        )
+      }
+    }
+  }
+
   useEffect(() => {
     getVerfication()
     getTrip()
@@ -155,21 +184,7 @@ function DetailTrip() {
             </div>
             <div>
               <Row className="justify-content-start mx-0 my-4">
-                {isOwner ?
-                  <>
-                    <Button className="btn-detailtrip" variant="primary" active>
-                      Edit
-                    </Button>
-                    <Button className="btn-detailtrip ml-4" variant="danger" active>
-                      Delete
-                    </Button>
-                  </>
-                  :
-                  <Button onClick={joinTrip} className="btn-detailtrip ml-4" variant="info" active>
-                    Join
-                  </Button>
-                }
-
+                {handleTripButton()}
               </Row>
             </div>
           </Col>
