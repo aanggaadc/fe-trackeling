@@ -61,6 +61,21 @@
 	transition: 0.5s ease-in;
 }
 
+.mytrip-filters .btn-clearField button:first-child {
+	border: 1px solid #188cbd;
+	border-radius: 5px;
+	background-color: #188cbd;
+	padding: 0.5em;
+	color: white;
+	font-weight: bold;
+	transition: 0.5s ease-in;
+}
+
+.mytrip-filters .btn-clearField button:first-child:hover {
+	background-color: white;
+	color: #188cbd;
+}
+
 .mytrip-filters .btn-clearField button:hover {
 	background-color: white;
 	color: #ef9b23;
