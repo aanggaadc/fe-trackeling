@@ -9,7 +9,7 @@ import DetailTrip from "./pages/detail_trip/DetailTrip";
 import UserAccount from "./pages/user_account/UserAccount";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
-import TripForm from "./pages/trip_form/TripForm";
+import CreateTrip from "./pages/create_trip/CreateTrip";
 import Trip from "./pages/trip/Trip";
 import { ToastContainer, toast } from "react-toastify";
 import PrivateRoutes from "./routes/PrivateRoutes";
@@ -79,7 +79,7 @@ function App() {
 					<Route path="trips" element={<Trip />} />
 					<Route element={<PrivateRoutes />}>
 						<Route path="trip">
-							<Route path="create" element={<TripForm />} />
+							<Route path="create" element={<CreateTrip />} />
 							<Route path="detail/:tripId" element={<DetailTrip />} />
 						</Route>
 						<Route path="user">
