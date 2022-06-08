@@ -122,12 +122,16 @@ function DetailTrip() {
             </div>
             <div>
               <Row className="justify-content-start mx-0 my-4">
-                <Button className="btn-detailtrip" variant="primary" active>
-                  Edit
-                </Button>
-                <Button className="btn-detailtrip ml-4" variant="danger" active>
-                  Delete
-                </Button>
+                <div>
+                  <Link to={`/trip/edit/${tripId}`}>
+                    <Button className="btn-detailtrip" variant="primary" active>
+                      Edit
+                    </Button>
+                  </Link>
+                  <Button className="btn-detailtrip ml-4" variant="danger" active>
+                    Delete
+                  </Button>
+                </div>
               </Row>
             </div>
           </Col>
