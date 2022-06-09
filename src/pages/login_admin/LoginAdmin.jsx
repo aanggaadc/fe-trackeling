@@ -8,9 +8,6 @@ import { Formik } from "formik";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../../store/index";
 
 const renderTooltip = (props) => (
   <Tooltip id="button-tooltip" {...props}>
@@ -20,8 +17,7 @@ const renderTooltip = (props) => (
 
 function LoginAdmin() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { fillUser } = bindActionCreators(actionCreators, dispatch);
+
 
   return (
     <div id="background-login" className="content-login">
@@ -46,35 +42,29 @@ function LoginAdmin() {
           password: "",
         }}
         onSubmit={(values) => {
-          // Axios.post(`${API_URL}/login`, values)
-          // 	.then((response) => {
-          // 		fillUser(response.data.data);
-          // 		localStorage.setItem("authKey", JSON.stringify(response.data.data));
-          // 		navigate("/");
-          // 		toast.success("Welcome to Our Site!");
-          // 	})
-          // 	.catch((error) => {
-          // 		if (error.response) {
-          // 			toast.error(error.response.data.message);
-          // 		} else {
-          // 			toast.error("Can't Connect to Our Server");
-          // 		}
-          // 		console.log(error);
-          // 	});
+          Axios.post(`${API_URL}/login-admin`, values)
+            .then((response) => {
+              localStorage.setItem("adminKey", JSON.stringify(response.data.data))
+              navigate(`/redirect`);
+            })
+            .catch((error) => {
+              if (error.response) {
+                toast.error(error.response.data.message);
+              } else {
+                toast.error("Can't Connect to Our Server");
+              }
+              console.log(error);
+            });
         }}
       >
         {({ handleSubmit, handleChange }) => (
           <form id="form-login">
             <div className="form-group">
               <input type="email" className="form-control" id="email" name="email" placeholder="Email" onChange={handleChange} />
-              {/* <small id="emailHelp" className="text-danger form-text">
-                {emailError}
-              </small> */}
             </div>
 
             <div className="form-group mt-3">
               <input type="password" className="form-control" id="password" name="password" placeholder="Password" onChange={handleChange} />
-              {/* <small id="passworderror" className="text-danger form-text"></small> */}
             </div>
 
             <div className="btn-login">

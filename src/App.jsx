@@ -21,11 +21,15 @@ import { actionCreators } from "./store/index";
 import useAuth from "./utils/auth";
 import Axios from "axios";
 import LoginAdmin from "./pages/login_admin/LoginAdmin";
+import Redirect from './Redirect'
+import { ADMIN_URL } from './config/url'
 
 function App() {
 	const dispatch = useDispatch();
 	const authData = useAuth();
 	const navigate = useNavigate();
+	const token = localStorage.getItem("adminKey")
+	const url = `${ADMIN_URL}/?token=${token}`
 	const { fillUser } = bindActionCreators(actionCreators, dispatch);
 	const { user } = useSelector((state) => {
 		return state;
@@ -35,6 +39,7 @@ function App() {
 		if (authData) {
 			fillUser(authData);
 		}
+		localStorage.removeItem("adminKey")
 	}, []);
 
 	Axios.interceptors.request.use(
@@ -91,6 +96,7 @@ function App() {
 						</Route>
 					</Route>
 				</Route>
+				<Route path='/redirect' element={<Redirect url={url} />} />
 			</Routes>
 			<ToastContainer />
 		</div>
