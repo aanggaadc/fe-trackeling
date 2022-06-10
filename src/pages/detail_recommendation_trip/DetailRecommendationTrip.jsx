@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NavbarMain from "../../components/navbar/NavbarMain";
 import Footer from "../../components/footer/Footer";
-import "./DetailTrip.css";
+import "./DetailRecommendationTrip.css";
 import { Container, Row, Col, Card, Image, ProgressBar, Button, Carousel } from "react-bootstrap";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
@@ -12,30 +12,30 @@ import NoData from "../../no-data.gif";
 import { RiArrowRightCircleFill } from "react-icons/ri";
 import { IoIosPerson } from "react-icons/io";
 
-function DetailTrip() {
-  const { tripId } = useParams();
+function DetailRecommendationTrip() {
+  const { recommendationId } = useParams();
   const navigate = useNavigate();
   const [dataOtherTrip, setDataOtherTrip] = useState([]);
   const [trip, setTrip] = useState({
-    trip_id: "",
-    owner_id: "",
-    trip_image: "",
-    destination: "",
-    trip_name: "",
-    start_date: "",
-    end_date: "",
-    count_member: "",
-    max_member: "",
-    description: "",
-    trip_status: "",
-    username: "",
-    avatar_url: "",
-    interest: "",
-    location: "",
+    // trip_id: "",
+    // owner_id: "",
+    // trip_image: "",
+    // destination: "",
+    // trip_name: "",
+    // start_date: "",
+    // end_date: "",
+    // count_member: "",
+    // max_member: "",
+    // description: "",
+    // trip_status: "",
+    // username: "",
+    // avatar_url: "",
+    // interest: "",
+    // location: "",
   });
 
   const getDataOtherTrip = () => {
-    Axios.get(`${API_URL}/trip/other_trip/${tripId}`)
+    Axios.get(`${API_URL}/trip/other_trip/${recommendationId}`)
       .then((response) => {
         console.log(response.data.data);
         setDataOtherTrip(response.data.data);
@@ -46,9 +46,10 @@ function DetailTrip() {
   };
 
   useEffect(() => {
-    Axios.get(`${API_URL}/trip/detail/${tripId}`)
+    Axios.get(`${API_URL}/recomendation/detail/${recommendationId}`)
       .then((response) => {
         const apiData = response.data.data;
+        console.log(apiData);
         setTrip({
           trip_id: apiData.trip_id,
           owner_id: apiData.owner_id,
@@ -76,7 +77,7 @@ function DetailTrip() {
         navigate("/");
       });
     getDataOtherTrip();
-  }, [tripId]);
+  }, [recommendationId]);
 
   const OtherTrip = () => {
     if (dataOtherTrip.length > 0) {
@@ -122,11 +123,12 @@ function DetailTrip() {
             </Card>
           </Col>
           <Col lg>
-            <h1>{trip.trip_name}</h1>
-            <h3>{trip.destination}</h3>
-            <p>
+            {/* <h1>{trip.trip_name}</h1> */}
+            {/* <h3>{trip.destination}</h3> */}
+            <h1>{trip.destination}</h1>
+            {/* <p>
               From {trip.start_date} to {trip.end_date}
-            </p>
+            </p> */}
             <div>
               Already Join
               <ProgressBar lg className="w-75" style={{ height: "30px" }}>
@@ -143,7 +145,7 @@ function DetailTrip() {
             <div>
               <Row className="justify-content-start mx-0 my-4">
                 <div className="p-0">
-                  <Link to={`/trip/edit/${tripId}`}>
+                  <Link to={`/trip/edit/${recommendationId}`}>
                     <Button className="btn-detailtrip" variant="primary" active>
                       Edit
                     </Button>
@@ -191,4 +193,4 @@ function DetailTrip() {
   );
 }
 
-export default DetailTrip;
+export default DetailRecommendationTrip;
