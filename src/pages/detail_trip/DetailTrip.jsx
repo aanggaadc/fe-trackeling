@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import NavbarMain from "../../components/navbar/NavbarMain";
 import Footer from "../../components/footer/Footer";
 import "./DetailTrip.css";
-import { Container, Row, Col, Card, Image, ProgressBar, Button, Carousel } from "react-bootstrap";
+import { Container, Row, Col, Card, Image, ProgressBar, Button, Carousel, Modal } from "react-bootstrap";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import OtherTripList from "../../components/other_trip/OtherTrip";
+import { useSelector } from "react-redux";
 import NoData from "../../no-data.gif";
 import { RiArrowRightCircleFill } from "react-icons/ri";
 import { IoIosPerson } from "react-icons/io";
@@ -15,7 +16,16 @@ import { IoIosPerson } from "react-icons/io";
 function DetailTrip() {
   const { tripId } = useParams();
   const navigate = useNavigate();
+  const [status, setStatus] = useState();
   const [dataOtherTrip, setDataOtherTrip] = useState([]);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const { user } = useSelector((state) => {
+    return state;
+  });
+
   const [trip, setTrip] = useState({
     trip_id: "",
     owner_id: "",
@@ -32,20 +42,30 @@ function DetailTrip() {
     avatar_url: "",
     interest: "",
     location: "",
+    phone_number: "",
   });
+  const memberPercent = (trip.count_member * 100) / trip.max_member;
+  const sisa = 100 - memberPercent;
+  const isOwner = user.user_id === trip.owner_id;
 
   const getDataOtherTrip = () => {
-    Axios.get(`${API_URL}/trip/other_trip/${tripId}`)
+    Axios.get(`${API_URL}/trip/other_trip/${tripId}`).then((response) => {
+      console.log(response.data.data);
+      setDataOtherTrip(response.data.data);
+    });
+  };
+
+  const getVerfication = () => {
+    Axios.get(`${API_URL}/trip/join_verification/${tripId}`)
       .then((response) => {
-        console.log(response.data.data);
-        setDataOtherTrip(response.data.data);
+        setStatus(response.data.status);
       })
       .catch((error) => {
-        console.log(error.data.message);
+        console.log(error);
       });
   };
 
-  useEffect(() => {
+  const getTrip = () => {
     Axios.get(`${API_URL}/trip/detail/${tripId}`)
       .then((response) => {
         const apiData = response.data.data;
@@ -65,6 +85,7 @@ function DetailTrip() {
           avatar_url: API_URL + apiData.avatar_url,
           interest: apiData.interest,
           location: apiData.location,
+          phone_number: apiData.phone_number,
         });
       })
       .catch((error) => {
@@ -75,8 +96,54 @@ function DetailTrip() {
         }
         navigate("/");
       });
-    getDataOtherTrip();
-  }, [tripId]);
+  };
+
+  const joinTrip = () => {
+    Axios.post(`${API_URL}/trip/join/${tripId}`)
+      .then((response) => {
+        console.log(response);
+        toast.success(`You Are Succesfully Join ${trip.trip_name} Trip!!!`);
+        navigate("/");
+      })
+      .catch((error) => {
+        if (error.response) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error("Something Wrong");
+        }
+      });
+  };
+
+  const handleTripButton = () => {
+    if (isOwner) {
+      return (
+        <div>
+          <Link to={`/trip/edit/${tripId}`}>
+            <Button className="btn-detailtrip" variant="primary" active>
+              Edit
+            </Button>
+          </Link>
+          <Button onClick={handleShow} className="btn-detailtrip ml-4" variant="danger" active>
+            Delete
+          </Button>
+        </div>
+      );
+    } else {
+      if (status === "UNJOIN") {
+        return (
+          <Button onClick={joinTrip} className="btn-detailtrip ml-4" variant="info" active>
+            Join
+          </Button>
+        );
+      } else {
+        return (
+          <Button style={{ width: "115px" }} className="btn-detailtrip ml-4" variant="info" disabled>
+            Already Join
+          </Button>
+        );
+      }
+    }
+  };
 
   const OtherTrip = () => {
     if (dataOtherTrip.length > 0) {
@@ -94,12 +161,48 @@ function DetailTrip() {
     }
   };
 
-  const memberPercent = (trip.count_member * 100) / trip.max_member;
-  const sisa = 100 - memberPercent;
+  const deleteTrip = () => {
+    Axios.delete(`${API_URL}/trip/delete/${tripId}`)
+      .then((response) => {
+        console.log(response);
+        toast.success(`Trip ${trip.trip_name} Successfully Deleted!!`);
+        navigate("/");
+      })
+      .catch((error) => {
+        if (error.response.message) {
+          toast.error(error.response.message);
+        } else {
+          toast.error("Cant Connect to Our Server!");
+        }
+      });
+  };
+
+  useEffect(() => {
+    getVerfication();
+    getTrip();
+    getDataOtherTrip();
+  }, [tripId]);
+
   return (
     <div className="bg-content">
       <NavbarMain />
       <Container className="detailtrip-container py-5">
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete {trip.trip_name} Trip</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure want to <span style={{ fontWeight: "bold" }}>delete</span> this trip?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              No
+            </Button>
+            <Button variant="danger" onClick={deleteTrip}>
+              Yes, I'm sure
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Row>
           <Col lg="5">
             <Card style={{ width: "100%" }}>
@@ -141,18 +244,7 @@ function DetailTrip() {
               </div>
             </div>
             <div>
-              <Row className="justify-content-start mx-0 my-4">
-                <div className="p-0">
-                  <Link to={`/trip/edit/${tripId}`}>
-                    <Button className="btn-detailtrip" variant="primary" active>
-                      Edit
-                    </Button>
-                  </Link>
-                  <Button className="btn-detailtrip ml-4" variant="danger" active>
-                    Delete
-                  </Button>
-                </div>
-              </Row>
+              <Row className="justify-content-start mx-0 my-4">{handleTripButton()}</Row>
             </div>
           </Col>
         </Row>
@@ -167,13 +259,21 @@ function DetailTrip() {
             <h3>Posted By</h3>
             <div className="posted">
               <Image src={trip.avatar_url} className="img-fluid rounded-circle shadow-4 image-profile" alt="..." />
-              {/* Alifiandy */}
               <div className="name-profile">
                 <p className="mb-0">
                   <b>{trip.username}</b>
                 </p>
                 <small className="mb-0">{trip.location}</small>
               </div>
+            </div>
+            <div className="mt-2">
+              <p>
+                Contact :{" "}
+                <a className="contact-owner" href={`https://wa.me/${trip.phone_number}`}>
+                  {" "}
+                  {trip.phone_number}{" "}
+                </a>{" "}
+              </p>
             </div>
           </Col>
         </Row>

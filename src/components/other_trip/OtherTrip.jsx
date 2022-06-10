@@ -10,7 +10,9 @@ function OtherTrip({ data }) {
         {data.map((item, index) => (
           <Col key={index}>
             <Card className="text-center shadow h-100">
-              <Card.Img variant="top" src={`${API_URL}/${item.trip_image}`} className="card-imgTrip" />
+              <div className="card-trip">
+                <Card.Img variant="top" src={`${API_URL}/${item.trip_image}`} className="card-imgTrip" />
+              </div>
               <Card.Body>
                 <Card.Title>
                   <h3 style={{ fontWeight: "Bold" }}>{item.trip_name}</h3>
