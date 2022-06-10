@@ -323,8 +323,8 @@ function Trip() {
 					{isData ? (
 						Array.from(trip).map((_, idx) => (
 							<Col key={idx}>
-								<Card className="text-center shadow">
-									<Card.Img variant="top" src={_.trip_image} />
+								<Card className="text-center shadow h-100">
+									<Card.Img variant="top" src={_.trip_image} className="card-imgTrip" />
 									<Card.Body>
 										<Card.Title>{_.trip_name}</Card.Title>
 										<Card.Text>

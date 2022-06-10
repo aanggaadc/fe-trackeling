@@ -2,17 +2,24 @@ import React, { useState, useEffect } from "react";
 import NavbarMain from "../../components/navbar/NavbarMain";
 import Footer from "../../components/footer/Footer";
 import "./DetailTrip.css";
-import TripRecomendation from "../../components/trip_recomendation/TripRecomendation";
 import { Container, Row, Col, Card, Image, ProgressBar, Button, Carousel } from "react-bootstrap";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+<<<<<<< HEAD
 import { useSelector } from 'react-redux'
+=======
+import OtherTripList from "../../components/detail_trip/OtherTrip";
+import NoData from "../../no-data.gif";
+import { RiArrowRightCircleFill } from "react-icons/ri";
+import { IoIosPerson } from "react-icons/io";
+>>>>>>> 88afd857eb6bea145e3382cf96848aa7325e4681
 
 function DetailTrip() {
   const { tripId } = useParams();
   const navigate = useNavigate();
+<<<<<<< HEAD
   const [status, setStatus] = useState()
   const [dataRecomendation, setDataRecomendation] = useState([])
   const pageState = {
@@ -22,6 +29,9 @@ function DetailTrip() {
   const { user } = useSelector((state) => {
     return state
   })
+=======
+  const [dataOtherTrip, setDataOtherTrip] = useState([]);
+>>>>>>> 88afd857eb6bea145e3382cf96848aa7325e4681
   const [trip, setTrip] = useState({
     trip_id: "",
     owner_id: "",
@@ -43,13 +53,13 @@ function DetailTrip() {
   const sisa = 100 - memberPercent;
   const isOwner = user.user_id === trip.owner_id
 
-  const getRecomendationList = () => {
-    Axios.post(`${API_URL}/recomendation/list`, pageState)
+  const getDataOtherTrip = () => {
+    Axios.get(`${API_URL}/trip/other_trip/${tripId}`)
       .then((response) => {
-        setDataRecomendation(response.data.data.items)
-      }).catch((error) => {
-        console.log(error.data.message)
+        console.log(response.data.data);
+        setDataOtherTrip(response.data.data);
       })
+<<<<<<< HEAD
   }
 
   const getVerfication = () => {
@@ -60,6 +70,12 @@ function DetailTrip() {
         console.log(error)
       })
   }
+=======
+      .catch((error) => {
+        console.log(error.data.message);
+      });
+  };
+>>>>>>> 88afd857eb6bea145e3382cf96848aa7325e4681
 
   const getTrip = () => {
     Axios.get(`${API_URL}/trip/detail/${tripId}`)
@@ -91,6 +107,7 @@ function DetailTrip() {
         }
         navigate("/");
       });
+<<<<<<< HEAD
   }
 
   const joinTrip = () => {
@@ -143,6 +160,29 @@ function DetailTrip() {
     getRecomendationList()
   }, [tripId]);
 
+=======
+    getDataOtherTrip();
+  }, [tripId]);
+
+  const OtherTrip = () => {
+    if (dataOtherTrip.length > 0) {
+      return (
+        <>
+          <OtherTripList data={dataOtherTrip} />
+          <Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3 link-trip" to="/trips">
+            See Other
+            <RiArrowRightCircleFill size={30} />
+          </Link>
+        </>
+      );
+    } else {
+      return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
+    }
+  };
+
+  const memberPercent = (trip.count_member * 100) / trip.max_member;
+  const sisa = 100 - memberPercent;
+>>>>>>> 88afd857eb6bea145e3382cf96848aa7325e4681
   return (
     <div className="bg-content">
       <NavbarMain />
@@ -180,11 +220,29 @@ function DetailTrip() {
                 <ProgressBar variant="success" now={memberPercent} label={`${memberPercent}%`} />
                 <ProgressBar variant="info" now={sisa} />
               </ProgressBar>
-              {trip.count_member}/{trip.max_member}
+              <div className="w-75">
+                <div className="member-info">
+                  <IoIosPerson />
+                  {trip.count_member}/{trip.max_member}
+                </div>
+              </div>
             </div>
             <div>
               <Row className="justify-content-start mx-0 my-4">
+<<<<<<< HEAD
                 {handleTripButton()}
+=======
+                <div className="p-0">
+                  <Link to={`/trip/edit/${tripId}`}>
+                    <Button className="btn-detailtrip" variant="primary" active>
+                      Edit
+                    </Button>
+                  </Link>
+                  <Button className="btn-detailtrip ml-4" variant="danger" active>
+                    Delete
+                  </Button>
+                </div>
+>>>>>>> 88afd857eb6bea145e3382cf96848aa7325e4681
               </Row>
             </div>
           </Col>
@@ -212,10 +270,11 @@ function DetailTrip() {
         </Row>
         <hr className="my-5" />
         <Row>
-          <div className="other-trip mb-4">
-            <h2>OTHER RECOMMENDATION</h2>
+          <div className="other-trip">
+            <h2>OTHER TRIP</h2>
+            <p>Other exciting places to visit</p>
           </div>
-          <TripRecomendation data={dataRecomendation} />
+          <div className="text-center">{OtherTrip()}</div>
         </Row>
       </Container>
       <Footer />

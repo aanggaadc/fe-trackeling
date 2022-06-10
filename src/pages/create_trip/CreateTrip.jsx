@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './TripForm.css'
+import './CreateTrip.css'
 import Navbar from '../../components/navbar/NavbarMain'
 import Footer from '../../components/footer/Footer'
 import { Formik, Form } from 'formik'
@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { FaUpload } from "react-icons/fa";
 
 
-function TripForm() {
+function CreateTrip() {
     const navigate = useNavigate()
     const [image, setImage] = useState("")
 
@@ -157,4 +157,4 @@ function TripForm() {
     )
 }
 
-export default TripForm
+export default CreateTrip

@@ -9,7 +9,8 @@ import DetailTrip from "./pages/detail_trip/DetailTrip";
 import UserAccount from "./pages/user_account/UserAccount";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
-import TripForm from "./pages/trip_form/TripForm";
+import CreateTrip from "./pages/create_trip/CreateTrip";
+import EditTrip from "./pages/edit_trip/EditTrip"
 import Trip from "./pages/trip/Trip";
 import { ToastContainer, toast } from "react-toastify";
 import PrivateRoutes from "./routes/PrivateRoutes";
@@ -20,11 +21,15 @@ import { actionCreators } from "./store/index";
 import useAuth from "./utils/auth";
 import Axios from "axios";
 import LoginAdmin from "./pages/login_admin/LoginAdmin";
+import Redirect from './Redirect'
+import { ADMIN_URL } from './config/url'
 
 function App() {
 	const dispatch = useDispatch();
 	const authData = useAuth();
 	const navigate = useNavigate();
+	const token = localStorage.getItem("adminKey")
+	const url = `${ADMIN_URL}/?token=${token}`
 	const { fillUser } = bindActionCreators(actionCreators, dispatch);
 	const { user } = useSelector((state) => {
 		return state;
@@ -34,6 +39,7 @@ function App() {
 		if (authData) {
 			fillUser(authData);
 		}
+		localStorage.removeItem("adminKey")
 	}, []);
 
 	Axios.interceptors.request.use(
@@ -79,7 +85,8 @@ function App() {
 					<Route path="trips" element={<Trip />} />
 					<Route element={<PrivateRoutes />}>
 						<Route path="trip">
-							<Route path="create" element={<TripForm />} />
+							<Route path="create" element={<CreateTrip />} />
+							<Route path="edit/:tripId" element={<EditTrip />} />
 							<Route path="detail/:tripId" element={<DetailTrip />} />
 						</Route>
 						<Route path="user">
@@ -89,6 +96,7 @@ function App() {
 						</Route>
 					</Route>
 				</Route>
+				<Route path='/redirect' element={<Redirect url={url} />} />
 			</Routes>
 			<ToastContainer />
 		</div>

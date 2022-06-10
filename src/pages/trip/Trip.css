@@ -19,9 +19,9 @@
 	margin: 10px 10px;
 }
 
-.card img {
+.card .card-imgTrip {
 	object-fit: cover;
-	object-position: top;
+	object-position: center;
 	overflow: hidden;
 	height: 25vh;
 }
