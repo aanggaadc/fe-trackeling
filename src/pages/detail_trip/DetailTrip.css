@@ -79,3 +79,12 @@ p {
   bottom: 0;
   left: calc(50% - 25px);
 }
+
+.contact-owner {
+  text-decoration: none;
+  color: black
+}
+
+.contact-owner:hover{
+  color: #188cbd
+}
