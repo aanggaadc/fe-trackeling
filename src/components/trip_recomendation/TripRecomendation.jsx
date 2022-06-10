@@ -10,7 +10,9 @@ function TripRecomendation({ data }) {
                 {data.map((item, index) => (
                     <Col key={index}>
                         <Card className='text-center shadow'>
-                            <Card.Img variant="top" src={`${API_URL}/${item.trip_image}`} />
+                            <div className='card-trip'>
+                                <Card.Img variant="top" src={`${API_URL}/${item.trip_image}`} className="card-imgTrip" />
+                            </div>
                             <Card.Body>
                                 <Card.Title><h3 style={{ fontWeight: "Bold" }}>{item.destination}</h3></Card.Title>
                                 {/* <Card.Text>

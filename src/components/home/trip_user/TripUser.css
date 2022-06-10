@@ -1,0 +1,12 @@
+.card-trip {
+    overflow: hidden;
+    
+}
+
+.card-imgTrip{
+    transition: all ease-in-out 0.4s;
+}
+
+.card-imgTrip:hover{
+    transform: scale(1.1);
+}

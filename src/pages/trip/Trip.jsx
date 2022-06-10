@@ -324,7 +324,9 @@ function Trip() {
 						Array.from(trip).map((_, idx) => (
 							<Col key={idx}>
 								<Card className="text-center shadow h-100">
-									<Card.Img variant="top" src={_.trip_image} className="card-imgTrip" />
+									<div className="card-trip">
+										<Card.Img variant="top" src={_.trip_image} className="card-imgTrip" />
+									</div>
 									<Card.Body>
 										<Card.Title>{_.trip_name}</Card.Title>
 										<Card.Text>
