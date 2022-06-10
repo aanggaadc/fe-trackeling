@@ -2,21 +2,20 @@ import React, { useState, useEffect } from "react";
 import NavbarMain from "../../components/navbar/NavbarMain";
 import Footer from "../../components/footer/Footer";
 import "./DetailTrip.css";
-import TripRecomendation from "../../components/trip_recomendation/TripRecomendation";
 import { Container, Row, Col, Card, Image, ProgressBar, Button, Carousel } from "react-bootstrap";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import OtherTripList from "../../components/detail_trip/OtherTrip";
+import NoData from "../../no-data.gif";
+import { RiArrowRightCircleFill } from "react-icons/ri";
+import { IoIosPerson } from "react-icons/io";
 
 function DetailTrip() {
   const { tripId } = useParams();
   const navigate = useNavigate();
-  const [dataRecomendation, setDataRecomendation] = useState([])
-  const pageState = {
-    pageNumber: 1,
-    pageSize: 4
-  }
+  const [dataOtherTrip, setDataOtherTrip] = useState([]);
   const [trip, setTrip] = useState({
     trip_id: "",
     owner_id: "",
@@ -35,16 +34,16 @@ function DetailTrip() {
     location: "",
   });
 
-  const getRecomendationList = () => {
-    Axios.post(`${API_URL}/recomendation/list`, pageState)
+  const getDataOtherTrip = () => {
+    Axios.get(`${API_URL}/trip/other_trip/${tripId}`)
       .then((response) => {
-        setDataRecomendation(response.data.data.items)
-      }).catch((error) => {
-        console.log(error.data.message)
+        console.log(response.data.data);
+        setDataOtherTrip(response.data.data);
       })
-  }
-
-  console.log(dataRecomendation)
+      .catch((error) => {
+        console.log(error.data.message);
+      });
+  };
 
   useEffect(() => {
     Axios.get(`${API_URL}/trip/detail/${tripId}`)
@@ -76,8 +75,24 @@ function DetailTrip() {
         }
         navigate("/");
       });
-    getRecomendationList()
+    getDataOtherTrip();
   }, [tripId]);
+
+  const OtherTrip = () => {
+    if (dataOtherTrip.length > 0) {
+      return (
+        <>
+          <OtherTripList data={dataOtherTrip} />
+          <Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3 link-trip" to="/trips">
+            See Other
+            <RiArrowRightCircleFill size={30} />
+          </Link>
+        </>
+      );
+    } else {
+      return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
+    }
+  };
 
   const memberPercent = (trip.count_member * 100) / trip.max_member;
   const sisa = 100 - memberPercent;
@@ -118,11 +133,16 @@ function DetailTrip() {
                 <ProgressBar variant="success" now={memberPercent} label={`${memberPercent}%`} />
                 <ProgressBar variant="info" now={sisa} />
               </ProgressBar>
-              {trip.count_member}/{trip.max_member}
+              <div className="w-75">
+                <div className="member-info">
+                  <IoIosPerson />
+                  {trip.count_member}/{trip.max_member}
+                </div>
+              </div>
             </div>
             <div>
               <Row className="justify-content-start mx-0 my-4">
-                <div>
+                <div className="p-0">
                   <Link to={`/trip/edit/${tripId}`}>
                     <Button className="btn-detailtrip" variant="primary" active>
                       Edit
@@ -159,10 +179,11 @@ function DetailTrip() {
         </Row>
         <hr className="my-5" />
         <Row>
-          <div className="other-trip mb-4">
-            <h2>OTHER RECOMMENDATION</h2>
+          <div className="other-trip">
+            <h2>OTHER TRIP</h2>
+            <p>Other exciting places to visit</p>
           </div>
-          <TripRecomendation data={dataRecomendation} />
+          <div className="text-center">{OtherTrip()}</div>
         </Row>
       </Container>
       <Footer />
