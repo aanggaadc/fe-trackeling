@@ -16,13 +16,18 @@ import NoData from "../../no-data.gif";
 function Home() {
 	const [dataTrip, setDataTrip] = useState([]);
 	const [dataRecomendation, setDataRecomendation] = useState([]);
-	const pageState = {
+	const [pageStateRecomendation, setPageStateRecomendation] = useState({
 		pageNumber: 1,
 		pageSize: 4,
-	};
+		destination: ""
+	})
+	const pageState = {
+		pageNumber: 1,
+		pageSize: 4
+	}
 
 	const getRecomendationList = () => {
-		Axios.post(`${API_URL}/recomendation/list`, pageState)
+		Axios.post(`${API_URL}/recomendation/list`, pageStateRecomendation)
 			.then((response) => {
 				setDataRecomendation(response.data.data.items);
 			})
@@ -44,7 +49,7 @@ function Home() {
 	useEffect(() => {
 		getRecomendationList();
 		getTripList();
-	}, []);
+	}, [pageStateRecomendation]);
 
 	const recomendation = () => {
 		if (dataRecomendation.length > 0) {
@@ -85,13 +90,6 @@ function Home() {
 		}
 	};
 
-	const customButton = {
-		backgroundColor: "#0e1b4d",
-		color: "white",
-		borderRadius: "5px",
-		borderStyle: "none",
-	};
-
 	return (
 		<div>
 			<Navbar />
@@ -106,11 +104,21 @@ function Home() {
 						</div>
 
 						<div className="tags">
-							<Button className="tags-btn"> Bali</Button>
-							<Button className="tags-btn"> Bandung</Button>
-							<Button className="tags-btn tags-active"> Semarang</Button>
-							<Button className="tags-btn"> Jakarta</Button>
-							<Button className="tags-btn"> Labuan Bajo</Button>
+							<Button onClick={() => {
+								setPageStateRecomendation({ ...pageStateRecomendation, destination: "bali" })
+							}} className="tags-btn"> Bali</Button>
+							<Button onClick={() => {
+								setPageStateRecomendation({ ...pageStateRecomendation, destination: "bandung" })
+							}} className="tags-btn"> Bandung</Button>
+							<Button onClick={() => {
+								setPageStateRecomendation({ ...pageStateRecomendation, destination: "semarang" })
+							}} className="tags-btn tags-active"> Semarang</Button>
+							<Button onClick={() => {
+								setPageStateRecomendation({ ...pageStateRecomendation, destination: "jakarta" })
+							}} className="tags-btn"> Jakarta</Button>
+							<Button onClick={() => {
+								setPageStateRecomendation({ ...pageStateRecomendation, destination: "labuan bajo" })
+							}} className="tags-btn"> Labuan Bajo</Button>
 						</div>
 
 						<div className="mt-3 text-center">{recomendation()}</div>
