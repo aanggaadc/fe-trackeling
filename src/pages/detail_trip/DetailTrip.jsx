@@ -233,8 +233,8 @@ function DetailTrip() {
             <div>
               Already Join
               <ProgressBar lg className="w-75" style={{ height: "30px" }}>
-                <ProgressBar variant="success" now={memberPercent} label={`${memberPercent}%`} />
-                <ProgressBar variant="info" now={sisa} />
+                <ProgressBar variant="success" now={Math.ceil(memberPercent)} label={`${Math.ceil(memberPercent)}%`} />
+                <ProgressBar variant="info" now={Math.floor(sisa)} />
               </ProgressBar>
               <div className="w-75">
                 <div className="member-info">
