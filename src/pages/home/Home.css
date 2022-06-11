@@ -1,63 +1,85 @@
 .recomendation {
-  margin-bottom: 60px;
-  position: relative;
-  padding-bottom: 20px;
+	margin-bottom: 60px;
+	position: relative;
+	padding-bottom: 20px;
 }
 
 .recomendation::before {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 60px;
-  height: 5px;
-  background: #188CBD;
-  bottom: 0;
-  left: calc(50% - 25px);
+	content: "";
+	position: absolute;
+	display: block;
+	width: 60px;
+	height: 5px;
+	background: #188cbd;
+	bottom: 0;
+	left: calc(50% - 25px);
 }
 
 .recomendation h2 {
-  font-size: 34px;
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: 700;
-  margin-bottom: 10px;
-  font-family: "Raleway", sans-serif;
-  padding: 0;
-  color: #0e1b4d;
+	font-size: 34px;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: 700;
+	margin-bottom: 10px;
+	font-family: "Raleway", sans-serif;
+	padding: 0;
+	color: #0e1b4d;
 }
 
 .recomendation p {
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  font-size: 18px;
-  font-weight: 500;
-  color: #9195a2;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	font-size: 18px;
+	font-weight: 500;
+	color: #9195a2;
 }
 
 .line {
-  border: 1px solid #188CBD;
-  margin-top: 60px;
+	border: 1px solid #188cbd;
+	margin-top: 60px;
 }
 
 .tags {
-  margin-left: 10px;
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
+	margin-left: 10px;
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
 }
 
+.tags .tags-btn {
+	background-color: transparent;
+	border: 1px solid rgb(83, 130, 177);
+	color: #188cbd;
+}
+
+.tags .tags-btn:focus {
+	background-color: #0e1b4d !important;
+	color: white !important;
+	box-shadow: none !important;
+}
+
+.tags .tags-btn:active {
+	border: none !important;
+	box-shadow: none !important;
+}
+
+/* .tags-active {
+	background-color: #0e1b4d !important;
+	color: white !important;
+} */
+
 @media (max-width: 575.98px) {
-  .tags {
-    margin-left: 10px;
-    width: 95%;
-    display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-  }
+	.tags {
+		margin-left: 10px;
+		width: 95%;
+		display: flex;
+		overflow-x: auto;
+		overflow-y: hidden;
+		white-space: nowrap;
+	}
 }
 
 .link-trip:hover {
-  color: #0e1b4d;
+	color: #0e1b4d;
 }

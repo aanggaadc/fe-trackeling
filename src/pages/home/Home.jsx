@@ -7,72 +7,83 @@ import Footer from "../../components/footer/Footer";
 import TripRecomendation from "../../components/trip_recomendation/TripRecomendation";
 import TripUser from "../../components/home/trip_user/TripUser";
 import Team2 from "../../components/home/team/Team2";
-import Axios from 'axios'
-import { API_URL } from '../../config/url'
-import { Link } from 'react-router-dom'
+import Axios from "axios";
+import { API_URL } from "../../config/url";
+import { Link } from "react-router-dom";
 import { RiArrowRightCircleFill } from "react-icons/ri";
-import NoData from '../../no-data.gif'
+import NoData from "../../no-data.gif";
 
 function Home() {
-	const [dataTrip, setDataTrip] = useState([])
-	const [dataRecomendation, setDataRecomendation] = useState([])
+	const [dataTrip, setDataTrip] = useState([]);
+	const [dataRecomendation, setDataRecomendation] = useState([]);
 	const pageState = {
 		pageNumber: 1,
-		pageSize: 4
-	}
+		pageSize: 4,
+	};
 
 	const getRecomendationList = () => {
 		Axios.post(`${API_URL}/recomendation/list`, pageState)
 			.then((response) => {
-				setDataRecomendation(response.data.data.items)
-			}).catch((error) => {
-				console.log(error.data.message)
+				setDataRecomendation(response.data.data.items);
 			})
-	}
+			.catch((error) => {
+				console.log(error.data.message);
+			});
+	};
 
 	const getTripList = () => {
 		Axios.post(`${API_URL}/trip/list`, pageState)
 			.then((response) => {
-				setDataTrip(response.data.data.items)
-			}).catch((error) => {
-				console.log(error.data.message)
+				setDataTrip(response.data.data.items);
 			})
-	}
+			.catch((error) => {
+				console.log(error.data.message);
+			});
+	};
 
 	useEffect(() => {
-		getRecomendationList()
-		getTripList()
-	}, [])
+		getRecomendationList();
+		getTripList();
+	}, []);
 
 	const recomendation = () => {
 		if (dataRecomendation.length > 0) {
 			return (
 				<>
 					<TripRecomendation data={dataRecomendation} />
-					<Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3" to='recomendation'>See all <RiArrowRightCircleFill size={30} /></Link>
+					<Link
+						style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }}
+						className="float-end mt-3"
+						to="recomendation"
+					>
+						See all <RiArrowRightCircleFill size={30} />
+					</Link>
 				</>
-			)
+			);
 		} else {
-			return (
-				<img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />
-			)
+			return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
 		}
-	}
+	};
 
 	const trip = () => {
 		if (dataTrip.length > 0) {
 			return (
 				<>
 					<TripUser data={dataTrip} />
-					<Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3 link-trip" to='trips'>See all<RiArrowRightCircleFill size={30} /></Link>
+					<Link
+						style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }}
+						className="float-end mt-3 link-trip"
+						to="trips"
+					>
+						See all
+						<RiArrowRightCircleFill size={30} />
+					</Link>
 				</>
-			)
+			);
 		} else {
-			return (
-				<img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />
-			)
+			return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
 		}
-	}
+	};
 
 	const customButton = {
 		backgroundColor: "#0e1b4d",
@@ -95,16 +106,14 @@ function Home() {
 						</div>
 
 						<div className="tags">
-							<Button style={customButton}> Bali</Button>
-							<Button style={customButton}> Bandung</Button>
-							<Button style={customButton}> Semarang</Button>
-							<Button style={customButton}> Jakarta</Button>
-							<Button style={customButton}> Labuan Bajo</Button>
+							<Button className="tags-btn"> Bali</Button>
+							<Button className="tags-btn"> Bandung</Button>
+							<Button className="tags-btn tags-active"> Semarang</Button>
+							<Button className="tags-btn"> Jakarta</Button>
+							<Button className="tags-btn"> Labuan Bajo</Button>
 						</div>
 
-						<div className="mt-3 text-center">
-							{recomendation()}
-						</div>
+						<div className="mt-3 text-center">{recomendation()}</div>
 
 						<hr className="line" />
 					</div>
@@ -117,9 +126,7 @@ function Home() {
 							<p>Latest Trips Available to Join</p>
 						</div>
 
-						<div className="text-center">
-							{trip()}
-						</div>
+						<div className="text-center">{trip()}</div>
 					</div>
 				</section>
 			</main>
