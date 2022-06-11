@@ -38,6 +38,13 @@
     box-shadow: 3px 4px 11px 1px rgba(0,0,0,0.4);
 }
 
+#members .members img {
+    float: left;
+    object-fit: cover;
+    width: 520px;
+    height: 400px;
+}
+
 #members .members .details {
     background: rgba(6, 12, 34, 0.76);
     position: absolute;

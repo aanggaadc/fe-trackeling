@@ -1,6 +1,14 @@
 import React from "react";
 import "./Team2.css";
 import { BsTwitter, BsGithub, BsInstagram, BsLinkedin } from "react-icons/bs";
+import Rizky from './rizky.jpg'
+import Juan from './juan.jpg'
+import Ninda from './ninda.jpeg'
+import Angga from './angga.JPG'
+import Didi from './didi.jfif'
+import Alfiandy from './alfiandy.jpg'
+import Kisbayu from './kisbayu.jpg'
+import Alifadel from './alifadel.jpg'
 
 function Team2() {
 	return (
@@ -12,24 +20,24 @@ function Team2() {
 					<hr />
 				</div>
 
-				<div className="row d-flex justify-content-center">
+				<div className="row d-flex justify-content-center mt-5">
 					<div className="col-lg-3 col-md-6">
 						<div className="members">
-							<img src="https://api.lorem.space/image/face" alt="juan" className="img-fluid" />
+							<img src={Didi} alt="juan" className="img-fluid" />
 							<div className="details">
-								<h3>Member</h3>
-								<p>Developer</p>
+								<h3>Didi</h3>
+								<p>Mentor</p>
 								<div className="social">
-									<a href="#twitter">
+									{/* <a href="#twitter">
 										<BsTwitter />
-									</a>
-									<a href="#github">
+									</a> */}
+									<a href="https://github.com/didihottest">
 										<BsGithub />
 									</a>
-									<a href="#instagram">
+									{/* <a href="#instagram">
 										<BsInstagram />
-									</a>
-									<a href="#linkedid">
+									</a> */}
+									<a href="https://www.linkedin.com/in/mdidims/">
 										<BsLinkedin />
 									</a>
 								</div>
@@ -38,21 +46,21 @@ function Team2() {
 					</div>
 					<div className="col-lg-3 col-md-6">
 						<div className="members">
-							<img src="https://api.lorem.space/image/face" alt="Speaker 2" className="img-fluid" />
+							<img src={Juan} alt="Speaker 2" className="img-fluid" />
 							<div className="details">
-								<h3>Member</h3>
-								<p>Developer</p>
+								<h3>Juan</h3>
+								<p>Frontend Developer</p>
 								<div className="social">
-									<a href="#twitter">
+									{/* <a href="#twitter">
 										<BsTwitter />
-									</a>
-									<a href="#github">
+									</a> */}
+									<a href="https://github.com/deriscode">
 										<BsGithub />
 									</a>
-									<a href="#instagram">
+									{/* <a href="#instagram">
 										<BsInstagram />
-									</a>
-									<a href="#linkedid">
+									</a> */}
+									<a href="https://www.linkedin.com/in/juan-d-7b565123b/">
 										<BsLinkedin />
 									</a>
 								</div>
@@ -61,21 +69,21 @@ function Team2() {
 					</div>
 					<div className="col-lg-3 col-md-6">
 						<div className="members">
-							<img src="https://api.lorem.space/image/face" alt="Speaker 3" className="img-fluid" />
+							<img src={Angga} alt="Speaker 3" className="img-fluid" />
 							<div className="details">
-								<h3>Member</h3>
-								<p>Developer</p>
+								<h3>Angga</h3>
+								<p>Fullstack Developer</p>
 								<div className="social">
-									<a href="#twitter">
+									{/* <a href="#twitter">
 										<BsTwitter />
-									</a>
-									<a href="#github">
+									</a> */}
+									<a href="https://github.com/aanggaadc">
 										<BsGithub />
 									</a>
-									<a href="#instagram">
+									{/* <a href="#instagram">
 										<BsInstagram />
-									</a>
-									<a href="#linkedid">
+									</a> */}
+									<a href="https://www.linkedin.com/in/anggara-setiawan-b605a021b/">
 										<BsLinkedin />
 									</a>
 								</div>
@@ -84,21 +92,21 @@ function Team2() {
 					</div>
 					<div className="col-lg-3 col-md-6">
 						<div className="members">
-							<img src="https://api.lorem.space/image/face" alt="Speaker 4" className="img-fluid" />
+							<img src={Rizky} alt="Speaker 4" className="img-fluid" />
 							<div className="details">
-								<h3>Member</h3>
-								<p>Developer</p>
+								<h3>Rizky</h3>
+								<p>Fullstack Developer</p>
 								<div className="social">
-									<a href="#twitter">
+									{/* <a href="#twitter">
 										<BsTwitter />
-									</a>
-									<a href="#github">
+									</a> */}
+									<a href="https://github.com/RizkyPDA">
 										<BsGithub />
 									</a>
-									<a href="#instagram">
+									{/* <a href="#instagram">
 										<BsInstagram />
-									</a>
-									<a href="#linkedid">
+									</a> */}
+									<a href="https://www.linkedin.com/in/muhammadrizkyrs/">
 										<BsLinkedin />
 									</a>
 								</div>
@@ -107,21 +115,21 @@ function Team2() {
 					</div>
 					<div className="col-lg-3 col-md-6">
 						<div className="members">
-							<img src="https://api.lorem.space/image/face" alt="Speaker 6" className="img-fluid" />
+							<img src={Ninda} alt="Speaker 6" className="img-fluid" />
 							<div className="details">
-								<h3>Member</h3>
-								<p>Developer</p>
+								<h3>Ninda</h3>
+								<p>Fullstack Developer</p>
 								<div className="social">
-									<a href="#twitter">
+									{/* <a href="#twitter">
 										<BsTwitter />
-									</a>
-									<a href="#github">
+									</a> */}
+									<a href="https://github.com/shafiraninda">
 										<BsGithub />
 									</a>
-									<a href="#instagram">
+									{/* <a href="#instagram">
 										<BsInstagram />
-									</a>
-									<a href="#linkedid">
+									</a> */}
+									<a href="https://www.linkedin.com/in/nindasa/">
 										<BsLinkedin />
 									</a>
 								</div>
@@ -131,21 +139,21 @@ function Team2() {
 
 					<div className="col-lg-3 col-md-6">
 						<div className="members">
-							<img src="https://api.lorem.space/image/face" alt="Speaker 4" className="img-fluid" />
+							<img src={Alfiandy} alt="Speaker 4" className="img-fluid" />
 							<div className="details">
-								<h3>Member</h3>
-								<p>Developer</p>
+								<h3>Alfiandy</h3>
+								<p>Fullstack Developer</p>
 								<div className="social">
-									<a href="#twitter">
+									<a href="https://twitter.com/Alifiandyn">
 										<BsTwitter />
 									</a>
-									<a href="#github">
+									<a href="https://github.com/alifiandyn">
 										<BsGithub />
 									</a>
-									<a href="#instagram">
+									<a href="https://www.instagram.com/alifiandyn/">
 										<BsInstagram />
 									</a>
-									<a href="#linkedid">
+									<a href="https://www.linkedin.com/in/alifiandy-nugraha-4859161a4/">
 										<BsLinkedin />
 									</a>
 								</div>
@@ -154,21 +162,21 @@ function Team2() {
 					</div>
 					<div className="col-lg-3 col-md-6">
 						<div className="members">
-							<img src="https://api.lorem.space/image/face" alt="Speaker 6" className="img-fluid" />
+							<img src={Kisbayu} alt="Speaker 6" className="img-fluid" />
 							<div className="details">
-								<h3>Member</h3>
-								<p>Developer</p>
+								<h3>Kisbayu</h3>
+								<p>Fullstack Developer</p>
 								<div className="social">
-									<a href="#twitter">
+									{/* <a href="#twitter">
 										<BsTwitter />
-									</a>
-									<a href="#github">
+									</a> */}
+									<a href="https://github.com/kisbayu">
 										<BsGithub />
 									</a>
-									<a href="#instagram">
+									{/* <a href="#instagram">
 										<BsInstagram />
-									</a>
-									<a href="#linkedid">
+									</a> */}
+									<a href="https://www.linkedin.com/in/kisbayuadji/">
 										<BsLinkedin />
 									</a>
 								</div>
@@ -177,23 +185,23 @@ function Team2() {
 					</div>
 					<div className="col-lg-3 col-md-6">
 						<div className="members">
-							<img src="https://api.lorem.space/image/face" alt="Speaker 6" className="img-fluid" />
+							<img src={Alifadel} alt="Speaker 6" className="img-fluid" />
 							<div className="details">
-								<h3>Member</h3>
-								<p>Developer</p>
+								<h3>Alifadel</h3>
+								<p>Fullstack Developer</p>
 								<div className="social">
-									<a href="#twitter">
+									{/* <a href="#twitter">
 										<BsTwitter />
-									</a>
-									<a href="#github">
+									</a> */}
+									<a href="https://github.com/Aliffadel">
 										<BsGithub />
 									</a>
-									<a href="#instagram">
+									{/* <a href="#instagram">
 										<BsInstagram />
-									</a>
-									<a href="#linkedid">
+									</a> */}
+									{/* <a href="#linkedid">
 										<BsLinkedin />
-									</a>
+									</a> */}
 								</div>
 							</div>
 						</div>
