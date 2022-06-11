@@ -103,7 +103,7 @@ function DetailTrip() {
       .then((response) => {
         console.log(response);
         toast.success(`You Are Succesfully Join ${trip.trip_name} Trip!!!`);
-        navigate("/");
+        getVerfication()
       })
       .catch((error) => {
         if (error.response) {
