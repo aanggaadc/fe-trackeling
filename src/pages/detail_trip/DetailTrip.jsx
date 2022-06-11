@@ -104,6 +104,7 @@ function DetailTrip() {
         console.log(response);
         toast.success(`You Are Succesfully Join ${trip.trip_name} Trip!!!`);
         getVerfication()
+        getTrip()
       })
       .catch((error) => {
         if (error.response) {
