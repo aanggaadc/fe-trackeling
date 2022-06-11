@@ -1,14 +1,14 @@
 import React from "react";
 import "./Team2.css";
 import { BsTwitter, BsGithub, BsInstagram, BsLinkedin } from "react-icons/bs";
-import Rizky from './rizky.jpg'
-import Juan from './juan.jpg'
-import Ninda from './ninda.jpeg'
-import Angga from './angga.JPG'
-import Didi from './didi.jfif'
-import Alfiandy from './alfiandy.jpg'
-import Kisbayu from './kisbayu.jpg'
-import Alifadel from './alifadel.jpg'
+import Rizky from "./rizky.jpg";
+import Juan from "./juan.jpg";
+import Ninda from "./ninda.jpeg";
+import Angga from "./angga.JPG";
+import Didi from "./didi.jfif";
+import Alifiandy from "./alifiandy.jpg";
+import Kisbayu from "./kisbayu.jpg";
+import Alifadel from "./alifadel.jpg";
 
 function Team2() {
 	return (
@@ -139,9 +139,9 @@ function Team2() {
 
 					<div className="col-lg-3 col-md-6">
 						<div className="members">
-							<img src={Alfiandy} alt="Speaker 4" className="img-fluid" />
+							<img src={Alifiandy} alt="Speaker 4" className="img-fluid" />
 							<div className="details">
-								<h3>Alfiandy</h3>
+								<h3>Alifiandy</h3>
 								<p>Fullstack Developer</p>
 								<div className="social">
 									<a href="https://twitter.com/Alifiandyn">
