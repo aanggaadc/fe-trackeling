@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Card, Button, Row, ProgressBar } from "react-bootstrap";
+import { Col, Card, Button, Row, ProgressBar, NavItem } from "react-bootstrap";
 import { API_URL } from "../../../config/url";
 import { Link } from "react-router-dom";
 import './TripUser.css'
@@ -25,13 +25,13 @@ function TripUser({ data }) {
 								<Card.Text>
 									<h4>{item.destination}</h4>
 									<p>
-										{item.start_date} to {item.end_date}
+										{item.start_date} ~ {item.end_date}
 									</p>
 								</Card.Text>
 								<ProgressBar
 									variant="info"
 									now={(item.count_member * 100) / item.max_member}
-									label={(item.count_member * 100) / item.max_member + "%"}
+									label={`${item.count_member}/${item.max_member}`}
 								/>
 								<Link to={`/trip/detail/${item.trip_id}`}>
 									<Button className="mt-2 trip-button">Detail</Button>

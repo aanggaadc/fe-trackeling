@@ -23,7 +23,7 @@ function OtherTrip({ data }) {
                     {item.start_date} to {item.end_date}
                   </p>
                 </Card.Text>
-                <ProgressBar variant="info" now={Math.ceil((item.count_member * 100) / item.max_member)} label={Math.ceil((item.count_member * 100) / item.max_member) + "%"} />
+                <ProgressBar variant="info" now={Math.ceil((item.count_member * 100) / item.max_member)} label={`${item.count_member}/${item.max_member}`} />
                 <Link to={`/trip/detail/${item.trip_id}`}>
                   <Button className="mt-2 trip-button">Detail</Button>
                 </Link>
