@@ -18,7 +18,7 @@ function Home() {
 	const [dataRecomendation, setDataRecomendation] = useState([]);
 	const [pageStateRecomendation, setPageStateRecomendation] = useState({
 		pageNumber: 1,
-		pageSize: 4,
+		pageSize: 8,
 		destination: "",
 	});
 	const pageState = {
@@ -54,16 +54,7 @@ function Home() {
 	const recomendation = () => {
 		if (dataRecomendation.length > 0) {
 			return (
-				<>
-					<TripRecomendation data={dataRecomendation} />
-					<Link
-						style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }}
-						className="float-end mt-3"
-						to="recomendation"
-					>
-						See all <RiArrowRightCircleFill size={30} />
-					</Link>
-				</>
+				<TripRecomendation data={dataRecomendation} />
 			);
 		} else {
 			return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
