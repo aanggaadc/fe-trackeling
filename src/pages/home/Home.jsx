@@ -25,6 +25,15 @@ function Home() {
 		pageNumber: 1,
 		pageSize: 4,
 	};
+	const [active, setActive] = useState("")
+
+	const onSetActiveMenuItem = (item) => {
+		if (item !== active) {
+			setActive(item)
+		} else {
+			setActive("")
+		}
+	}
 
 	const getRecomendationList = () => {
 		Axios.post(`${API_URL}/recomendation/list`, pageStateRecomendation)
@@ -98,8 +107,9 @@ function Home() {
 							<Button
 								onClick={() => {
 									setPageStateRecomendation({ ...pageStateRecomendation, destination: "bali" });
+									onSetActiveMenuItem("button1")
 								}}
-								className="tags-btn"
+								className={active === "button1" ? "tags-btn-active" : "tags-btn"}
 							>
 								{" "}
 								Bali
@@ -107,8 +117,9 @@ function Home() {
 							<Button
 								onClick={() => {
 									setPageStateRecomendation({ ...pageStateRecomendation, destination: "bandung" });
+									onSetActiveMenuItem("button2")
 								}}
-								className="tags-btn"
+								className={active === "button2" ? "tags-btn-active" : "tags-btn"}
 							>
 								{" "}
 								Bandung
@@ -116,8 +127,9 @@ function Home() {
 							<Button
 								onClick={() => {
 									setPageStateRecomendation({ ...pageStateRecomendation, destination: "semarang" });
+									onSetActiveMenuItem("button3")
 								}}
-								className="tags-btn tags-active"
+								className={active === "button3" ? "tags-btn-active" : "tags-btn"}
 							>
 								{" "}
 								Semarang
@@ -125,8 +137,9 @@ function Home() {
 							<Button
 								onClick={() => {
 									setPageStateRecomendation({ ...pageStateRecomendation, destination: "jakarta" });
+									onSetActiveMenuItem("button4")
 								}}
-								className="tags-btn"
+								className={active === "button4" ? "tags-btn-active" : "tags-btn"}
 							>
 								{" "}
 								Jakarta
@@ -137,8 +150,9 @@ function Home() {
 										...pageStateRecomendation,
 										destination: "labuan bajo",
 									});
+									onSetActiveMenuItem("button5")
 								}}
-								className="tags-btn"
+								className={active === "button5" ? "tags-btn-active" : "tags-btn"}
 							>
 								{" "}
 								Labuan Bajo
