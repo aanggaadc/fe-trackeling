@@ -53,21 +53,11 @@
 	color: #188cbd;
 }
 
-.tags .tags-btn:focus {
+.tags .tags-btn-active {
 	background-color: #0e1b4d !important;
 	color: white !important;
 	box-shadow: none !important;
 }
-
-.tags .tags-btn:active {
-	border: none !important;
-	box-shadow: none !important;
-}
-
-/* .tags-active {
-	background-color: #0e1b4d !important;
-	color: white !important;
-} */
 
 @media (max-width: 575.98px) {
 	.tags {

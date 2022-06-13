@@ -18,13 +18,22 @@ function Home() {
 	const [dataRecomendation, setDataRecomendation] = useState([]);
 	const [pageStateRecomendation, setPageStateRecomendation] = useState({
 		pageNumber: 1,
-		pageSize: 4,
+		pageSize: 8,
 		destination: "",
 	});
 	const pageState = {
 		pageNumber: 1,
 		pageSize: 4,
 	};
+	const [active, setActive] = useState("")
+
+	const onSetActiveMenuItem = (item) => {
+		if (item !== active) {
+			setActive(item)
+		} else {
+			setActive("")
+		}
+	}
 
 	const getRecomendationList = () => {
 		Axios.post(`${API_URL}/recomendation/list`, pageStateRecomendation)
@@ -54,16 +63,7 @@ function Home() {
 	const recomendation = () => {
 		if (dataRecomendation.length > 0) {
 			return (
-				<>
-					<TripRecomendation data={dataRecomendation} />
-					<Link
-						style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }}
-						className="float-end mt-3"
-						to="recomendation"
-					>
-						See all <RiArrowRightCircleFill size={30} />
-					</Link>
-				</>
+				<TripRecomendation data={dataRecomendation} />
 			);
 		} else {
 			return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
@@ -107,8 +107,9 @@ function Home() {
 							<Button
 								onClick={() => {
 									setPageStateRecomendation({ ...pageStateRecomendation, destination: "bali" });
+									onSetActiveMenuItem("button1")
 								}}
-								className="tags-btn"
+								className={active === "button1" ? "tags-btn-active" : "tags-btn"}
 							>
 								{" "}
 								Bali
@@ -116,8 +117,9 @@ function Home() {
 							<Button
 								onClick={() => {
 									setPageStateRecomendation({ ...pageStateRecomendation, destination: "bandung" });
+									onSetActiveMenuItem("button2")
 								}}
-								className="tags-btn"
+								className={active === "button2" ? "tags-btn-active" : "tags-btn"}
 							>
 								{" "}
 								Bandung
@@ -125,8 +127,9 @@ function Home() {
 							<Button
 								onClick={() => {
 									setPageStateRecomendation({ ...pageStateRecomendation, destination: "semarang" });
+									onSetActiveMenuItem("button3")
 								}}
-								className="tags-btn tags-active"
+								className={active === "button3" ? "tags-btn-active" : "tags-btn"}
 							>
 								{" "}
 								Semarang
@@ -134,8 +137,9 @@ function Home() {
 							<Button
 								onClick={() => {
 									setPageStateRecomendation({ ...pageStateRecomendation, destination: "jakarta" });
+									onSetActiveMenuItem("button4")
 								}}
-								className="tags-btn"
+								className={active === "button4" ? "tags-btn-active" : "tags-btn"}
 							>
 								{" "}
 								Jakarta
@@ -146,8 +150,9 @@ function Home() {
 										...pageStateRecomendation,
 										destination: "labuan bajo",
 									});
+									onSetActiveMenuItem("button5")
 								}}
-								className="tags-btn"
+								className={active === "button5" ? "tags-btn-active" : "tags-btn"}
 							>
 								{" "}
 								Labuan Bajo
