@@ -11,8 +11,20 @@ function TripRecomendation({ data }) {
   return (
     <div className="container">
       <Swiper
-        slidesPerView={4}
-        spaceBetween={5}
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 10
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 5
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 5
+          }
+        }}
         pagination={{
           clickable: true
         }}
