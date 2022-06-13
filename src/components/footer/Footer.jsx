@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 import Logo from "../../trackling.png";
 import "./Footer.css";
 import { BsTwitter, BsFacebook, BsInstagram, BsLinkedin } from "react-icons/bs";
@@ -21,13 +22,13 @@ function Footer() {
 							<h4>About Us</h4>
 							<ul>
 								<li>
-									<i className="bi bi-chevron-right"></i> <a href="#members">Our Team</a>
+									<i className="bi bi-chevron-right"></i> <Link to="/">Our Team</Link>
 								</li>
 								<li>
-									<i className="bi bi-chevron-right"></i> <a href="#home">FAQ</a>
+									<i className="bi bi-chevron-right"></i> <Link to="/underconstruction">FAQ</Link>
 								</li>
 								<li>
-									<i className="bi bi-chevron-right"></i> <a href="#home">Why Us</a>
+									<i className="bi bi-chevron-right"></i> <Link to="/underconstruction">Why Us</Link>
 								</li>
 							</ul>
 						</div>
