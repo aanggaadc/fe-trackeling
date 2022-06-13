@@ -37,7 +37,7 @@ function TripRecomendation({ data }) {
             <SwiperSlide>
               <Col key={index}>
 
-                <Card className="text-center shadow">
+                <Card className="text-center shadow h-100">
                   <div className="card-trip">
                     <Card.Img variant="top" src={`${API_URL}/${item.trip_image}`} className="card-imgTrip" />
                   </div>
