@@ -13,6 +13,8 @@ import Signup from "./pages/signup/Signup";
 import CreateTrip from "./pages/create_trip/CreateTrip";
 import EditTrip from "./pages/edit_trip/EditTrip";
 import Trip from "./pages/trip/Trip";
+import NotFound from './pages/404/NotFound'
+import UnderConstruction from './pages/under_construction/UnderConstruction'
 import { ToastContainer, toast } from "react-toastify";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
@@ -76,6 +78,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path='*' element={<NotFound />} />
+        <Route path='underconstruction' element={<UnderConstruction />} />
         <Route path="/">
           <Route index element={<Home />} />
           <Route element={<PublicRoutes />}>
@@ -96,7 +100,6 @@ function App() {
               <Route path="mytrip" element={<MyTrip />} />
             </Route>
             <Route path="recomendation">
-              {/* <Route path="detail" element={<DetailRecommendationTrip />} /> */}
               <Route path="detail/:recommendationId" element={<DetailRecommendationTrip />} />
             </Route>
           </Route>

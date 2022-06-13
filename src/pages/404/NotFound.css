@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.notfound-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3f3f3;
+}
+
+.notfound-container img {
+    width: 600px;
+    margin-top: 130px; 
+}
+
+.notfound {
+    width: 100%;
+    text-align: center;
+  }
+
+  .notfound .notfound-404 h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 60px;
+    font-weight: bold;
+  }
+
+  .notfound h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 0;
+  }
+  
+  .notfound p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    margin-top: 0px;
+  }
+  
+  .notfound a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: transparent;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 40px;
+    color: black;
+    font-weight: 700;
+    -webkit-box-shadow: 0px 4px 15px -5px #188CBD;
+            box-shadow: 0px 4px 15px -5px #188CBD;
+    margin-bottom: 60px;
+    transition: 0.5s;
+  }
+
+  .notfound a:hover{
+    background: #188CBD;
+    color: #fff
+  }
+
+  @media (max-width: 425px) {
+    .notfound-container img {
+        width: 400px;
+    }
+
+    .notfound .notfound-404 h1 {
+        font-size: 30px;
+      }
+
+      .notfound h2 {
+        font-size: 15px;    
+      }
+
+      .notfound p {
+        font-size: 7px;     
+      }
+
+      .notfound a {
+        font-size: 10px;
+        padding: 10px 25px;
+      }
+       
+}
+
+@media (max-width: 375px) {
+    .notfound-container img {
+        width: 350px;
+    }
+
+    .notfound .notfound-404 h1 {
+        font-size: 25px;
+      }
+
+}
+
+@media (max-width: 320px) {
+    .notfound-container img {
+        width: 300px;
+    }
+
+    .notfound .notfound-404 h1 {
+        font-size: 20px;
+      }
+
+}
+  

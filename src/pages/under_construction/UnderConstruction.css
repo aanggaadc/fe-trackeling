@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Catamaran:wght@100&display=swap');
+
+.uc-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3f3f3;
+}
+
+.uc-container h1{
+    font-size: 100px;
+    font-family: 'Oswald', sans-serif;
+    color: #188cbd;
+}
+
+.uc-container img{
+    width: 900px;
+    margin-top: 150px;
+}
+
+.uc-container h3{
+    font-size: 40px;  
+    font-family: 'Catamaran', sans-serif;
+    color:#0e1b4d;
+    margin-bottom: 110px; 
+} 
+
+@media (max-width: 768px) {
+    .uc-container h1{
+        font-size: 60px;
+    }
+
+    .uc-container h3{
+        font-size: 25px;
+        margin-bottom: 60px;
+    }
+
+    .uc-container img{
+        width: 600px;
+    }
+}
+
+
+@media (max-width: 425px) {
+    .uc-container h1{
+        font-size: 35px;
+    }
+
+    .uc-container h3{
+        font-size: 15px;
+    }
+
+    .uc-container img{
+        width: 350px;
+    }
+}
+
+@media (max-width: 320px) {
+    .uc-container h1{
+        font-size: 25px;
+    }
+
+    .uc-container h3{
+        font-size: 10px;
+        margin-bottom: 40px;
+
+    }
+
+    .uc-container img{
+        margin-top: 100px;
+        width: 250px;
+    }
+}
