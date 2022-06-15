@@ -46,11 +46,11 @@ function EditBiodata({ setFile, userProfile, getUserProfile, updateReduxState })
 				enableReinitialize={true}
 				onSubmit={(values) => {
 					if (
-						values.phone_number ||
-						values.age ||
-						values.location ||
-						values.sex ||
-						values.interest
+						values.phone_number === "" ||
+						values.age === "" ||
+						values.location === "" ||
+						values.sex === "" ||
+						values.interest === ""
 					) {
 						toast.error("Please Input All Data!");
 					} else {
