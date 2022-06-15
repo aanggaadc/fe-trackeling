@@ -1,2 +1,2 @@
-export const API_URL = "http://localhost:5000";
-export const ADMIN_URL = "http://localhost:4000"
+export const API_URL = process.env.REACT_APP_API_URL
+export const ADMIN_URL = process.env.REACT_APP_ADMIN_URL
