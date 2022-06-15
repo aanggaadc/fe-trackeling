@@ -211,7 +211,11 @@ function MyTrip() {
 													{item.trip.start_date} to {item.trip.end_date}
 												</p>
 											</Card.Text>
-											<ProgressBar variant="info" now={memberPercent} label={`${memberPercent}%`} />
+											<ProgressBar
+												variant="info"
+												now={(item.trip.count_member * 100) / item.trip.max_member}
+												label={`${item.trip.count_member}/${item.trip.max_member}`}
+											/>
 											<Link to={`/trip/detail/${item.tripTripId}`}>
 												<Button className="mt-2 trip-button">Detail</Button>
 											</Link>

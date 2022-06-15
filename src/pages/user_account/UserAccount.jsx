@@ -9,17 +9,15 @@ import { useLocation, useParams } from "react-router-dom";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
 import useAuth from "../../utils/auth";
-import { useDispatch } from 'react-redux'
-import { bindActionCreators } from "redux"
-import { actionCreators } from '../../store/index'
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../store/index";
 
 function UserAccount() {
 	const location = useLocation();
 	const dispatch = useDispatch();
 	const [file, setFile] = useState("");
-	const { fillUser } = bindActionCreators(actionCreators, dispatch)
-
-
+	const { fillUser } = bindActionCreators(actionCreators, dispatch);
 
 	const [userProfile, setUserProfile] = useState({
 		username: "",
@@ -31,7 +29,6 @@ function UserAccount() {
 		phone_number: "",
 		avatar_url: "",
 	});
-
 
 	const getUserProfile = () => {
 		Axios.get(`${API_URL}/user/single`)
@@ -57,13 +54,13 @@ function UserAccount() {
 	const updateReduxState = () => {
 		Axios.get(`${API_URL}/user/single`)
 			.then((response) => {
-				fillUser(response.data.redux)
+				fillUser(response.data.redux);
 				localStorage.setItem("authKey", JSON.stringify(response.data.redux));
 			})
 			.catch((error) => {
 				console.log("ERROR PROFILE", error);
 			});
-	}
+	};
 
 	useEffect(() => {
 		getUserProfile();
@@ -130,12 +127,13 @@ function UserAccount() {
 						</div>
 					</div>
 					<div className="right-profile">
-						{location.pathname === `/user/account` &&
+						{location.pathname === `/user/account` && (
 							<EditAccount
 								userProfile={userProfile}
 								getUserProfile={getUserProfile}
 								updateReduxState={updateReduxState}
-							/>}
+							/>
+						)}
 						{location.pathname === `/user/biodata` && (
 							<EditBiodata
 								setFile={setFile}

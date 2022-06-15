@@ -45,28 +45,38 @@ function EditBiodata({ setFile, userProfile, getUserProfile, updateReduxState })
 				}}
 				enableReinitialize={true}
 				onSubmit={(values) => {
-					const formData = new FormData();
-					formData.append("age", values.age);
-					formData.append("sex", values.sex);
-					formData.append("location", values.location);
-					formData.append("interest", values.interest);
-					formData.append("phone_number", values.phone_number);
-					formData.append("avatar", values.avatar);
+					if (
+						values.phone_number === "" ||
+						values.age === "" ||
+						values.location === "" ||
+						values.sex === "" ||
+						values.interest === ""
+					) {
+						toast.error("Please Input All Data!");
+					} else {
+						const formData = new FormData();
+						formData.append("age", values.age);
+						formData.append("sex", values.sex);
+						formData.append("location", values.location);
+						formData.append("interest", values.interest);
+						formData.append("phone_number", values.phone_number);
+						formData.append("avatar", values.avatar);
 
-					Axios.put(`${API_URL}/user/profile/edit`, formData)
-						.then((response) => {
-							console.log("BERHASIL BIODATA", response);
-							toast.success(response.data.message);
-							getUserProfile();
-							updateReduxState();
-						})
-						.catch((error) => {
-							if (error.response) {
-								toast.error(error.response.data.message);
-							} else {
-								toast.error("Cannot Connect to Server");
-							}
-						});
+						Axios.put(`${API_URL}/user/profile/edit`, formData)
+							.then((response) => {
+								console.log("BERHASIL BIODATA", response);
+								toast.success(response.data.message);
+								getUserProfile();
+								updateReduxState();
+							})
+							.catch((error) => {
+								if (error.response) {
+									toast.error(error.response.data.message);
+								} else {
+									toast.error("Cannot Connect to Server");
+								}
+							});
+					}
 				}}
 			>
 				{({ values, handleSubmit, handleChange, setFieldValue }) => (
