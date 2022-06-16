@@ -52,6 +52,7 @@
 	height: 150px;
 	border-radius: 50%;
 	border: 3px solid #0e1b4d;
+	object-fit: cover;
 }
 
 .account-profile .left-profile .photo label {
