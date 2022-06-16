@@ -71,7 +71,10 @@ function EditBiodata({ setFile, userProfile, getUserProfile, updateReduxState })
 							})
 							.catch((error) => {
 								if (error.response) {
+									// console.log(error.response);
 									toast.error(error.response.data.message);
+								} else if (error.response.status === 413) {
+									toast.error("Please upload image below 1MB");
 								} else {
 									toast.error("Cannot Connect to Server");
 								}
