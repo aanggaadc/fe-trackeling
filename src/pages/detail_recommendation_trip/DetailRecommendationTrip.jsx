@@ -159,7 +159,7 @@ function DetailRecommendationTrip() {
 							} else if (values.start_date > values.end_date) {
 								toast.error("Please input the right date");
 							} else {
-								Axios.post(`http://api.trackeling.xyz/trip/add_recommendation`, values)
+								Axios.post(`${API_URL}/trip/add_recommendation`, values)
 									.then((response) => {
 										console.log(response);
 										toast.success("Trip Successfully created!!");
