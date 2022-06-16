@@ -1,0 +1,17 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - run: cd /home/administrator/trackeling/fe-trackeling && git pull origin
+    - run: cd /home/administrator && pm2 restart ecosystem.config.js
