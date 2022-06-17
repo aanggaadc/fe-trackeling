@@ -26,6 +26,7 @@ import Axios from "axios";
 import LoginAdmin from "./pages/login_admin/LoginAdmin";
 import Redirect from "./Redirect";
 import { ADMIN_URL } from "./config/url";
+import ScrollButton from './components/scroll_button/ScrollButton'
 
 function App() {
   const dispatch = useDispatch();
@@ -106,6 +107,7 @@ function App() {
         </Route>
         <Route path="/redirect" element={<Redirect url={url} />} />
       </Routes>
+      <ScrollButton />
       <ToastContainer />
     </div>
   );

@@ -1,0 +1,46 @@
+.scrollbutton{
+   position: fixed; 
+   width: 100%;
+   left: 97%;
+   bottom: 50px;
+   height: 20px;
+   font-size: 3rem;
+   z-index: 1;
+   cursor: pointer;
+   color: #188CBD;
+   transition: 0.5s
+}
+
+.scrollbutton:hover{
+  color: #0e1b4d;
+}
+
+@media (max-width: 1024px) {
+	.scrollbutton {
+		left: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+	.scrollbutton {
+		left: 94%;
+  }
+}
+
+@media (max-width: 425px) {
+	.scrollbutton {
+		left: 90%;
+  }
+}
+
+@media (max-width: 425px) {
+	.scrollbutton {
+		left: 88%;
+  }
+}
+
+@media (max-width: 320px) {
+	.scrollbutton {
+		left: 86%;
+  }
+}
