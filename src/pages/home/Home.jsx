@@ -58,6 +58,7 @@ function Home() {
 	useEffect(() => {
 		getRecomendationList();
 		getTripList();
+		document.title= "HOME"
 	}, [pageStateRecomendation]);
 
 	const recomendation = () => {
