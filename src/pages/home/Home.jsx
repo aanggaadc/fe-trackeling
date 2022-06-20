@@ -16,7 +16,8 @@ import NoData from "../../no-data.gif";
 function Home() {
 	const [dataTrip, setDataTrip] = useState([]);
 	const [dataRecomendation, setDataRecomendation] = useState([]);
-	const [spinner, setSpinner] = useState(false)
+	const [spinnerRecomendation, setSpinnerRecomendation] = useState(false)
+	const [spinnerTrip, setSpinnerTrip] = useState(false)
 	const [pageStateRecomendation, setPageStateRecomendation] = useState({
 		pageNumber: 1,
 		pageSize: 8,
@@ -37,13 +38,13 @@ function Home() {
 	}
 
 	const getRecomendationList = () => {
-		setSpinner(true)
+		setSpinnerRecomendation(true)
 		Axios.post(`${API_URL}/recomendation/list`, pageStateRecomendation)
 			.then((response) => {
 				setDataRecomendation(response.data.data.items);
 				setTimeout(() => {
-					setSpinner(false);
-				  }, 2000);
+					setSpinnerRecomendation(false);
+				  }, 1800);
 			})
 			.catch((error) => {
 				console.log(error.data.message);
@@ -51,23 +52,21 @@ function Home() {
 	};
 
 	const getTripList = () => {
+		setSpinnerTrip(true)
 		Axios.post(`${API_URL}/trip/list`, pageState)
 			.then((response) => {
 				setDataTrip(response.data.data.items);
+				setTimeout(() => {
+					setSpinnerTrip(false)
+				}, 1800)
 			})
 			.catch((error) => {
 				console.log(error.data.message);
 			});
 	};
 
-	useEffect(() => {
-		getRecomendationList();
-		getTripList();
-		document.title= "HOME"
-	}, [pageStateRecomendation]);
-
 	const recomendation = () => {
-		if(spinner){
+		if(spinnerRecomendation){
 			return (
 				<Spinner animation="border" role="status" variant="info">
   					<span className="visually-hidden">Loading...</span>
@@ -86,7 +85,7 @@ function Home() {
 	};
 
 	const trip = () => {
-		if(spinner){
+		if(spinnerTrip){
 			return (
 				<Spinner animation="border" role="status" variant="info">
   					<span className="visually-hidden">Loading...</span>
@@ -113,6 +112,16 @@ function Home() {
 		}
 		
 	};
+
+	useEffect(() => {
+		getRecomendationList();
+		getTripList();
+		document.title= "HOME"
+	}, []);
+
+	useEffect(() => {
+		getRecomendationList()
+	}, [pageStateRecomendation])
 
 	return (
 		<div>
