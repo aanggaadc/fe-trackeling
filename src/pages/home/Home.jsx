@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import "./Home.css";
 import Navbar from "../../components/navbar/NavbarMain";
 import Banner from "../../components/home/banner/Banner";
@@ -16,6 +16,7 @@ import NoData from "../../no-data.gif";
 function Home() {
 	const [dataTrip, setDataTrip] = useState([]);
 	const [dataRecomendation, setDataRecomendation] = useState([]);
+	const [spinner, setSpinner] = useState(false)
 	const [pageStateRecomendation, setPageStateRecomendation] = useState({
 		pageNumber: 1,
 		pageSize: 8,
@@ -36,9 +37,13 @@ function Home() {
 	}
 
 	const getRecomendationList = () => {
+		setSpinner(true)
 		Axios.post(`${API_URL}/recomendation/list`, pageStateRecomendation)
 			.then((response) => {
 				setDataRecomendation(response.data.data.items);
+				setTimeout(() => {
+					setSpinner(false);
+				  }, 2000);
 			})
 			.catch((error) => {
 				console.log(error.data.message);
@@ -62,33 +67,51 @@ function Home() {
 	}, [pageStateRecomendation]);
 
 	const recomendation = () => {
-		if (dataRecomendation.length > 0) {
+		if(spinner){
 			return (
-				<TripRecomendation data={dataRecomendation} />
-			);
-		} else {
-			return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
+				<Spinner animation="border" role="status">
+  					<span className="visually-hidden">Loading...</span>
+				</Spinner>
+			)
+		}else{
+			if (dataRecomendation.length > 0) {
+				return (
+					<TripRecomendation data={dataRecomendation} />
+				);
+			} else {
+				return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
+			}
 		}
+		
 	};
 
 	const trip = () => {
-		if (dataTrip.length > 0) {
+		if(spinner){
 			return (
-				<>
-					<TripUser data={dataTrip} />
-					<Link
-						style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }}
-						className="float-end mt-3 link-trip"
-						to="trips"
-					>
-						See all
-						<RiArrowRightCircleFill size={30} />
-					</Link>
-				</>
-			);
-		} else {
-			return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
+				<Spinner animation="border" role="status">
+  					<span className="visually-hidden">Loading...</span>
+				</Spinner>
+			)
+		}else{
+			if (dataTrip.length > 0) {
+				return (
+					<>
+						<TripUser data={dataTrip} />
+						<Link
+							style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }}
+							className="float-end mt-3 link-trip"
+							to="trips"
+						>
+							See all
+							<RiArrowRightCircleFill size={30} />
+						</Link>
+					</>
+				);
+			} else {
+				return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
+			}
 		}
+		
 	};
 
 	return (
