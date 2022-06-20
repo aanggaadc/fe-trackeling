@@ -69,7 +69,7 @@ function Home() {
 	const recomendation = () => {
 		if(spinner){
 			return (
-				<Spinner animation="border" role="status">
+				<Spinner animation="border" role="status" variant="info">
   					<span className="visually-hidden">Loading...</span>
 				</Spinner>
 			)
@@ -88,7 +88,7 @@ function Home() {
 	const trip = () => {
 		if(spinner){
 			return (
-				<Spinner animation="border" role="status">
+				<Spinner animation="border" role="status" variant="info">
   					<span className="visually-hidden">Loading...</span>
 				</Spinner>
 			)
