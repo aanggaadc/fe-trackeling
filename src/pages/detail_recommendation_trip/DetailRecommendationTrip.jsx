@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavbarMain from "../../components/navbar/NavbarMain";
 import Footer from "../../components/footer/Footer";
 import "./DetailRecommendationTrip.css";
-import { Container, Row, Col, Card, Image, Button, Modal } from "react-bootstrap";
+import { Container, Row, Col, Card, Image, Button, Modal, Spinner } from "react-bootstrap";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
 import { useParams, useNavigate, Link } from "react-router-dom";
@@ -18,6 +18,7 @@ function DetailRecommendationTrip() {
 	const navigate = useNavigate();
 	const [dataOtherTrip, setDataOtherTrip] = useState([]);
 	const [trip, setTrip] = useState({});
+	const [spinner, setSpinner] = useState(false)
 
 	// For Modal Operation
 	const [show, setShow] = useState(false);
@@ -26,9 +27,13 @@ function DetailRecommendationTrip() {
 	// For Modal Operation
 
 	const getDataOtherTrip = () => {
+		setSpinner(true)
 		Axios.get(`${API_URL}/trip/other_trip/${recommendationId}`)
 			.then((response) => {
 				setDataOtherTrip(response.data.data);
+				setTimeout(() => {
+					setSpinner(false)
+				}, 1800)
 			})
 			.catch((error) => {
 				console.log(error.data.message);
@@ -56,26 +61,36 @@ function DetailRecommendationTrip() {
 				navigate("/");
 			});
 		getDataOtherTrip();
+		window.scrollTo({top: 0, behavior: "smooth"})
 	}, [recommendationId]);
 
 	const OtherTrip = () => {
-		if (dataOtherTrip.length > 0) {
-			return (
-				<>
-					<OtherTripList data={dataOtherTrip} />
-					<Link
-						style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }}
-						className="float-end mt-3 link-trip"
-						to="/trips"
-					>
-						See Other
-						<RiArrowRightCircleFill size={30} />
-					</Link>
-				</>
-			);
-		} else {
-			return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
+		if(spinner) {
+			return(
+				<Spinner animation="border" role="status" variant="info">
+  					<span className="visually-hidden">Loading...</span>
+				</Spinner>
+			)
+		} else{
+			if (dataOtherTrip.length > 0) {
+				return (
+					<>
+						<OtherTripList data={dataOtherTrip} />
+						<Link
+							style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }}
+							className="float-end mt-3 link-trip"
+							to="/trips"
+						>
+							See Other
+							<RiArrowRightCircleFill size={30} />
+						</Link>
+					</>
+				);
+			} else {
+				return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
+			}
 		}
+		
 	};
 
 	return (
