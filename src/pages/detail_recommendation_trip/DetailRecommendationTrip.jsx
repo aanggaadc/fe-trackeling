@@ -62,6 +62,7 @@ function DetailRecommendationTrip() {
 			});
 		getDataOtherTrip();
 		window.scrollTo({top: 0, behavior: "smooth"})
+		document.title= "RECOMENDATION"
 	}, [recommendationId]);
 
 	const OtherTrip = () => {

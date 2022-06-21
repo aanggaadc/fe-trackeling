@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavbarMain from "../../components/navbar/NavbarMain";
 import Footer from "../../components/footer/Footer";
 import "./DetailTrip.css";
-import { Container, Row, Col, Card, Image, ProgressBar, Button, Carousel, Modal } from "react-bootstrap";
+import { Container, Row, Col, Card, Image, ProgressBar, Button, Carousel, Modal, Spinner } from "react-bootstrap";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
 import { useParams, useNavigate, Link } from "react-router-dom";
@@ -21,6 +21,7 @@ function DetailTrip() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [spinner, setSpinner] = useState(false)
 
   const { user } = useSelector((state) => {
     return state;
@@ -49,10 +50,20 @@ function DetailTrip() {
   const isOwner = user.user_id === trip.owner_id;
 
   const getDataOtherTrip = () => {
+    setSpinner(true)
     Axios.get(`${API_URL}/trip/other_trip/${tripId}`).then((response) => {
       console.log(response.data.data);
       setDataOtherTrip(response.data.data);
-    });
+      setTimeout(() => {
+        setSpinner(false)
+      }, 1800)
+    }).catch((error) => {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something Wrong");
+      }
+    })
   };
 
   const getVerfication = () => {
@@ -147,19 +158,27 @@ function DetailTrip() {
   };
 
   const OtherTrip = () => {
-    if (dataOtherTrip.length > 0) {
+    if(spinner) {
       return (
-        <>
-          <OtherTripList data={dataOtherTrip} />
-          <Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3 link-trip" to="/trips">
-            See Other
-            <RiArrowRightCircleFill size={30} />
-          </Link>
-        </>
-      );
+        <Spinner animation="border" role="status" variant="info">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      )
     } else {
-      return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
-    }
+      if (dataOtherTrip.length > 0) {
+        return (
+          <>
+            <OtherTripList data={dataOtherTrip} />
+            <Link style={{ textDecoration: "none", color: "#188CBD", fontSize: "20px" }} className="float-end mt-3 link-trip" to="/trips">
+              See Other
+              <RiArrowRightCircleFill size={30} />
+            </Link>
+          </>
+        );
+      } else {
+        return <img className="img-fluid" style={{ width: "500px" }} src={NoData} alt="No-data" />;
+      }
+    }    
   };
 
   const deleteTrip = () => {
@@ -182,6 +201,8 @@ function DetailTrip() {
     getVerfication();
     getTrip();
     getDataOtherTrip();
+		window.scrollTo({top: 0, behavior: "smooth"})
+		document.title= "DETAIL TRIP"
   }, [tripId]);
 
   return (
