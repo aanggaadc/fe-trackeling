@@ -58,7 +58,7 @@ function Trip() {
 	const handleTripCard = () => {
 		if(spinner) {
 			return (
-				<Spinner animation="border" role="status" variant="info">
+				<Spinner style={{margin: "auto"}} animation="border" role="status" variant="info">
   					<span className="visually-hidden">Loading...</span>
 				</Spinner>
 			)
@@ -380,7 +380,7 @@ function Trip() {
 				</Formik>
 			</div>
 			<div className="container mb-3">
-				<Row xs={1} md={2} lg={4} className="g-4 text-center">
+				<Row xs={1} md={2} lg={4} className="g-4">
 					{handleTripCard()}
 				</Row>
 			</div>
