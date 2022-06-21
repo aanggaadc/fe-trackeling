@@ -6,7 +6,7 @@ import { Form, Formik } from "formik";
 import Axios from "axios";
 import { API_URL } from "../../config/url";
 import { toast } from "react-toastify";
-import { Button, Card, Col, ProgressBar, Pagination, Row } from "react-bootstrap";
+import { Button, Card, Col, ProgressBar, Pagination, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Trip.css";
 import NoData from "../../no-data.gif";
@@ -32,6 +32,7 @@ function Trip() {
 		count_member: "",
 		max_member: "",
 	});
+	const [spinner, setSpinner] = useState(false)
 
 	const pageNumbers = [];
 	for (let i = 1; i <= totalPages; i++) {
@@ -53,9 +54,61 @@ function Trip() {
 			trip_status: "",
 		},
 	]);
-	const isData = trip.length > 0;
+
+	const handleTripCard = () => {
+		if(spinner) {
+			return (
+				<Spinner animation="border" role="status" variant="info">
+  					<span className="visually-hidden">Loading...</span>
+				</Spinner>
+			)
+		}else {
+			if(trip.length  > 0 ) {
+				return (
+					Array.from(trip).map((_, idx) => (
+						<Col key={idx}>
+							<Card className="text-center shadow h-100">
+								<div className="card-trip">
+									<Card.Img variant="top" src={_.trip_image} className="card-imgTrip" />
+								</div>
+								<Card.Body>
+									<Card.Title>{_.trip_name}</Card.Title>
+									<Card.Text>
+										<p>{_.destination}</p>
+										<p>
+											{_.start_date} ~ {_.end_date}
+										</p>
+									</Card.Text>
+									<ProgressBar
+										variant="info"
+										now={(_.count_member / _.max_member) * 100}
+										label={`${_.count_member}/${_.max_member}`}
+									/>
+									<Link to={`/trip/detail/${_.trip_id}`}>
+										<Button className="mt-2" style={customButton}>
+											Detail
+										</Button>
+									</Link>
+								</Card.Body>
+							</Card>
+						</Col>
+					))
+				)				
+			}else {
+				return(
+						<img
+							className="img-fluid"
+							style={{ width: "500px", margin: "auto" }}
+							src={NoData}
+							alt="No-data"
+						/>
+				)
+			}										
+		}
+	}
 
 	const getTrips = () => {
+		setSpinner(true)
 		Axios.post(`${API_URL}/trip/filter`, (trip, pageState))
 			.then((response) => {
 				const data = response.data.data.items;
@@ -78,6 +131,9 @@ function Trip() {
 				);
 				setTotalPages(response.data.data.total_pages);
 				setCurrentPages(response.data.data.current_page);
+				setTimeout(() => {
+					setSpinner(false)
+				}, 1800)
 			})
 			.catch((error) => {
 				if (error.response) {
@@ -87,9 +143,6 @@ function Trip() {
 				}
 			});
 	};
-	useEffect(() => {
-		getTrips();
-	}, [pageState]);
 
 	const nextPage = () => {
 		setCurrentPages(currentPages + 1);
@@ -140,6 +193,14 @@ function Trip() {
 			);
 		}
 	};
+
+	useEffect(() => {
+		getTrips();
+	}, [pageState]);
+
+	useEffect(() => {
+		window.scrollTo({top: 0, behavior: "smooth"})
+	}, [])
 
 	return (
 		<div>
@@ -319,44 +380,8 @@ function Trip() {
 				</Formik>
 			</div>
 			<div className="container mb-3">
-				<Row xs={1} md={2} lg={4} className="g-4">
-					{isData ? (
-						Array.from(trip).map((_, idx) => (
-							<Col key={idx}>
-								<Card className="text-center shadow h-100">
-									<div className="card-trip">
-										<Card.Img variant="top" src={_.trip_image} className="card-imgTrip" />
-									</div>
-									<Card.Body>
-										<Card.Title>{_.trip_name}</Card.Title>
-										<Card.Text>
-											<p>{_.destination}</p>
-											<p>
-												{_.start_date} ~ {_.end_date}
-											</p>
-										</Card.Text>
-										<ProgressBar
-											variant="info"
-											now={(_.count_member / _.max_member) * 100}
-											label={`${_.count_member}/${_.max_member}`}
-										/>
-										<Link to={`/trip/detail/${_.trip_id}`}>
-											<Button className="mt-2" style={customButton}>
-												Detail
-											</Button>
-										</Link>
-									</Card.Body>
-								</Card>
-							</Col>
-						))
-					) : (
-						<img
-							className="img-fluid"
-							style={{ width: "500px", margin: "auto" }}
-							src={NoData}
-							alt="No-data"
-						/>
-					)}
+				<Row xs={1} md={2} lg={4} className="g-4 text-center">
+					{handleTripCard()}
 				</Row>
 			</div>
 			<div className="container">
